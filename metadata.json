@@ -1,6 +1,0 @@
-{
-  "name": "HUGZ Lifestyle & Storage",
-  "description": "Thương hiệu đồ dùng lưu trữ thông minh, chăn sữa và phụ kiện phong cách sống ấm áp, tinh tế HUGZ",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
