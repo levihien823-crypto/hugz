@@ -91,14 +91,17 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   <Star className="w-4 h-4 fill-[#E5A800]" />
                   <span>{product.rating.toFixed(1)}</span>
                   <span className="text-[#484834] font-normal">
-                    ({product.reviewsCount} đánh giá • {product.soldCount} đã bán)
+                    ({product.reviewsCount} đánh giá • {product.soldCount.includes('đã bán') ? product.soldCount : `${product.soldCount} đã bán`})
                   </span>
                 </div>
               </div>
 
               {/* Title & Subtitle */}
               <div>
-                <h2 className="font-display text-xl sm:text-2xl font-bold text-[#201b12] uppercase tracking-tight">
+                <h2 className="font-display text-xl sm:text-2xl font-bold text-[#201b12] tracking-tight">
+                  <span className="bg-[#d0011b] text-white text-xs font-black px-2 py-0.5 rounded mr-2 shrink-0 inline-block align-middle">
+                    Shopee Mall
+                  </span>
                   {product.title}
                 </h2>
                 {product.subtitle && (

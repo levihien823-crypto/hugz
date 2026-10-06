@@ -80,15 +80,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             <span className="ml-1">{product.rating.toFixed(1)}</span>
           </div>
           <span className="text-[#484834]">
-            ({product.reviewsCount} đánh giá • {product.soldCount} đã bán)
+            ({product.reviewsCount} đánh giá • {product.soldCount.includes('đã bán') ? product.soldCount : `${product.soldCount} đã bán`})
           </span>
         </div>
 
         {/* Title & Description */}
         <h3 
           onClick={() => onOpenDetail(product)}
-          className="font-display text-base font-bold text-[#201b12] mb-1 uppercase tracking-tight group-hover:text-[#626200] transition-colors cursor-pointer line-clamp-1"
+          className="font-display text-base font-bold text-[#201b12] mb-1 tracking-tight group-hover:text-[#626200] transition-colors cursor-pointer line-clamp-1"
         >
+          <span className="bg-[#d0011b] text-white text-[10px] font-black px-1.5 py-0.5 rounded mr-1.5 shrink-0 inline-block align-middle">
+            Mall
+          </span>
           {product.title}
         </h3>
         <p className="text-xs text-[#484834] mb-3 line-clamp-2 leading-relaxed">
