@@ -472,41 +472,41 @@ export const AboutView: React.FC<AboutViewProps> = ({ onSelectTab }) => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
             
             {/* Stat 1 */}
-            <div className="bg-[#fdf2e3] rounded-2xl p-5 sm:p-6 text-center border border-[#cac7ae]/30">
-              <div className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-[#201b12] mb-1">
+            <div className="bg-[#fdf2e3] rounded-2xl p-4 sm:p-6 text-center border border-[#cac7ae]/30 flex flex-col items-center justify-center min-h-[115px]">
+              <div className="font-display text-xl sm:text-2xl lg:text-3xl font-black text-[#201b12] mb-1.5 tracking-tight whitespace-nowrap">
                 1.000.000+
               </div>
-              <p className="text-xs sm:text-sm font-semibold text-[#484834]">
+              <p className="text-xs sm:text-sm font-semibold text-[#484834] leading-snug">
                 Gia đình tin tưởng sử dụng
               </p>
             </div>
 
             {/* Stat 2 */}
-            <div className="bg-[#fdf2e3] rounded-2xl p-5 sm:p-6 text-center border border-[#cac7ae]/30">
-              <div className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-[#EE4D2D] mb-1">
+            <div className="bg-[#fdf2e3] rounded-2xl p-4 sm:p-6 text-center border border-[#cac7ae]/30 flex flex-col items-center justify-center min-h-[115px]">
+              <div className="font-display text-lg sm:text-2xl lg:text-[26px] xl:text-3xl font-black text-[#EE4D2D] mb-1.5 tracking-tight whitespace-nowrap">
                 300.000.000+
               </div>
-              <p className="text-xs sm:text-sm font-semibold text-[#484834]">
-                Lượt hiển thị nội dung hàng năm
+              <p className="text-xs sm:text-sm font-semibold text-[#484834] leading-snug">
+                Lượt xem nội dung / năm
               </p>
             </div>
 
             {/* Stat 3 */}
-            <div className="bg-[#fdf2e3] rounded-2xl p-5 sm:p-6 text-center border border-[#cac7ae]/30">
-              <div className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-[#626200] mb-1">
+            <div className="bg-[#fdf2e3] rounded-2xl p-4 sm:p-6 text-center border border-[#cac7ae]/30 flex flex-col items-center justify-center min-h-[115px]">
+              <div className="font-display text-xl sm:text-2xl lg:text-3xl font-black text-[#626200] mb-1.5 tracking-tight whitespace-nowrap">
                 15+
               </div>
-              <p className="text-xs sm:text-sm font-semibold text-[#484834]">
+              <p className="text-xs sm:text-sm font-semibold text-[#484834] leading-snug">
                 Quốc gia & khu vực phân phối
               </p>
             </div>
 
             {/* Stat 4 */}
-            <div className="bg-[#fdf2e3] rounded-2xl p-5 sm:p-6 text-center border border-[#cac7ae]/30">
-              <div className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-[#201b12] mb-1">
+            <div className="bg-[#fdf2e3] rounded-2xl p-4 sm:p-6 text-center border border-[#cac7ae]/30 flex flex-col items-center justify-center min-h-[115px]">
+              <div className="font-display text-xl sm:text-2xl lg:text-3xl font-black text-[#201b12] mb-1.5 tracking-tight whitespace-nowrap">
                 1.000+
               </div>
-              <p className="text-xs sm:text-sm font-semibold text-[#484834]">
+              <p className="text-xs sm:text-sm font-semibold text-[#484834] leading-snug">
                 KOLs & Creator đồng hành
               </p>
             </div>
@@ -514,16 +514,16 @@ export const AboutView: React.FC<AboutViewProps> = ({ onSelectTab }) => {
           </div>
 
           {/* Top Platform Badge Banner */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#fef5e7] via-[#fff9e6] to-[#fef5e7] border border-[#cac7ae]/50 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-            <div className="flex items-center gap-3">
-              <span className="px-3 py-1 rounded-md text-xs font-black text-white bg-[#EE4D2D] tracking-wider shrink-0">
+          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#fef5e7] via-[#fff9e6] to-[#fef5e7] border border-[#cac7ae]/50 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+            <div className="flex flex-col sm:flex-row items-center gap-3">
+              <span className="px-3 py-1 rounded-md text-xs font-black text-white bg-[#EE4D2D] tracking-wider shrink-0 uppercase">
                 TOP BEST-SELLER
               </span>
-              <p className="font-display text-sm sm:text-base font-bold text-[#201b12]">
-                Top bán chạy hàng đầu trên các nền tảng Tmall & Douyin cho các dòng túi lưu trữ và đồ dùng du lịch gia đình.
+              <p className="font-display text-sm sm:text-base font-bold text-[#201b12] leading-snug">
+                Top bán chạy hàng đầu trên Tmall & Douyin cho dòng túi lưu trữ và phụ kiện gia đình.
               </p>
             </div>
-            <span className="text-xs font-bold text-[#626200] shrink-0">
+            <span className="text-xs font-bold text-[#626200] shrink-0 whitespace-nowrap bg-[#f8ecdd]/60 px-3 py-1.5 rounded-full">
               ★ 4.9/5.0 Đánh giá tích cực
             </span>
           </div>
