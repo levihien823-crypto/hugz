@@ -72,33 +72,33 @@ export const HomeView: React.FC<HomeViewProps> = ({
             
             {/* Left Hero Copy */}
             <div className="lg:col-span-6 flex flex-col gap-5 z-10">
-              <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-[#ece1d2] shadow-xs">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#f4f34d]"></span>
-                <span className="text-[11px] uppercase tracking-wider text-[#201b12] font-bold">
-                  HUGZ COLLECTION 2025
+              <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-[#f4f34d] text-[#201b12] shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-[#626200]" />
+                <span className="text-[11px] uppercase tracking-wider font-extrabold">
+                  PHONG CÁCH SỐNG GIA ĐÌNH HIỆN ĐẠI
                 </span>
               </div>
 
-              <div className="flex flex-col gap-1">
-                <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#201b12] leading-[1.1] tracking-tight">
-                  GỌI TÊN MÀU SẮC
+              <div className="flex flex-col gap-2">
+                <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-[#201b12] leading-[1.1] tracking-tight uppercase">
+                  HỆ SINH THÁI SẢN PHẨM TOÀN DIỆN
                 </h1>
-                <span className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#626200] leading-[1.15] tracking-tight">
-                  ĐỂ CẢM XÚC CÓ HÌNH HÀI
-                </span>
+                <p className="font-display text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#626200] leading-snug tracking-tight">
+                  Giải pháp sắp xếp & lưu trữ thông minh cho tổ ấm hiện đại
+                </p>
               </div>
 
               <p className="text-base sm:text-lg text-[#484834] max-w-xl leading-relaxed">
-                Một cái ôm ấm áp cho không gian sống của bạn — Những vật dụng hằng ngày được nâng niu bằng sắc màu, hình khối hữu cơ và tính tiện ích tối đa cho từng khoảnh khắc gia đình.
+                Biến việc sắp xếp và bảo quản đồ đạc thành một phần của phong cách sống thẩm mỹ mỗi ngày. HUGZ kiến tạo 5 nhóm giải pháp lưu trữ toàn diện, giải quyết triệt để từng nhu cầu thiết thực: từ gian bếp gia đình, góc làm đẹp, bàn làm việc cho tới hành lý trên những chuyến du hành xa.
               </p>
 
               {/* CTAs */}
               <div className="flex flex-wrap items-center gap-3 pt-1">
                 <a
-                  href="#san-pham-hugz"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#f4f34d] hover:bg-[#eae944] text-[#201b12] font-display text-base font-bold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 cursor-pointer"
+                  href="#danh-muc"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#201b12] hover:bg-black text-white font-display text-base font-bold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 cursor-pointer"
                 >
-                  <span>Khám phá bộ sưu tập</span>
+                  <span>Khám phá 5 nhóm giải pháp</span>
                   <ArrowDown className="w-4 h-4" />
                 </a>
                 <a
@@ -113,18 +113,18 @@ export const HomeView: React.FC<HomeViewProps> = ({
               {/* Highlight Micro Badges */}
               <div className="pt-4 flex items-center gap-6 sm:gap-8 flex-wrap">
                 <div className="flex flex-col">
-                  <span className="font-display text-xl sm:text-2xl font-bold text-[#201b12]">50.000+</span>
-                  <span className="text-xs text-[#484834]">Tổ ấm yêu chuộng</span>
+                  <span className="font-display text-xl sm:text-2xl font-bold text-[#201b12]">5 Nhóm</span>
+                  <span className="text-xs text-[#484834]">Giải pháp lưu trữ</span>
                 </div>
                 <div className="h-8 w-px bg-[#cac7ae]/50"></div>
                 <div className="flex flex-col">
-                  <span className="font-display text-xl sm:text-2xl font-bold text-[#201b12]">4.9 / 5.0 ★</span>
-                  <span className="text-xs text-[#484834]">Đánh giá chính hãng</span>
+                  <span className="font-display text-xl sm:text-2xl font-bold text-[#201b12]">16 Sản phẩm</span>
+                  <span className="text-xs text-[#484834]">Chính hãng Shopee Mall</span>
                 </div>
                 <div className="h-8 w-px bg-[#cac7ae]/50"></div>
                 <div className="flex flex-col">
-                  <span className="font-display text-xl sm:text-2xl font-bold text-[#201b12]">100% Cotton</span>
-                  <span className="text-xs text-[#484834]">Thân thiện môi trường</span>
+                  <span className="font-display text-xl sm:text-2xl font-bold text-[#201b12]">100% Kháng nước</span>
+                  <span className="text-xs text-[#484834]">Bền bỉ & Tiện ích</span>
                 </div>
               </div>
             </div>
@@ -226,25 +226,25 @@ export const HomeView: React.FC<HomeViewProps> = ({
         </div>
       </section>
 
-      {/* HỆ SINH THÁI SẢN PHẨM TOÀN DIỆN */}
+      {/* KHÁM PHÁ 5 NHÓM GIẢI PHÁP LƯU TRỮ */}
       <section className="w-full py-16 sm:py-24 bg-gradient-to-b from-[#fff8f2] via-[#fdf6ec]/50 to-[#fff8f2]" id="danh-muc">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Main Ecosystem Header */}
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 border-b border-[#cac7ae]/40 pb-8">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f4f34d] text-xs font-black uppercase text-[#201b12] mb-3.5 shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-[#626200]" />
-                <span>PHONG CÁCH SỐNG GIA ĐÌNH HIỆN ĐẠI</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#ece1d2] text-xs font-bold uppercase text-[#201b12] mb-3.5 shadow-xs">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#f4f34d]"></span>
+                <span>5 NHÓM GIẢI PHÁP TIỆN ÍCH</span>
               </div>
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-[#201b12] uppercase tracking-tight">
-                HỆ SINH THÁI SẢN PHẨM TOÀN DIỆN
+                Chi Tiết 5 Nhóm Giải Pháp Lưu Trữ HUGZ
               </h2>
               <p className="font-display text-base sm:text-xl font-bold text-[#626200] mt-1.5">
-                Giải pháp sắp xếp & lưu trữ thông minh cho tổ ấm hiện đại
+                Phân loại thông minh theo từng không gian & thói quen sinh hoạt
               </p>
               <p className="text-xs sm:text-sm text-[#484834] mt-3 leading-relaxed">
-                Biến việc sắp xếp và bảo quản đồ đạc thành một phần của phong cách sống thẩm mỹ mỗi ngày. HUGZ kiến tạo 5 nhóm giải pháp lưu trữ toàn diện, giải quyết triệt để từng nhu cầu thiết thực: từ gian bếp gia đình, góc làm đẹp, bàn làm việc cho tới hành lý trên những chuyến du hành xa.
+                Mỗi nhóm sản phẩm được thiết kế tối ưu cho từng mục đích cụ thể: từ gian bếp gia đình, bàn trang điểm, góc làm việc tới hành lý trên những chuyến du hành xa.
               </p>
             </div>
 
@@ -252,7 +252,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end gap-3 shrink-0">
               <div className="flex items-center gap-2 text-xs font-bold text-[#201b12] bg-white px-4 py-2.5 rounded-xl border border-[#cac7ae]/40 shadow-xs">
                 <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse"></span>
-                <span>5 Trụ Cột • 16 Giải Pháp Lưu Trữ</span>
+                <span>5 Nhóm • 16 Giải Pháp Lưu Trữ</span>
               </div>
               <button
                 onClick={() => {
@@ -343,7 +343,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                       <div className="pt-3 border-t border-[#cac7ae]/30 space-y-3">
                         <div>
                           <span className="text-[10px] font-bold uppercase tracking-wider text-[#797862] block mb-2">
-                            Sản phẩm nổi bật trong trụ cột:
+                            Sản phẩm nổi bật trong nhóm:
                           </span>
                           <div className="flex flex-wrap gap-1.5">
                             {pillarProducts.map((p) => (

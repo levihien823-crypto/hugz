@@ -245,7 +245,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onSelectTab }) => {
               Triết Lý Thiết Kế & Giá Trị Cốt Lõi
             </h2>
             <p className="text-sm text-[#484834] mt-2 leading-relaxed">
-              Bốn trụ cột định hình mọi sản phẩm ra đời dưới mái nhà HUGZ.
+              Bốn giá trị cốt lõi định hình mọi sản phẩm ra đời dưới mái nhà HUGZ.
             </p>
           </div>
 
@@ -258,7 +258,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onSelectTab }) => {
               </div>
               <div>
                 <span className="text-[11px] font-bold text-[#626200] uppercase tracking-wider block mb-1">
-                  TRỤ CỘT 01
+                  GIÁ TRỊ 01
                 </span>
                 <h3 className="font-display text-lg font-bold text-[#201b12] mb-2">
                   Tự nhiên & Chân thật (Zen)
@@ -276,7 +276,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onSelectTab }) => {
               </div>
               <div>
                 <span className="text-[11px] font-bold text-[#626200] uppercase tracking-wider block mb-1">
-                  TRỤ CỘT 02
+                  GIÁ TRỊ 02
                 </span>
                 <h3 className="font-display text-lg font-bold text-[#201b12] mb-2">
                   Sáng tạo không ngừng (Innovation)
@@ -294,7 +294,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onSelectTab }) => {
               </div>
               <div>
                 <span className="text-[11px] font-bold text-[#626200] uppercase tracking-wider block mb-1">
-                  TRỤ CỘT 03
+                  GIÁ TRỊ 03
                 </span>
                 <h3 className="font-display text-lg font-bold text-[#201b12] mb-2">
                   Ngôn ngữ màu sắc cảm xúc (Vitality)
@@ -318,7 +318,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onSelectTab }) => {
               </div>
               <div>
                 <span className="text-[11px] font-bold text-[#626200] uppercase tracking-wider block mb-1">
-                  TRỤ CỘT 04
+                  GIÁ TRỊ 04
                 </span>
                 <h3 className="font-display text-lg font-bold text-[#201b12] mb-2">
                   An toàn tuyệt đối (Safety & Trust)
@@ -333,7 +333,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onSelectTab }) => {
         </section>
 
         {/* ========================================================================= */}
-        {/* 5. HỆ SINH THÁI SẢN PHẨM TOÀN DIỆN (5 PILLARS ECOSYSTEM) */}
+        {/* 5. HỆ SINH THÁI SẢN PHẨM TOÀN DIỆN (5 NHÓM GIẢI PHÁP) */}
         {/* ========================================================================= */}
         <section className="bg-gradient-to-br from-[#f8ecdd] via-[#fdf2e3] to-white rounded-3xl p-8 sm:p-12 border border-[#cac7ae]/40 shadow-sm">
           <div className="text-center max-w-3xl mx-auto mb-12">
@@ -348,7 +348,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onSelectTab }) => {
               Giải pháp sắp xếp & lưu trữ thông minh cho tổ ấm
             </p>
             <p className="text-xs sm:text-sm text-[#484834] mt-3 leading-relaxed">
-              hugz tin rằng sự ngăn nắp không đơn thuần là việc dọn dẹp, mà là phong cách sống đem lại sự thanh thản, tự do và cảm xúc tích cực. 5 trụ cột sản phẩm toàn diện được nghiên cứu tỉ mỉ để bao bọc trọn vẹn mọi nhu cầu sống:
+              hugz tin rằng sự ngăn nắp không đơn thuần là việc dọn dẹp, mà là phong cách sống đem lại sự thanh thản, tự do và cảm xúc tích cực. 5 nhóm giải pháp sản phẩm toàn diện được nghiên cứu tỉ mỉ để bao bọc trọn vẹn mọi nhu cầu sống:
             </p>
           </div>
 
