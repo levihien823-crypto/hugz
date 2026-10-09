@@ -72,20 +72,16 @@ export const HomeView: React.FC<HomeViewProps> = ({
             
             {/* Left Hero Copy */}
             <div className="lg:col-span-6 flex flex-col gap-5 z-10">
-              <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-[#f4f34d] text-[#201b12] shadow-xs border border-[#626200]/20">
-                <Sparkles className="w-3.5 h-3.5 text-[#626200]" />
+              <div className="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full bg-[#fdf2e3] border border-[#cac7ae]/60 shadow-2xs">
+                <span className="w-2 h-2 rounded-full bg-[#f4f34d] border border-[#626200]/40 shrink-0"></span>
                 <span className="text-[11px] uppercase tracking-wider font-extrabold text-[#201b12]">
                   PHONG CÁCH SỐNG GIA ĐÌNH HIỆN ĐẠI
                 </span>
               </div>
 
               <div className="space-y-2">
-                <h1 className="font-display text-2xl sm:text-3xl lg:text-[36px] font-black leading-[1.22] tracking-tight uppercase">
-                  <span className="text-[#201b12]">HỆ SINH THÁI </span>
-                  <span className="text-[#626200] relative inline-block whitespace-nowrap">
-                    <span className="relative z-10">SẢN PHẨM TOÀN DIỆN</span>
-                    <span className="absolute bottom-1 left-0 right-0 h-3.5 bg-[#f4f34d] -z-10 rounded-sm"></span>
-                  </span>
+                <h1 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-black text-[#201b12] leading-[1.22] tracking-tight uppercase">
+                  HỆ SINH THÁI SẢN PHẨM TOÀN DIỆN
                 </h1>
                 <p className="font-display text-sm sm:text-base lg:text-lg font-bold text-[#626200] leading-snug">
                   Giải pháp sắp xếp & lưu trữ thông minh cho tổ ấm hiện đại
@@ -100,16 +96,16 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <div className="flex flex-wrap items-center gap-3 pt-1">
                 <a
                   href="#danh-muc"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#f4f34d] hover:bg-[#eae944] text-[#201b12] font-display text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 cursor-pointer border border-[#626200]/20"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#201b12] hover:bg-black text-white font-display text-xs sm:text-sm font-bold shadow-sm hover:shadow-md transition-all cursor-pointer"
                 >
                   <span>Khám phá 5 nhóm giải pháp</span>
-                  <ArrowDown className="w-4 h-4 text-[#201b12]" />
+                  <ArrowDown className="w-3.5 h-3.5" />
                 </a>
                 <a
                   href="#kenh-mua-hang"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-[#201b12] font-display text-xs sm:text-sm font-semibold shadow-2xs hover:bg-[#fff9e6] transition-all border border-[#cac7ae]/60 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white text-[#201b12] font-display text-xs font-semibold shadow-2xs hover:bg-[#f8ecdd] transition-all border border-[#cac7ae]/50 cursor-pointer"
                 >
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#b62506]"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#b62506]"></span>
                   <span>Mua trên Shopee & TikTok</span>
                 </a>
               </div>
@@ -218,8 +214,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   }}
                   className={`px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer shadow-2xs ${
                     isActive
-                      ? 'bg-[#f4f34d] text-[#201b12] font-bold shadow-xs border border-[#626200]/30'
-                      : 'bg-white text-[#201b12] hover:bg-[#fff9e6] border border-[#cac7ae]/40'
+                      ? 'bg-[#201b12] text-white shadow-xs'
+                      : 'bg-white text-[#201b12] hover:bg-[#f2e7d8] border border-[#cac7ae]/40'
                   }`}
                 >
                   {cat.label}
@@ -237,8 +233,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
           {/* Section Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 pb-4 border-b border-[#cac7ae]/40">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f4f34d] text-[11px] font-black uppercase text-[#201b12] mb-2 shadow-2xs border border-[#626200]/20">
-                <Sparkles className="w-3.5 h-3.5 text-[#626200]" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ece1d2] text-[11px] font-bold uppercase text-[#201b12] mb-2 shadow-2xs">
+                <span className="w-2 h-2 rounded-full bg-[#f4f34d]"></span>
                 <span>5 NHÓM GIẢI PHÁP TIỆN ÍCH</span>
               </div>
               <h2 className="font-display text-xl sm:text-2xl lg:text-3xl font-black text-[#201b12] uppercase tracking-tight">
