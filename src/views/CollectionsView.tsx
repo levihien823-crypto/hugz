@@ -1,7 +1,7 @@
 import React from 'react';
 import { Product } from '../types';
-import { LOOKBOOKS } from '../data/products';
-import { Sparkles, ArrowRight, ShoppingBag, Eye } from 'lucide-react';
+import { LOOKBOOKS, ECOSYSTEM_PILLARS } from '../data/products';
+import { Sparkles, ArrowRight, ShoppingBag, Eye, Layers } from 'lucide-react';
 
 interface CollectionsViewProps {
   products: Product[];
@@ -122,6 +122,51 @@ export const CollectionsView: React.FC<CollectionsViewProps> = ({
               </section>
             );
           })}
+        </div>
+
+        {/* Ecosystem Pillars Navigation Guide */}
+        <div className="mt-20 pt-12 border-t border-[#cac7ae]/40">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f8ecdd] text-xs font-bold text-[#626200] uppercase mb-2">
+              <Layers className="w-3.5 h-3.5" />
+              <span>HỆ SINH THÁI TOÀN DIỆN</span>
+            </div>
+            <h3 className="font-display text-2xl font-black text-[#201b12]">
+              5 Nhóm Giải Pháp Lưu Trữ Thông Minh HUGZ
+            </h3>
+            <p className="text-xs sm:text-sm text-[#484834] mt-1">
+              Phân loại khoa học giúp mọi gia đình dễ dàng lựa chọn sản phẩm phù hợp với thói quen sinh hoạt.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {ECOSYSTEM_PILLARS.map((pillar) => (
+              <div
+                key={pillar.id}
+                className="bg-white rounded-2xl p-5 border border-[#cac7ae]/30 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-[#f4f34d] text-[#201b12]">
+                      {pillar.badge}
+                    </span>
+                    <span className="text-xs font-black text-[#626200]/40 font-display">
+                      {pillar.pillarNumber}
+                    </span>
+                  </div>
+                  <h4 className="font-display text-sm font-bold text-[#201b12] mb-1">
+                    {pillar.name}
+                  </h4>
+                  <p className="text-[11px] text-[#484834] line-clamp-3 leading-relaxed">
+                    {pillar.desc}
+                  </p>
+                </div>
+                <div className="pt-3 mt-3 border-t border-[#fdf2e3] flex items-center justify-between text-[11px] text-[#797862] font-semibold">
+                  <span>{pillar.productCount} sản phẩm</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
       </div>

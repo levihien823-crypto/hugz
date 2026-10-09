@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavTab } from '../types';
+import { ECOSYSTEM_PILLARS } from '../data/products';
 import { 
   Heart, 
   Sparkles, 
@@ -332,123 +333,86 @@ export const AboutView: React.FC<AboutViewProps> = ({ onSelectTab }) => {
         </section>
 
         {/* ========================================================================= */}
-        {/* 5. HỆ SINH THÁI SẢN PHẨM & THẾ MẠNH (WHAT WE OFFER) */}
+        {/* 5. HỆ SINH THÁI SẢN PHẨM TOÀN DIỆN (5 PILLARS ECOSYSTEM) */}
         {/* ========================================================================= */}
         <section className="bg-gradient-to-br from-[#f8ecdd] via-[#fdf2e3] to-white rounded-3xl p-8 sm:p-12 border border-[#cac7ae]/40 shadow-sm">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f4f34d] text-xs font-bold text-[#201b12] uppercase mb-3">
-              <Package className="w-3.5 h-3.5" />
-              <span>PRODUCT ECOSYSTEM</span>
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#f4f34d] text-xs font-black text-[#201b12] uppercase mb-3 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#626200]" />
+              <span>PHONG CÁCH SỐNG GIA ĐÌNH HIỆN ĐẠI</span>
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#201b12]">
-              Hệ Sinh Thái Sản Phẩm & Thế Mạnh
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-[#201b12] uppercase tracking-tight">
+              HỆ SINH THÁI SẢN PHẨM TOÀN DIỆN
             </h2>
-            <p className="text-sm text-[#484834] mt-2">
-              hugz kiến tạo giải pháp toàn diện cho phong cách sống gia đình hiện đại.
+            <p className="font-display text-base sm:text-lg font-bold text-[#626200] mt-1">
+              Giải pháp sắp xếp & lưu trữ thông minh cho tổ ấm
+            </p>
+            <p className="text-xs sm:text-sm text-[#484834] mt-3 leading-relaxed">
+              hugz tin rằng sự ngăn nắp không đơn thuần là việc dọn dẹp, mà là phong cách sống đem lại sự thanh thản, tự do và cảm xúc tích cực. 5 trụ cột sản phẩm toàn diện được nghiên cứu tỉ mỉ để bao bọc trọn vẹn mọi nhu cầu sống:
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            {/* Category 1 */}
-            <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#cac7ae]/30 shadow-sm flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-[#f4f34d] flex items-center justify-center mb-5">
-                  <Luggage className="w-6 h-6 text-[#201b12]" />
-                </div>
-                <h3 className="font-display text-lg font-bold text-[#201b12] mb-2">
-                  Giải Pháp Sắp Xếp & Lưu Trữ Thông Minh
-                </h3>
-                <p className="text-xs text-[#484834] leading-relaxed mb-4">
-                  Các dòng túi lưu trữ du lịch phân loại toàn diện:
-                </p>
-                <ul className="space-y-2 text-xs text-[#484834]">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>Bộ set 7 món xếp gọn vali du lịch</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>Túi đựng mỹ phẩm & vệ sinh chống thấm</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>Túi đựng tài liệu, passport & phụ kiện</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>Túi ăn trưa giữ nhiệt & túi giặt kháng mùi</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {ECOSYSTEM_PILLARS.map((pillar) => (
+              <div
+                key={pillar.id}
+                className="bg-white rounded-2xl p-6 border border-[#cac7ae]/30 shadow-xs flex flex-col justify-between hover:shadow-md hover:border-[#626200]/40 transition-all"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="px-3 py-1 rounded-full bg-[#f4f34d] text-[#201b12] text-xs font-black tracking-wider">
+                      {pillar.badge}
+                    </span>
+                    <span className="font-display font-black text-2xl text-[#626200]/30">
+                      {pillar.pillarNumber}
+                    </span>
+                  </div>
 
-            {/* Category 2 */}
-            <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#cac7ae]/30 shadow-sm flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-[#f4f34d] flex items-center justify-center mb-5">
-                  <Sun className="w-6 h-6 text-[#201b12]" />
-                </div>
-                <h3 className="font-display text-lg font-bold text-[#201b12] mb-2">
-                  Phong Cách Sống Ngoài Trời (Outdoor Lifestyle)
-                </h3>
-                <p className="text-xs text-[#484834] leading-relaxed mb-4">
-                  Cùng con năng động khám phá thế giới xung quanh:
-                </p>
-                <ul className="space-y-2 text-xs text-[#484834]">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>Ba lô trẻ em siêu nhẹ chống gù lưng</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>Mũ chống nắng UPF50+ thoáng khí</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>Thảm dã ngoại gấp gọn chống ẩm picnic</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>Khăn tắm biển sợi cotton thấm hút nhanh</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
+                  <h3 className="font-display text-base font-bold text-[#201b12] mb-1">
+                    {pillar.name}
+                  </h3>
+                  <span className="text-[11px] font-bold text-[#626200] block mb-3">
+                    {pillar.subtitle}
+                  </span>
 
-            {/* Category 3 */}
-            <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#cac7ae]/30 shadow-sm flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-[#f4f34d] flex items-center justify-center mb-5">
-                  <Heart className="w-6 h-6 text-[#201b12]" />
-                </div>
-                <h3 className="font-display text-lg font-bold text-[#201b12] mb-2">
-                  Phụ Kiện & Đời Sống Gia Đình
-                </h3>
-                <p className="text-xs text-[#484834] leading-relaxed mb-4">
-                  Chăm chút tỉ mỉ cho từng thói quen thường nhật:
-                </p>
-                <ul className="space-y-2 text-xs text-[#484834]">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>Khăn tắm 100% cotton kháng khuẩn</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>Áo choàng tắm lông tuyết fleece siêu mềm</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>Mũ len, khăn quàng mùa đông ấm áp</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>Tất cotton dệt kim dịu nhẹ cho bé</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
+                  <p className="text-xs text-[#484834] leading-relaxed mb-4">
+                    {pillar.desc}
+                  </p>
 
+                  <ul className="space-y-1.5 text-xs text-[#484834] pt-3 border-t border-[#fdf2e3]">
+                    {pillar.highlights.map((h, idx) => (
+                      <li key={idx} className="flex items-center gap-2 font-medium text-[#201b12]">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#22c55e] shrink-0" />
+                        <span>{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="pt-4 mt-4 border-t border-[#cac7ae]/20 flex items-center justify-between">
+                  <span className="text-[11px] font-semibold text-[#797862]">
+                    {pillar.productCount} sản phẩm tiện ích
+                  </span>
+                  <button
+                    onClick={() => onSelectTab('san-pham')}
+                    className="text-xs font-bold text-[#201b12] hover:text-[#626200] flex items-center gap-1 cursor-pointer"
+                  >
+                    <span>Khám phá</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <button
+              onClick={() => onSelectTab('san-pham')}
+              className="px-8 py-3.5 rounded-xl bg-[#201b12] hover:bg-black text-white font-display text-xs sm:text-sm font-bold shadow-md transition-all inline-flex items-center gap-2 cursor-pointer"
+            >
+              <ShoppingBag className="w-4 h-4" />
+              <span>Khám phá trọn bộ 16 sản phẩm trong Hệ Sinh Thái HUGZ</span>
+            </button>
           </div>
         </section>
 

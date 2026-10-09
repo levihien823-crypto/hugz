@@ -17,7 +17,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
 }) => {
   const [query, setQuery] = useState('');
 
-  const quickTags = ['Chăn sữa', 'Túi du lịch 7 món', 'Khăn mặt Cotton', 'Túi laptop', 'Túi mỹ phẩm', 'Ví cầm tay'];
+  const quickTags = ['Túi Mini HUGZ', 'Túi cơm giữ nhiệt', 'Khăn mặt Cotton', 'Túi trang sức sandwich', 'Túi du lịch 7 món', 'Túi đựng tài liệu'];
 
   const filteredProducts = useMemo(() => {
     if (!query.trim()) return [];

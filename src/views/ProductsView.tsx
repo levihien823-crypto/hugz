@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { Product } from '../types';
-import { CATEGORIES } from '../data/products';
+import { CATEGORIES, ECOSYSTEM_PILLARS } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
-import { Search, SlidersHorizontal, ArrowUpDown } from 'lucide-react';
+import { Search, SlidersHorizontal, ArrowUpDown, Sparkles, CheckCircle2 } from 'lucide-react';
 
 interface ProductsViewProps {
   products: Product[];
@@ -56,6 +56,10 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
         return 0; // featured default
       });
   }, [products, selectedCategory, searchTerm, sortBy, priceFilter]);
+
+  const activePillar = useMemo(() => {
+    return ECOSYSTEM_PILLARS.find((p) => p.id === selectedCategory);
+  }, [selectedCategory]);
 
   return (
     <div className="w-full py-10">
@@ -176,6 +180,53 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
           </div>
 
         </div>
+
+        {/* Active Ecosystem Pillar Spotlight Banner */}
+        {activePillar && (
+          <div className="mb-8 rounded-3xl bg-gradient-to-r from-[#fff8f2] via-[#fdf2e3] to-[#f8ecdd] border-2 border-[#f4f34d]/60 p-6 sm:p-8 shadow-sm">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="max-w-2xl space-y-2">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="px-3 py-1 rounded-full bg-[#f4f34d] text-[#201b12] text-xs font-black tracking-wider shadow-2xs">
+                    {activePillar.badge}
+                  </span>
+                  <span className="text-xs font-bold text-[#626200] uppercase tracking-wider">
+                    {activePillar.subtitle}
+                  </span>
+                </div>
+                <h2 className="font-display text-2xl sm:text-3xl font-black text-[#201b12]">
+                  {activePillar.name}
+                </h2>
+                <p className="text-xs sm:text-sm text-[#484834] leading-relaxed">
+                  {activePillar.desc}
+                </p>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {activePillar.highlights.map((h, i) => (
+                    <span key={i} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/80 text-[11px] font-semibold text-[#201b12] border border-[#cac7ae]/40 shadow-2xs">
+                      <CheckCircle2 className="w-3 h-3 text-[#22c55e]" />
+                      <span>{h}</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="shrink-0 flex items-center md:flex-col md:items-end justify-between gap-3 border-t md:border-t-0 md:border-l border-[#cac7ae]/40 pt-4 md:pt-0 md:pl-6">
+                <div className="text-left md:text-right">
+                  <span className="text-xs text-[#797862] font-semibold block">Quy mô nhóm:</span>
+                  <span className="font-display text-2xl font-black text-[#201b12]">
+                    {activePillar.productCount} sản phẩm
+                  </span>
+                </div>
+                <button
+                  onClick={() => onSelectCategory('all')}
+                  className="text-xs font-bold px-3 py-1.5 rounded-lg bg-white hover:bg-[#201b12] hover:text-white transition-colors border border-[#cac7ae]/50 cursor-pointer shadow-2xs"
+                >
+                  ← Về tất cả sản phẩm
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Results Counter */}
         <div className="flex items-center justify-between mb-6 text-xs text-[#484834]">

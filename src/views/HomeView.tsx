@@ -1,6 +1,7 @@
 import React from 'react';
 import { Product, NavTab } from '../types';
 import { ProductCard } from '../components/ProductCard';
+import { ECOSYSTEM_PILLARS, CATEGORIES } from '../data/products';
 import { 
   ArrowDown, 
   Sparkles, 
@@ -15,7 +16,13 @@ import {
   Heart, 
   Maximize2,
   Eye,
-  ExternalLink 
+  ExternalLink,
+  CheckCircle2,
+  Layers,
+  Utensils,
+  FileText,
+  Bookmark,
+  ChevronRight
 } from 'lucide-react';
 
 interface HomeViewProps {
@@ -38,14 +45,12 @@ export const HomeView: React.FC<HomeViewProps> = ({
   onCopyVoucher,
 }) => {
   const categoryPills = [
-    { id: 'all', label: 'Tất cả sản phẩm' },
-    { id: 'bo-suu-tap-moi', label: 'Bộ sưu tập mới' },
-    { id: 'tui-du-lich', label: 'Túi du lịch 7 món' },
-    { id: 'tui-ca-nhan', label: 'Túi đựng đồ cá nhân' },
-    { id: 'tui-deo-cheo', label: 'Túi đeo chéo & tài liệu' },
-    { id: 'tui-my-pham', label: 'Túi đựng mỹ phẩm' },
-    { id: 'tui-laptop', label: 'Túi chống sốc Laptop' },
-    { id: 'khan-cotton', label: 'Khăn khô & Khăn bông Cotton' },
+    { id: 'all', label: 'Tất cả sản phẩm (16)' },
+    { id: 'thuc-pham-an-uong', label: '01. Thực phẩm & Ăn uống' },
+    { id: 'vat-dung-nho', label: '02. Vật dụng nhỏ' },
+    { id: 'tai-lieu', label: '03. Túi đựng tài liệu' },
+    { id: 'do-ca-nhan', label: '04. Túi đựng đồ cá nhân' },
+    { id: 'phan-loai-san-pham', label: '05. Lưu trữ theo phân loại' },
   ];
 
   // Best sellers list (9 items)
@@ -221,226 +226,379 @@ export const HomeView: React.FC<HomeViewProps> = ({
         </div>
       </section>
 
-      {/* Categories Bento Visual Grid (6 Cards) */}
-      <section className="w-full py-16" id="danh-muc">
+      {/* HỆ SINH THÁI SẢN PHẨM TOÀN DIỆN */}
+      <section className="w-full py-16 sm:py-24 bg-gradient-to-b from-[#fff8f2] via-[#fdf6ec]/50 to-[#fff8f2]" id="danh-muc">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-            <div className="flex flex-col gap-1">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#f4f34d]"></span>
-                <span className="text-xs uppercase tracking-wider text-[#484834] font-bold">
-                  HUGZ Categories
-                </span>
+          {/* Main Ecosystem Header */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 border-b border-[#cac7ae]/40 pb-8">
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f4f34d] text-xs font-black uppercase text-[#201b12] mb-3.5 shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-[#626200]" />
+                <span>PHONG CÁCH SỐNG GIA ĐÌNH HIỆN ĐẠI</span>
               </div>
-              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-[#201b12]">
-                Hệ Sinh Thái Lưu Trữ & Phong Cách
+              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-[#201b12] uppercase tracking-tight">
+                HỆ SINH THÁI SẢN PHẨM TOÀN DIỆN
               </h2>
+              <p className="font-display text-base sm:text-xl font-bold text-[#626200] mt-1.5">
+                Giải pháp sắp xếp & lưu trữ thông minh cho tổ ấm hiện đại
+              </p>
+              <p className="text-xs sm:text-sm text-[#484834] mt-3 leading-relaxed">
+                Biến việc sắp xếp và bảo quản đồ đạc thành một phần của phong cách sống thẩm mỹ mỗi ngày. HUGZ kiến tạo 5 nhóm giải pháp lưu trữ toàn diện, giải quyết triệt để từng nhu cầu thiết thực: từ gian bếp gia đình, góc làm đẹp, bàn làm việc cho tới hành lý trên những chuyến du hành xa.
+              </p>
             </div>
-            <p className="text-sm text-[#484834] max-w-md">
-              Mỗi sản phẩm đều mang dáng hình của sự tiện lợi: gọn ghẽ, chống thấm, họa tiết độc quyền tràn ngập năng lượng tích cực.
-            </p>
+
+            {/* Quick Stats & Action */}
+            <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end gap-3 shrink-0">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#201b12] bg-white px-4 py-2.5 rounded-xl border border-[#cac7ae]/40 shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse"></span>
+                <span>5 Trụ Cột • 16 Giải Pháp Lưu Trữ</span>
+              </div>
+              <button
+                onClick={() => {
+                  onSelectCategory('all');
+                  onSelectTab('san-pham');
+                }}
+                className="px-5 py-2.5 rounded-xl bg-[#201b12] hover:bg-black text-white text-xs sm:text-sm font-bold shadow-sm transition-all flex items-center gap-2 cursor-pointer group"
+              >
+                <span>Xem trọn bộ danh mục</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* 5 Pillars Layout */}
+          <div className="space-y-6">
             
-            {/* Card 1: Túi Vải Đựng Đồ */}
-            <article 
-              onClick={() => onSelectTab('san-pham')}
-              className="group rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#cac7ae]/40 cursor-pointer"
-            >
-              <div className="relative h-60 overflow-hidden bg-[#f8ecdd]">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf2FdMK4P2POWLK1TH5qB8Pugi8xIdG_iF3cWMQap56ESDyR1Nsg4GEnJQrjMr2pGPIZA9jDvInWFf_q6nzlgTefwmu3K-YkN1UMQJNNpJyXDF1lmcqbOLQBPeC-binjzmbT61AN0o6sFb7bAx-YGDz-5Bwvl1-CnLUd00THBfSYpYNQtbIyjWxoG6GYrKbc-gtChnXeytVAEXf-2qRVRzZHiuSrVowhJIRIqycLtwZJmvbiHFHWUMOFJotmoPBIb2_gs"
-                  alt="Túi Vải Đựng Đồ HUGZ gọn gàng"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#f4f34d] text-[#201b12] text-xs font-bold shadow-xs">
-                  Tổ chức tủ áo & Vali
-                </span>
-              </div>
-              <div className="p-5 flex flex-col flex-1 justify-between gap-3">
-                <div>
-                  <h3 className="font-display text-lg font-bold text-[#201b12] group-hover:text-[#626200] transition-colors">
-                    Túi Vải Đựng Đồ
-                  </h3>
-                  <p className="text-xs text-[#484834] mt-1 leading-relaxed">
-                    Set túi xếp gọn cho vali và tủ quần áo, họa tiết lượn sóng pastel dịu mắt cùng quai xách chắc chắn.
-                  </p>
-                </div>
-                <div className="pt-2 flex items-center justify-between text-xs">
-                  <span className="text-[#6b5d41] font-semibold">3 kích cỡ • Chống ẩm</span>
-                  <span className="font-bold text-[#201b12] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                    Khám phá →
-                  </span>
-                </div>
-              </div>
-            </article>
+            {/* Row 1: 3 Pillars (01. Thực phẩm, 02. Vật dụng nhỏ, 03. Tài liệu) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {ECOSYSTEM_PILLARS.slice(0, 3).map((pillar) => {
+                const pillarProducts = products.filter((p) => p.categorySlug === pillar.id);
 
-            {/* Card 2: Túi Đựng Mỹ Phẩm */}
-            <article 
-              onClick={() => onSelectTab('san-pham')}
-              className="group rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#cac7ae]/40 cursor-pointer"
-            >
-              <div className="relative h-60 overflow-hidden bg-[#f8ecdd]">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2SCWg5n9_vRLQmzaz6_1wjBlJOBv-kxu9ninWEf2MDUevFAigWHPATpcRDOpiVA5RaPWPHdu_kBdCQriRBoyphPbIWhyeCTRYSkh39MB-ukL6gWDbyXOULfCbuV9mQ4QDMonCXHSjiupupZBXr0S91Gx8diaspympcoXJc4CwmkBWCNxtguyhSYJ9rJwReW8QSMscVDVBSqGyveOZDu1TvjZHuD2YHX9dSkPEJabhI3Gz0G4hzQBq4NgIUvHfRsaChBM"
-                  alt="Túi Đựng Mỹ Phẩm HUGZ kẻ caro vintage"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#f1ddba] text-[#241a05] text-xs font-bold shadow-xs">
-                  Bestseller Makeup
-                </span>
-              </div>
-              <div className="p-5 flex flex-col flex-1 justify-between gap-3">
-                <div>
-                  <h3 className="font-display text-lg font-bold text-[#201b12] group-hover:text-[#626200] transition-colors">
-                    Túi Đựng Mỹ Phẩm
-                  </h3>
-                  <p className="text-xs text-[#484834] mt-1 leading-relaxed">
-                    Hộp mỹ phẩm chống thấm kẻ sọc, caro trẻ trung với thêu hình thú ngộ nghĩnh, khóa kéo mượt mà.
-                  </p>
-                </div>
-                <div className="pt-2 flex items-center justify-between text-xs">
-                  <span className="text-[#6b5d41] font-semibold">Chống nước • Miệng mở rộng</span>
-                  <span className="font-bold text-[#201b12] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                    Khám phá →
-                  </span>
-                </div>
-              </div>
-            </article>
+                return (
+                  <article
+                    key={pillar.id}
+                    className="group rounded-3xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#cac7ae]/40 hover:border-[#626200]/50"
+                  >
+                    {/* Top visual banner with photo */}
+                    <div className="relative h-64 overflow-hidden bg-[#f8ecdd]">
+                      <img
+                        src={pillar.image}
+                        alt={pillar.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
 
-            {/* Card 3: Túi Laptop & Phụ Kiện */}
-            <article 
-              onClick={() => onSelectTab('san-pham')}
-              className="group rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#cac7ae]/40 cursor-pointer"
-            >
-              <div className="relative h-60 overflow-hidden bg-[#f8ecdd]">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBmavsxuc8T1CH0TFMx2nS65ScoWtLNP-n_OTryHJ1duvGFXZNQyl9-qujIdfy5i3NGHLOfhhycbWemLksiGfsJxqGAtAbBZi2n_77cEw1KAKltww8mkutJd5s62uZRWiQgjJ4T1XoRyJCGps7SgXnRcip9KCLyw0g3ydi0yIvOqgRMTNAzPImzQUKEMCydsQM6y8MvcHixNngL8mfmgKnjP9j97XqMCcKCdEywiNk4txwHi5dqRbDk5Rd0vdOXpA6Q6Y"
-                  alt="Túi đựng Laptop HUGZ kèm túi đựng phụ kiện"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#f4f34d] text-[#201b12] text-xs font-bold shadow-xs">
-                  Bảo vệ Laptop & iPad
-                </span>
-              </div>
-              <div className="p-5 flex flex-col flex-1 justify-between gap-3">
-                <div>
-                  <h3 className="font-display text-lg font-bold text-[#201b12] group-hover:text-[#626200] transition-colors">
-                    Túi Laptop & Phụ Kiện
-                  </h3>
-                  <p className="text-xs text-[#484834] mt-1 leading-relaxed">
-                    Lớp lót chống sốc dày dặn, họa tiết chấm bi hồng và kẻ nâu sang trọng tặng kèm túi đựng củ sạc nhỏ.
-                  </p>
-                </div>
-                <div className="pt-2 flex items-center justify-between text-xs">
-                  <span className="text-[#6b5d41] font-semibold">Fit 13-15.6 inch • Quai đeo</span>
-                  <span className="font-bold text-[#201b12] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                    Khám phá →
-                  </span>
-                </div>
-              </div>
-            </article>
+                      {/* Pillar Number Badge */}
+                      <div className="absolute top-4 left-4 flex items-center gap-2">
+                        <span className="px-3 py-1 rounded-full bg-[#f4f34d] text-[#201b12] text-xs font-black tracking-wider shadow-sm">
+                          {pillar.badge}
+                        </span>
+                        <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-xs text-[#201b12] text-[11px] font-bold">
+                          {pillar.productCount} sản phẩm
+                        </span>
+                      </div>
 
-            {/* Card 4: Túi Đi Biển Hugz */}
-            <article 
-              onClick={() => onSelectTab('san-pham')}
-              className="group rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#cac7ae]/40 cursor-pointer"
-            >
-              <div className="relative h-60 overflow-hidden bg-[#f8ecdd]">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR0PAAWstMOpjO6nrpFY2A1J4TIX3yeGHtKmAh2JHxKSGizdOdp9ati5xtIssMRE90UtrfZ84Ylzwthd3S87L3AmZ_VCUJPLgyWHU6fohnCzGpZElKmWlAa_sgfbZnJ_5dpadCt6onNg4z7sKEKSjrybHh6WEbVFyJCc9WD-uwDXcByaOR_bo6aeeqoW5UwtwRyptiIf7rEneNW51KA7E_V6lJuGktshG7Uo1pB4Fp0RaI4zev6kEIZntP6xmgJEOtSg8"
-                  alt="Túi Đi Biển Hugz chất liệu lưới thông thoáng"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#ece1d2] text-[#201b12] text-xs font-bold shadow-xs">
-                  Du lịch & Dã ngoại
-                </span>
-              </div>
-              <div className="p-5 flex flex-col flex-1 justify-between gap-3">
-                <div>
-                  <h3 className="font-display text-lg font-bold text-[#201b12] group-hover:text-[#626200] transition-colors">
-                    Túi Đi Biển Hugz
-                  </h3>
-                  <p className="text-xs text-[#484834] mt-1 leading-relaxed">
-                    Cấu trúc lưới thoát cát và nước thông minh phối cùng túi lót kín đáo, màu sắc rực rỡ dưới nắng hè.
-                  </p>
-                </div>
-                <div className="pt-2 flex items-center justify-between text-xs">
-                  <span className="text-[#6b5d41] font-semibold">Lưới thoát khí • Quai vai êm</span>
-                  <span className="font-bold text-[#201b12] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                    Khám phá →
-                  </span>
-                </div>
-              </div>
-            </article>
+                      {/* Number Watermark */}
+                      <div className="absolute top-2 right-4 text-white/30 font-display font-black text-5xl select-none">
+                        {pillar.pillarNumber}
+                      </div>
 
-            {/* Card 5: Túi Trang Sức Sandwich */}
-            <article 
-              onClick={() => onSelectTab('san-pham')}
-              className="group rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#cac7ae]/40 cursor-pointer"
-            >
-              <div className="relative h-60 overflow-hidden bg-[#f8ecdd]">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHYPI2raE1uC0txcufOF4C1ib09gaGD-j2ZCd_RIIUTHtb_t4lEzBYQnYHPLYQSnsRHGbZelaQT9Nhu2_yzRylCNkGLB-JosZJnSbqkdH9g0w6mLY87T_QFMO7s9PLjeU5L45NPrqtlgjdD53u_QzRsqSPEBWpyyKif7VxLN-l4-pfmySLRoptX0cDNg9OrBzieHkupXT1awihufWHl3LnGn3m_RZW71LlTXAnFnRMWkRhVsIeHhnQsyG_WlEn9SyMcJo"
-                  alt="Túi Trang Sức Sandwich HUGZ mở đa tầng"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#f1ddba] text-[#241a05] text-xs font-bold shadow-xs">
-                  Thiết kế sáng tạo
-                </span>
-              </div>
-              <div className="p-5 flex flex-col flex-1 justify-between gap-3">
-                <div>
-                  <h3 className="font-display text-lg font-bold text-[#201b12] group-hover:text-[#626200] transition-colors">
-                    Túi Trang Sức Sandwich
-                  </h3>
-                  <p className="text-xs text-[#484834] mt-1 leading-relaxed">
-                    Thiết kế gập sandwich nhiều ngăn thông minh giữ nhẫn, bông tai, dây chuyền không bị xô lệch trầy xước.
-                  </p>
-                </div>
-                <div className="pt-2 flex items-center justify-between text-xs">
-                  <span className="text-[#6b5d41] font-semibold">Đa tầng • Chống rối dây</span>
-                  <span className="font-bold text-[#201b12] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                    Khám phá →
-                  </span>
-                </div>
-              </div>
-            </article>
+                      {/* Tagline on image */}
+                      <div className="absolute bottom-3 left-4 right-4">
+                        <p className="text-white text-xs font-medium drop-shadow-sm line-clamp-1">
+                          {pillar.tagline}
+                        </p>
+                      </div>
+                    </div>
 
-            {/* Card 6: Túi Du Lịch Gấp Gọn */}
-            <article 
-              onClick={() => onSelectTab('san-pham')}
-              className="group rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#cac7ae]/40 cursor-pointer"
-            >
-              <div className="relative h-60 overflow-hidden bg-[#f8ecdd]">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUCENKHQbPMSIA5cFtkedCWYblUHQKIfJGffg-QrCS1gi1zp8H9hBLdlmn7lzuSpDMIc2_JeAHeiWs57hitK4-WAes4JxF-Y0nutVcM7kY8gFd413yG4_ebuWtr7pPPq_dHiKtnwvoSt-nQewgS2PNQ6DJ5Cwx899VMP8ogogEbX3DU_Eo2tNLTbbRdElSpEyJmlc64fLUe_qc9psHzQ6POjUOul0xk1I2WTLdbkWK_gnfM3SF7ESjOtdai-KsokKXpsk"
-                  alt="Túi Du Lịch Gấp Gọn HUGZ tối ưu thể tích"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#f4f34d] text-[#201b12] text-xs font-bold shadow-xs">
-                  Hành lý thông minh
-                </span>
-              </div>
-              <div className="p-5 flex flex-col flex-1 justify-between gap-3">
-                <div>
-                  <h3 className="font-display text-lg font-bold text-[#201b12] group-hover:text-[#626200] transition-colors">
-                    Túi Du Lịch Gấp Gọn
-                  </h3>
-                  <p className="text-xs text-[#484834] mt-1 leading-relaxed">
-                    Set 3 hộp vải xếp tầng + túi rút phụ, tối ưu hóa đến 50% không gian vali với hoa văn kẻ ô retro.
-                  </p>
-                </div>
-                <div className="pt-2 flex items-center justify-between text-xs">
-                  <span className="text-[#6b5d41] font-semibold">Gấp siêu mỏng • Thoáng khí</span>
-                  <span className="font-bold text-[#201b12] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                    Khám phá →
-                  </span>
-                </div>
-              </div>
-            </article>
+                    {/* Card Content */}
+                    <div className="p-6 flex flex-col flex-1 justify-between gap-5">
+                      <div className="space-y-3">
+                        <div>
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-[#626200]">
+                            {pillar.subtitle}
+                          </span>
+                          <h3 className="font-display text-lg sm:text-xl font-bold text-[#201b12] group-hover:text-[#626200] transition-colors mt-0.5">
+                            {pillar.name}
+                          </h3>
+                        </div>
+
+                        <p className="text-xs text-[#484834] leading-relaxed">
+                          {pillar.desc}
+                        </p>
+
+                        {/* Key benefits list */}
+                        <div className="space-y-1.5 pt-2 border-t border-[#f1ddba]/40">
+                          {pillar.highlights.map((item, idx) => (
+                            <div key={idx} className="flex items-center gap-2 text-xs text-[#201b12] font-medium">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-[#22c55e] shrink-0" />
+                              <span>{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Products in this pillar */}
+                      <div className="pt-3 border-t border-[#cac7ae]/30 space-y-3">
+                        <div>
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#797862] block mb-2">
+                            Sản phẩm nổi bật trong trụ cột:
+                          </span>
+                          <div className="flex flex-wrap gap-1.5">
+                            {pillarProducts.map((p) => (
+                              <button
+                                key={p.id}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  onOpenDetail(p);
+                                }}
+                                className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-[#fdf2e3] hover:bg-[#f4f34d] text-[#201b12] transition-colors border border-[#cac7ae]/40 truncate max-w-full text-left cursor-pointer"
+                                title={p.title}
+                              >
+                                • {p.title.split(',')[0].slice(0, 32)}...
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <button
+                          onClick={() => {
+                            onSelectCategory(pillar.id);
+                            onSelectTab('san-pham');
+                          }}
+                          className="w-full py-2.5 rounded-xl bg-[#fdf2e3] hover:bg-[#201b12] text-[#201b12] hover:text-white text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
+                        >
+                          <span>Xem toàn bộ nhóm này ({pillar.productCount})</span>
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+
+            {/* Row 2: 2 Pillars (04. Túi đựng đồ cá nhân, 05. Lưu trữ theo phân loại sản phẩm) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              
+              {/* Pillar 04: Túi đựng đồ cá nhân (Col 5) */}
+              {(() => {
+                const pillar = ECOSYSTEM_PILLARS[3];
+                const pillarProducts = products.filter((p) => p.categorySlug === pillar.id);
+
+                return (
+                  <article
+                    key={pillar.id}
+                    className="lg:col-span-5 group rounded-3xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#cac7ae]/40 hover:border-[#626200]/50"
+                  >
+                    <div className="relative h-72 overflow-hidden bg-[#f8ecdd]">
+                      <img
+                        src={pillar.image}
+                        alt={pillar.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
+
+                      <div className="absolute top-4 left-4 flex items-center gap-2">
+                        <span className="px-3 py-1 rounded-full bg-[#f4f34d] text-[#201b12] text-xs font-black tracking-wider shadow-sm">
+                          {pillar.badge}
+                        </span>
+                        <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-xs text-[#201b12] text-[11px] font-bold">
+                          {pillar.productCount} sản phẩm
+                        </span>
+                      </div>
+
+                      <div className="absolute top-2 right-4 text-white/30 font-display font-black text-5xl select-none">
+                        {pillar.pillarNumber}
+                      </div>
+
+                      <div className="absolute bottom-3 left-4 right-4">
+                        <p className="text-white text-xs font-medium drop-shadow-sm">
+                          {pillar.tagline}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="p-6 flex flex-col flex-1 justify-between gap-5">
+                      <div className="space-y-3">
+                        <div>
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-[#626200]">
+                            {pillar.subtitle}
+                          </span>
+                          <h3 className="font-display text-xl font-bold text-[#201b12] group-hover:text-[#626200] transition-colors mt-0.5">
+                            {pillar.name}
+                          </h3>
+                        </div>
+
+                        <p className="text-xs text-[#484834] leading-relaxed">
+                          {pillar.desc}
+                        </p>
+
+                        <div className="space-y-1.5 pt-2 border-t border-[#f1ddba]/40">
+                          {pillar.highlights.map((item, idx) => (
+                            <div key={idx} className="flex items-center gap-2 text-xs text-[#201b12] font-medium">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-[#22c55e] shrink-0" />
+                              <span>{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="pt-3 border-t border-[#cac7ae]/30 space-y-3">
+                        <div>
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#797862] block mb-2">
+                            Sản phẩm tâm điểm:
+                          </span>
+                          <div className="flex flex-wrap gap-1.5">
+                            {pillarProducts.map((p) => (
+                              <button
+                                key={p.id}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  onOpenDetail(p);
+                                }}
+                                className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-[#fdf2e3] hover:bg-[#f4f34d] text-[#201b12] transition-colors border border-[#cac7ae]/40 truncate max-w-full text-left cursor-pointer"
+                                title={p.title}
+                              >
+                                • {p.title.split(',')[0].slice(0, 36)}...
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <button
+                          onClick={() => {
+                            onSelectCategory(pillar.id);
+                            onSelectTab('san-pham');
+                          }}
+                          className="w-full py-2.5 rounded-xl bg-[#fdf2e3] hover:bg-[#201b12] text-[#201b12] hover:text-white text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
+                        >
+                          <span>Xem toàn bộ nhóm này ({pillar.productCount})</span>
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })()}
+
+              {/* Pillar 05: Lưu trữ theo phân loại sản phẩm (Col 7 - Lớn nhất với 6 sản phẩm) */}
+              {(() => {
+                const pillar = ECOSYSTEM_PILLARS[4];
+                const pillarProducts = products.filter((p) => p.categorySlug === pillar.id);
+
+                return (
+                  <article
+                    key={pillar.id}
+                    className="lg:col-span-7 group rounded-3xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#cac7ae]/40 hover:border-[#626200]/50"
+                  >
+                    <div className="relative h-72 overflow-hidden bg-[#f8ecdd]">
+                      <img
+                        src={pillar.image}
+                        alt={pillar.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
+
+                      <div className="absolute top-4 left-4 flex items-center gap-2">
+                        <span className="px-3 py-1 rounded-full bg-[#f4f34d] text-[#201b12] text-xs font-black tracking-wider shadow-sm">
+                          {pillar.badge}
+                        </span>
+                        <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-xs text-[#201b12] text-[11px] font-bold">
+                          {pillar.productCount} sản phẩm
+                        </span>
+                        <span className="px-2.5 py-1 rounded-full bg-[#201b12] text-white text-[11px] font-bold">
+                          TỐI ƯU VALI 60%
+                        </span>
+                      </div>
+
+                      <div className="absolute top-2 right-4 text-white/30 font-display font-black text-5xl select-none">
+                        {pillar.pillarNumber}
+                      </div>
+
+                      <div className="absolute bottom-3 left-4 right-4">
+                        <p className="text-white text-xs font-medium drop-shadow-sm">
+                          {pillar.tagline}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="p-6 sm:p-8 flex flex-col flex-1 justify-between gap-5">
+                      <div className="space-y-4">
+                        <div>
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-[#626200]">
+                            {pillar.subtitle}
+                          </span>
+                          <h3 className="font-display text-xl sm:text-2xl font-bold text-[#201b12] group-hover:text-[#626200] transition-colors mt-0.5">
+                            {pillar.name}
+                          </h3>
+                        </div>
+
+                        <p className="text-xs sm:text-sm text-[#484834] leading-relaxed">
+                          {pillar.desc}
+                        </p>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-[#f1ddba]/40">
+                          {pillar.highlights.map((item, idx) => (
+                            <div key={idx} className="flex items-center gap-2 text-xs text-[#201b12] font-semibold bg-[#fff8f2] p-2 rounded-lg border border-[#cac7ae]/30">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-[#22c55e] shrink-0" />
+                              <span>{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="pt-3 border-t border-[#cac7ae]/30 space-y-3">
+                        <div>
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#797862] block mb-2">
+                            6 giải pháp phân loại thông minh:
+                          </span>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {pillarProducts.map((p) => (
+                              <button
+                                key={p.id}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  onOpenDetail(p);
+                                }}
+                                className="flex items-center gap-2 p-2 rounded-xl bg-[#fdf2e3] hover:bg-[#f4f34d] text-[#201b12] transition-colors border border-[#cac7ae]/40 text-left cursor-pointer group/item"
+                              >
+                                <img
+                                  src={p.image}
+                                  alt={p.title}
+                                  className="w-9 h-9 rounded-lg object-cover shrink-0 border border-white"
+                                />
+                                <div className="min-w-0 flex-1">
+                                  <p className="text-xs font-bold text-[#201b12] truncate">
+                                    {p.title}
+                                  </p>
+                                  <p className="text-[10px] text-[#626200] font-semibold truncate">
+                                    {p.subtitle || p.badge}
+                                  </p>
+                                </div>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <button
+                          onClick={() => {
+                            onSelectCategory(pillar.id);
+                            onSelectTab('san-pham');
+                          }}
+                          className="w-full py-3 rounded-xl bg-[#201b12] hover:bg-black text-white text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg"
+                        >
+                          <span>Xem toàn bộ 6 sản phẩm phân loại du lịch & gia đình</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })()}
+
+            </div>
 
           </div>
         </div>

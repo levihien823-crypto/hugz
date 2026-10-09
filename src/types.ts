@@ -43,4 +43,9 @@ export interface CategoryInfo {
   iconName: string;
   count: number;
   desc: string;
+  pillarIndex?: number;
+  subtitle?: string;
+  badge?: string;
+  highlightText?: string;
+  image?: string;
 }
