@@ -63,33 +63,32 @@ export const HomeView: React.FC<HomeViewProps> = ({
     <div className="flex flex-col w-full">
       
       {/* Hero Section Lifestyle */}
-      <section className="w-full relative overflow-hidden py-12 lg:py-20 bg-gradient-to-b from-[#fff8f2] via-[#fff8f2] to-[#fdf2e3]/40">
+      <section className="w-full relative overflow-hidden py-8 sm:py-12 lg:py-14 bg-gradient-to-b from-[#fff8f2] via-[#fff8f2] to-[#fdf2e3]/40">
         <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#f4f34d]/20 blur-3xl pointer-events-none"></div>
         <div className="absolute top-1/2 -right-20 w-80 h-80 rounded-full bg-[#f1ddba]/30 blur-3xl pointer-events-none"></div>
         
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             {/* Left Hero Copy */}
-            <div className="lg:col-span-6 flex flex-col gap-6 z-10">
-              <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-[#fdf2e3] border border-[#cac7ae]/60 shadow-xs">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#f4f34d] border border-[#626200]/30 shrink-0"></span>
+            <div className="lg:col-span-6 flex flex-col gap-5 z-10">
+              <div className="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full bg-[#fdf2e3] border border-[#cac7ae]/60 shadow-2xs">
+                <span className="w-2 h-2 rounded-full bg-[#f4f34d] border border-[#626200]/40 shrink-0"></span>
                 <span className="text-[11px] uppercase tracking-wider font-extrabold text-[#201b12]">
                   PHONG CÁCH SỐNG GIA ĐÌNH HIỆN ĐẠI
                 </span>
               </div>
 
-              <div className="space-y-3">
-                <h1 className="font-display text-3xl sm:text-4xl lg:text-[44px] font-black text-[#201b12] leading-[1.18] tracking-tight uppercase">
-                  <span className="block">HỆ SINH THÁI</span>
-                  <span className="block text-[#626200]">SẢN PHẨM TOÀN DIỆN</span>
+              <div className="space-y-2">
+                <h1 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-black text-[#201b12] leading-[1.22] tracking-tight uppercase">
+                  HỆ SINH THÁI SẢN PHẨM TOÀN DIỆN
                 </h1>
-                <p className="font-display text-base sm:text-lg lg:text-xl font-bold text-[#484834] leading-snug">
+                <p className="font-display text-sm sm:text-base lg:text-lg font-bold text-[#626200] leading-snug">
                   Giải pháp sắp xếp & lưu trữ thông minh cho tổ ấm hiện đại
                 </p>
               </div>
 
-              <p className="text-sm sm:text-base text-[#5c5443] max-w-xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#5c5443] max-w-xl leading-relaxed">
                 Biến việc sắp xếp và bảo quản đồ đạc thành một phần của phong cách sống thẩm mỹ mỗi ngày. HUGZ kiến tạo 5 nhóm giải pháp lưu trữ toàn diện, giải quyết triệt để từng nhu cầu thiết thực: từ gian bếp gia đình, góc làm đẹp, bàn làm việc cho tới hành lý trên những chuyến du hành xa.
               </p>
 
@@ -97,93 +96,93 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <div className="flex flex-wrap items-center gap-3 pt-1">
                 <a
                   href="#danh-muc"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#201b12] hover:bg-black text-white font-display text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#201b12] hover:bg-black text-white font-display text-xs sm:text-sm font-bold shadow-sm hover:shadow-md transition-all cursor-pointer"
                 >
                   <span>Khám phá 5 nhóm giải pháp</span>
-                  <ArrowDown className="w-4 h-4" />
+                  <ArrowDown className="w-3.5 h-3.5" />
                 </a>
                 <a
                   href="#kenh-mua-hang"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white text-[#201b12] font-display text-sm font-semibold shadow-xs hover:bg-[#f8ecdd] transition-all border border-[#cac7ae]/40 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white text-[#201b12] font-display text-xs font-semibold shadow-2xs hover:bg-[#f8ecdd] transition-all border border-[#cac7ae]/50 cursor-pointer"
                 >
                   <span className="w-2 h-2 rounded-full bg-[#b62506]"></span>
                   <span>Mua trên Shopee & TikTok</span>
                 </a>
               </div>
 
-              {/* Highlight Micro Badges */}
-              <div className="pt-3 flex items-center gap-6 sm:gap-8 flex-wrap">
-                <div className="flex flex-col">
-                  <span className="font-display text-xl sm:text-2xl font-bold text-[#201b12]">5 Nhóm</span>
-                  <span className="text-xs text-[#484834]">Giải pháp lưu trữ</span>
+              {/* Highlight Micro Stats */}
+              <div className="pt-2 flex items-center gap-3 sm:gap-6 flex-wrap text-xs text-[#484834]">
+                <div className="flex items-center gap-1.5 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#626200]"></span>
+                  <strong className="text-[#201b12]">5 Nhóm</strong> lưu trữ
                 </div>
-                <div className="h-8 w-px bg-[#cac7ae]/50"></div>
-                <div className="flex flex-col">
-                  <span className="font-display text-xl sm:text-2xl font-bold text-[#201b12]">16 Sản phẩm</span>
-                  <span className="text-xs text-[#484834]">Chính hãng Shopee Mall</span>
+                <div className="w-px h-3.5 bg-[#cac7ae]/60"></div>
+                <div className="flex items-center gap-1.5 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#626200]"></span>
+                  <strong className="text-[#201b12]">16 Sản phẩm</strong> chính hãng
                 </div>
-                <div className="h-8 w-px bg-[#cac7ae]/50"></div>
-                <div className="flex flex-col">
-                  <span className="font-display text-xl sm:text-2xl font-bold text-[#201b12]">100% Kháng nước</span>
-                  <span className="text-xs text-[#484834]">Bền bỉ & Tiện ích</span>
+                <div className="w-px h-3.5 bg-[#cac7ae]/60"></div>
+                <div className="flex items-center gap-1.5 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#626200]"></span>
+                  <strong className="text-[#201b12]">100%</strong> kháng nước & bền bỉ
                 </div>
               </div>
             </div>
 
             {/* Right Hero Visual Bento */}
-            <div className="lg:col-span-6 grid grid-cols-12 gap-4 relative">
+            <div className="lg:col-span-6 grid grid-cols-12 gap-3.5 relative">
               {/* Main Hero Image (Chăn sữa) */}
               <div 
                 onClick={() => {
                   const chan = products.find((p) => p.id === 'chan-sua-hugz');
                   if (chan) onOpenDetail(chan);
                 }}
-                className="col-span-7 relative group rounded-2xl overflow-hidden shadow-xl bg-[#f8ecdd] cursor-pointer"
+                className="col-span-7 relative group rounded-2xl overflow-hidden shadow-lg bg-[#f8ecdd] cursor-pointer"
               >
                 <img
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDy-dhihuBqQ01UYv1jcruTXfOV6ao2npzNhy6RRyjhOACGn-8_MYA6srFMCki7uz9l2C7TYzFkWzKVm62iiOx0SDCdPPMQElkpQTFsRxI4PIi6GDEmyU054gRCm2pbb3DccT2hHBOaD4sUD3MDb_HDyqSYsCjnv6iZznREKrHlL0aHBy3fcWrWKEnJoc0i6_nBTCTSLqurLG_ZuLMZFXWokOg4rgLN95ci6unGj5oyjG1XrdJdrRrEjdhgoi-vVLdUY-g"
                   alt="Chăn sữa HUGZ cao cấp vỗ về cảm xúc"
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-64 sm:h-72 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
-                  <span className="inline-block self-start px-2 py-0.5 rounded bg-[#f4f34d] text-[11px] font-bold text-[#201b12] uppercase mb-1">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-3.5 text-white">
+                  <span className="inline-block self-start px-2 py-0.5 rounded bg-[#f4f34d] text-[10px] font-bold text-[#201b12] uppercase mb-1">
                     Cảm hứng thu đông
                   </span>
-                  <h3 className="font-display text-xl font-bold leading-tight">Chăn Sữa HUGZ</h3>
-                  <p className="text-xs text-white/90">A warm refuge for kids with love</p>
+                  <h3 className="font-display text-base sm:text-lg font-bold leading-tight">Chăn Sữa HUGZ</h3>
+                  <p className="text-[11px] text-white/90">A warm refuge for kids with love</p>
                 </div>
               </div>
 
               {/* Secondary Hero Image (Túi tote 2 lớp tháo rời) */}
-              <div className="col-span-5 flex flex-col gap-4">
+              <div className="col-span-5 flex flex-col gap-3.5">
                 <div 
                   onClick={() => {
                     const tote = products.find((p) => p.id === 'tui-tote-2-lop');
                     if (tote) onOpenDetail(tote);
                   }}
-                  className="relative group rounded-2xl overflow-hidden shadow-lg bg-[#f8ecdd] flex-1 cursor-pointer"
+                  className="relative group rounded-2xl overflow-hidden shadow-md bg-[#f8ecdd] flex-1 cursor-pointer"
                 >
                   <img
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzQyMo-pW6X7h5LVZU19A5Qu-qunTUBOXFCPpOihfcRCEqnXW7svwrtSNMq6WNqw1vl189DAEutO9wdBZhwHCWctms1LY56YLtvB9X-_A9y-mbiqDNHbBNIeHkh7erDg8ZBhy8uYmVNR33S7-JJbsFHDa-TEkr-x9GZDadjLOFagwHZ5YNP0WzTkmWj2vVWIYXiZOhtVT-st5WolKxromi0krrxnyhhwi-PGlEnJVXNn1ErKloFw4ke17x6PMbD8g9OPY"
                     alt="Túi tote tháo rời linh hoạt rực rỡ ngoài trời"
-                    className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-36 sm:h-40 object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex flex-col justify-end p-3 text-white">
-                    <span className="font-display text-sm font-bold leading-tight">Túi Tote 2 Lớp</span>
-                    <span className="text-[11px] text-[#f4f34d]">Tháo rời linh hoạt</span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex flex-col justify-end p-2.5 text-white">
+                    <span className="font-display text-xs font-bold leading-tight">Túi Tote 2 Lớp</span>
+                    <span className="text-[10px] text-[#f4f34d]">Tháo rời linh hoạt</span>
                   </div>
                 </div>
 
                 {/* Warm Comfort Quote Tag */}
-                <div className="p-4 rounded-2xl bg-[#f1ddba]/70 shadow-xs flex flex-col justify-between border border-[#cac7ae]/40">
+                <div className="p-3 sm:p-3.5 rounded-2xl bg-[#f1ddba]/70 shadow-2xs flex flex-col justify-between border border-[#cac7ae]/40">
                   <div className="flex items-center gap-1.5 text-[#241a05]">
-                    <span className="font-display text-base font-bold">hug</span>
-                    <span className="text-xs font-bold text-[#484834]">(</span>
-                    <span className="w-2 h-2 rounded-full bg-[#626200]"></span>
-                    <span className="text-xs font-bold text-[#484834]">)</span>
-                    <span className="font-display text-base font-bold">z</span>
+                    <span className="font-display text-sm font-bold">hug</span>
+                    <span className="text-[11px] font-bold text-[#484834]">(</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#626200]"></span>
+                    <span className="text-[11px] font-bold text-[#484834]">)</span>
+                    <span className="font-display text-sm font-bold">z</span>
                   </div>
-                  <p className="text-xs text-[#241a05] font-medium mt-1 leading-snug">
+                  <p className="text-[11px] text-[#241a05] font-medium mt-1 leading-snug">
                     "Đem lại sự thảnh thơi thông qua những sắc màu rạng rỡ và ngăn nắp."
                   </p>
                 </div>
@@ -196,10 +195,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
       </section>
 
       {/* Quick Category Bar */}
-      <section className="w-full py-5 bg-[#fdf2e3] border-y border-[#cac7ae]/30 sticky top-20 z-30 shadow-xs">
+      <section className="w-full py-3.5 bg-[#fdf2e3] border-y border-[#cac7ae]/30 sticky top-20 z-30 shadow-2xs">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto pb-1 scrollbar-none">
-            <span className="font-display text-sm font-bold text-[#201b12] whitespace-nowrap mr-1">
+          <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto pb-1 scrollbar-none">
+            <span className="font-display text-xs sm:text-sm font-bold text-[#201b12] whitespace-nowrap mr-1">
               Danh mục:
             </span>
             {categoryPills.map((cat) => {
@@ -213,9 +212,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
                       onSelectTab('san-pham');
                     }
                   }}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer shadow-xs ${
+                  className={`px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer shadow-2xs ${
                     isActive
-                      ? 'bg-[#201b12] text-white shadow-md'
+                      ? 'bg-[#201b12] text-white shadow-xs'
                       : 'bg-white text-[#201b12] hover:bg-[#f2e7d8] border border-[#cac7ae]/40'
                   }`}
                 >
@@ -227,381 +226,98 @@ export const HomeView: React.FC<HomeViewProps> = ({
         </div>
       </section>
 
-      {/* KHÁM PHÁ 5 NHÓM GIẢI PHÁP LƯU TRỮ */}
-      <section className="w-full py-16 sm:py-24 bg-gradient-to-b from-[#fff8f2] via-[#fdf6ec]/50 to-[#fff8f2]" id="danh-muc">
+      {/* 5 NHÓM GIẢI PHÁP LƯU TRỮ HUGZ */}
+      <section className="w-full py-10 sm:py-14 bg-gradient-to-b from-[#fff8f2] via-[#fdf6ec]/40 to-[#fff8f2]" id="danh-muc">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           
-          {/* Main Ecosystem Header */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 border-b border-[#cac7ae]/40 pb-8">
-            <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#ece1d2] text-xs font-bold uppercase text-[#201b12] mb-3.5 shadow-xs">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#f4f34d]"></span>
+          {/* Section Header */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 pb-4 border-b border-[#cac7ae]/40">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ece1d2] text-[11px] font-bold uppercase text-[#201b12] mb-2 shadow-2xs">
+                <span className="w-2 h-2 rounded-full bg-[#f4f34d]"></span>
                 <span>5 NHÓM GIẢI PHÁP TIỆN ÍCH</span>
               </div>
-              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-[#201b12] uppercase tracking-tight">
-                Chi Tiết 5 Nhóm Giải Pháp Lưu Trữ HUGZ
+              <h2 className="font-display text-xl sm:text-2xl lg:text-3xl font-black text-[#201b12] uppercase tracking-tight">
+                Hệ Thống 5 Nhóm Lưu Trữ Thông Minh HUGZ
               </h2>
-              <p className="font-display text-base sm:text-xl font-bold text-[#626200] mt-1.5">
-                Phân loại thông minh theo từng không gian & thói quen sinh hoạt
-              </p>
-              <p className="text-xs sm:text-sm text-[#484834] mt-3 leading-relaxed">
-                Mỗi nhóm sản phẩm được thiết kế tối ưu cho từng mục đích cụ thể: từ gian bếp gia đình, bàn trang điểm, góc làm việc tới hành lý trên những chuyến du hành xa.
+              <p className="text-xs sm:text-sm text-[#626200] font-semibold mt-0.5">
+                Phân loại khoa học theo từng không gian sinh hoạt: bếp ăn, bàn trang điểm, tài liệu & hành lý
               </p>
             </div>
 
-            {/* Quick Stats & Action */}
-            <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end gap-3 shrink-0">
-              <div className="flex items-center gap-2 text-xs font-bold text-[#201b12] bg-white px-4 py-2.5 rounded-xl border border-[#cac7ae]/40 shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse"></span>
-                <span>5 Nhóm • 16 Giải Pháp Lưu Trữ</span>
-              </div>
-              <button
-                onClick={() => {
-                  onSelectCategory('all');
-                  onSelectTab('san-pham');
-                }}
-                className="px-5 py-2.5 rounded-xl bg-[#201b12] hover:bg-black text-white text-xs sm:text-sm font-bold shadow-sm transition-all flex items-center gap-2 cursor-pointer group"
-              >
-                <span>Xem trọn bộ danh mục</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
+            <button
+              onClick={() => {
+                onSelectCategory('all');
+                onSelectTab('san-pham');
+              }}
+              className="self-start sm:self-auto px-4 py-2 rounded-xl bg-[#201b12] hover:bg-black text-white text-xs font-bold shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer group shrink-0"
+            >
+              <span>Xem tất cả 16 sản phẩm</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </button>
           </div>
 
-          {/* 5 Pillars Layout */}
-          <div className="space-y-6">
-            
-            {/* Row 1: 3 Pillars (01. Thực phẩm, 02. Vật dụng nhỏ, 03. Tài liệu) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {ECOSYSTEM_PILLARS.slice(0, 3).map((pillar) => {
-                const pillarProducts = products.filter((p) => p.categorySlug === pillar.id);
+          {/* Compact 5 Categories Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+            {ECOSYSTEM_PILLARS.map((cat) => {
+              const catProducts = products.filter((p) => p.categorySlug === cat.id);
 
-                return (
-                  <article
-                    key={pillar.id}
-                    className="group rounded-3xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#cac7ae]/40 hover:border-[#626200]/50"
-                  >
-                    {/* Top visual banner with photo */}
-                    <div className="relative h-64 overflow-hidden bg-[#f8ecdd]">
-                      <img
-                        src={pillar.image}
-                        alt={pillar.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
+              return (
+                <article
+                  key={cat.id}
+                  onClick={() => {
+                    onSelectCategory(cat.id);
+                    onSelectTab('san-pham');
+                  }}
+                  className="group rounded-2xl overflow-hidden bg-white shadow-2xs hover:shadow-lg transition-all duration-300 flex flex-col border border-[#cac7ae]/40 hover:border-[#626200] cursor-pointer"
+                >
+                  {/* Visual thumbnail */}
+                  <div className="relative aspect-4/3 overflow-hidden bg-[#f8ecdd]">
+                    <img
+                      src={cat.image}
+                      alt={cat.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10"></div>
 
-                      {/* Pillar Number Badge */}
-                      <div className="absolute top-4 left-4 flex items-center gap-2">
-                        <span className="px-3 py-1 rounded-full bg-[#f4f34d] text-[#201b12] text-xs font-black tracking-wider shadow-sm">
-                          {pillar.badge}
-                        </span>
-                        <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-xs text-[#201b12] text-[11px] font-bold">
-                          {pillar.productCount} sản phẩm
-                        </span>
-                      </div>
-
-                      {/* Number Watermark */}
-                      <div className="absolute top-2 right-4 text-white/30 font-display font-black text-5xl select-none">
-                        {pillar.pillarNumber}
-                      </div>
-
-                      {/* Tagline on image */}
-                      <div className="absolute bottom-3 left-4 right-4">
-                        <p className="text-white text-xs font-medium drop-shadow-sm line-clamp-1">
-                          {pillar.tagline}
-                        </p>
-                      </div>
+                    {/* Badge number & count */}
+                    <div className="absolute top-2 left-2 flex items-center gap-1.5">
+                      <span className="px-2 py-0.5 rounded-full bg-[#f4f34d] text-[#201b12] text-[10px] font-black tracking-wider shadow-2xs">
+                        {cat.pillarNumber}
+                      </span>
+                      <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-white text-[10px] font-semibold">
+                        {cat.productCount} SP
+                      </span>
                     </div>
 
-                    {/* Card Content */}
-                    <div className="p-6 flex flex-col flex-1 justify-between gap-5">
-                      <div className="space-y-3">
-                        <div>
-                          <span className="text-[11px] font-bold uppercase tracking-wider text-[#626200]">
-                            {pillar.subtitle}
-                          </span>
-                          <h3 className="font-display text-lg sm:text-xl font-bold text-[#201b12] group-hover:text-[#626200] transition-colors mt-0.5">
-                            {pillar.name}
-                          </h3>
-                        </div>
-
-                        <p className="text-xs text-[#484834] leading-relaxed">
-                          {pillar.desc}
-                        </p>
-
-                        {/* Key benefits list */}
-                        <div className="space-y-1.5 pt-2 border-t border-[#f1ddba]/40">
-                          {pillar.highlights.map((item, idx) => (
-                            <div key={idx} className="flex items-center gap-2 text-xs text-[#201b12] font-medium">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-[#22c55e] shrink-0" />
-                              <span>{item}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Products in this pillar */}
-                      <div className="pt-3 border-t border-[#cac7ae]/30 space-y-3">
-                        <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#797862] block mb-2">
-                            Sản phẩm nổi bật trong nhóm:
-                          </span>
-                          <div className="flex flex-wrap gap-1.5">
-                            {pillarProducts.map((p) => (
-                              <button
-                                key={p.id}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  onOpenDetail(p);
-                                }}
-                                className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-[#fdf2e3] hover:bg-[#f4f34d] text-[#201b12] transition-colors border border-[#cac7ae]/40 truncate max-w-full text-left cursor-pointer"
-                                title={p.title}
-                              >
-                                • {p.title.split(',')[0].slice(0, 32)}...
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-
-                        <button
-                          onClick={() => {
-                            onSelectCategory(pillar.id);
-                            onSelectTab('san-pham');
-                          }}
-                          className="w-full py-2.5 rounded-xl bg-[#fdf2e3] hover:bg-[#201b12] text-[#201b12] hover:text-white text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
-                        >
-                          <span>Xem toàn bộ nhóm này ({pillar.productCount})</span>
-                          <ChevronRight className="w-4 h-4" />
-                        </button>
-                      </div>
+                    <div className="absolute bottom-1.5 left-2 right-2">
+                      <span className="text-[10px] uppercase font-bold text-white/90 drop-shadow-sm tracking-wider line-clamp-1">
+                        {cat.badge}
+                      </span>
                     </div>
-                  </article>
-                );
-              })}
-            </div>
+                  </div>
 
-            {/* Row 2: 2 Pillars (04. Túi đựng đồ cá nhân, 05. Lưu trữ theo phân loại sản phẩm) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-              
-              {/* Pillar 04: Túi đựng đồ cá nhân (Col 5) */}
-              {(() => {
-                const pillar = ECOSYSTEM_PILLARS[3];
-                const pillarProducts = products.filter((p) => p.categorySlug === pillar.id);
-
-                return (
-                  <article
-                    key={pillar.id}
-                    className="lg:col-span-5 group rounded-3xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#cac7ae]/40 hover:border-[#626200]/50"
-                  >
-                    <div className="relative h-72 overflow-hidden bg-[#f8ecdd]">
-                      <img
-                        src={pillar.image}
-                        alt={pillar.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
-
-                      <div className="absolute top-4 left-4 flex items-center gap-2">
-                        <span className="px-3 py-1 rounded-full bg-[#f4f34d] text-[#201b12] text-xs font-black tracking-wider shadow-sm">
-                          {pillar.badge}
-                        </span>
-                        <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-xs text-[#201b12] text-[11px] font-bold">
-                          {pillar.productCount} sản phẩm
-                        </span>
-                      </div>
-
-                      <div className="absolute top-2 right-4 text-white/30 font-display font-black text-5xl select-none">
-                        {pillar.pillarNumber}
-                      </div>
-
-                      <div className="absolute bottom-3 left-4 right-4">
-                        <p className="text-white text-xs font-medium drop-shadow-sm">
-                          {pillar.tagline}
-                        </p>
-                      </div>
+                  {/* Body */}
+                  <div className="p-3 sm:p-3.5 flex flex-col flex-1 justify-between gap-2.5">
+                    <div>
+                      <h3 className="font-display text-xs sm:text-sm font-bold text-[#201b12] group-hover:text-[#626200] transition-colors line-clamp-2 leading-snug">
+                        {cat.name}
+                      </h3>
+                      <p className="text-[11px] text-[#797862] line-clamp-2 mt-1 leading-snug">
+                        {cat.tagline || cat.desc}
+                      </p>
                     </div>
 
-                    <div className="p-6 flex flex-col flex-1 justify-between gap-5">
-                      <div className="space-y-3">
-                        <div>
-                          <span className="text-[11px] font-bold uppercase tracking-wider text-[#626200]">
-                            {pillar.subtitle}
-                          </span>
-                          <h3 className="font-display text-xl font-bold text-[#201b12] group-hover:text-[#626200] transition-colors mt-0.5">
-                            {pillar.name}
-                          </h3>
-                        </div>
-
-                        <p className="text-xs text-[#484834] leading-relaxed">
-                          {pillar.desc}
-                        </p>
-
-                        <div className="space-y-1.5 pt-2 border-t border-[#f1ddba]/40">
-                          {pillar.highlights.map((item, idx) => (
-                            <div key={idx} className="flex items-center gap-2 text-xs text-[#201b12] font-medium">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-[#22c55e] shrink-0" />
-                              <span>{item}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="pt-3 border-t border-[#cac7ae]/30 space-y-3">
-                        <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#797862] block mb-2">
-                            Sản phẩm tâm điểm:
-                          </span>
-                          <div className="flex flex-wrap gap-1.5">
-                            {pillarProducts.map((p) => (
-                              <button
-                                key={p.id}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  onOpenDetail(p);
-                                }}
-                                className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-[#fdf2e3] hover:bg-[#f4f34d] text-[#201b12] transition-colors border border-[#cac7ae]/40 truncate max-w-full text-left cursor-pointer"
-                                title={p.title}
-                              >
-                                • {p.title.split(',')[0].slice(0, 36)}...
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-
-                        <button
-                          onClick={() => {
-                            onSelectCategory(pillar.id);
-                            onSelectTab('san-pham');
-                          }}
-                          className="w-full py-2.5 rounded-xl bg-[#fdf2e3] hover:bg-[#201b12] text-[#201b12] hover:text-white text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
-                        >
-                          <span>Xem toàn bộ nhóm này ({pillar.productCount})</span>
-                          <ChevronRight className="w-4 h-4" />
-                        </button>
-                      </div>
+                    <div className="pt-2 border-t border-[#cac7ae]/30 flex items-center justify-between text-[11px] font-bold text-[#626200] group-hover:text-[#201b12] transition-colors">
+                      <span>Khám phá ngay</span>
+                      <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                     </div>
-                  </article>
-                );
-              })()}
-
-              {/* Pillar 05: Lưu trữ theo phân loại sản phẩm (Col 7 - Lớn nhất với 6 sản phẩm) */}
-              {(() => {
-                const pillar = ECOSYSTEM_PILLARS[4];
-                const pillarProducts = products.filter((p) => p.categorySlug === pillar.id);
-
-                return (
-                  <article
-                    key={pillar.id}
-                    className="lg:col-span-7 group rounded-3xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-[#cac7ae]/40 hover:border-[#626200]/50"
-                  >
-                    <div className="relative h-72 overflow-hidden bg-[#f8ecdd]">
-                      <img
-                        src={pillar.image}
-                        alt={pillar.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
-
-                      <div className="absolute top-4 left-4 flex items-center gap-2">
-                        <span className="px-3 py-1 rounded-full bg-[#f4f34d] text-[#201b12] text-xs font-black tracking-wider shadow-sm">
-                          {pillar.badge}
-                        </span>
-                        <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-xs text-[#201b12] text-[11px] font-bold">
-                          {pillar.productCount} sản phẩm
-                        </span>
-                        <span className="px-2.5 py-1 rounded-full bg-[#201b12] text-white text-[11px] font-bold">
-                          TỐI ƯU VALI 60%
-                        </span>
-                      </div>
-
-                      <div className="absolute top-2 right-4 text-white/30 font-display font-black text-5xl select-none">
-                        {pillar.pillarNumber}
-                      </div>
-
-                      <div className="absolute bottom-3 left-4 right-4">
-                        <p className="text-white text-xs font-medium drop-shadow-sm">
-                          {pillar.tagline}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="p-6 sm:p-8 flex flex-col flex-1 justify-between gap-5">
-                      <div className="space-y-4">
-                        <div>
-                          <span className="text-[11px] font-bold uppercase tracking-wider text-[#626200]">
-                            {pillar.subtitle}
-                          </span>
-                          <h3 className="font-display text-xl sm:text-2xl font-bold text-[#201b12] group-hover:text-[#626200] transition-colors mt-0.5">
-                            {pillar.name}
-                          </h3>
-                        </div>
-
-                        <p className="text-xs sm:text-sm text-[#484834] leading-relaxed">
-                          {pillar.desc}
-                        </p>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-[#f1ddba]/40">
-                          {pillar.highlights.map((item, idx) => (
-                            <div key={idx} className="flex items-center gap-2 text-xs text-[#201b12] font-semibold bg-[#fff8f2] p-2 rounded-lg border border-[#cac7ae]/30">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-[#22c55e] shrink-0" />
-                              <span>{item}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="pt-3 border-t border-[#cac7ae]/30 space-y-3">
-                        <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#797862] block mb-2">
-                            6 giải pháp phân loại thông minh:
-                          </span>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                            {pillarProducts.map((p) => (
-                              <button
-                                key={p.id}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  onOpenDetail(p);
-                                }}
-                                className="flex items-center gap-2 p-2 rounded-xl bg-[#fdf2e3] hover:bg-[#f4f34d] text-[#201b12] transition-colors border border-[#cac7ae]/40 text-left cursor-pointer group/item"
-                              >
-                                <img
-                                  src={p.image}
-                                  alt={p.title}
-                                  className="w-9 h-9 rounded-lg object-cover shrink-0 border border-white"
-                                />
-                                <div className="min-w-0 flex-1">
-                                  <p className="text-xs font-bold text-[#201b12] truncate">
-                                    {p.title}
-                                  </p>
-                                  <p className="text-[10px] text-[#626200] font-semibold truncate">
-                                    {p.subtitle || p.badge}
-                                  </p>
-                                </div>
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-
-                        <button
-                          onClick={() => {
-                            onSelectCategory(pillar.id);
-                            onSelectTab('san-pham');
-                          }}
-                          className="w-full py-3 rounded-xl bg-[#201b12] hover:bg-black text-white text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg"
-                        >
-                          <span>Xem toàn bộ 6 sản phẩm phân loại du lịch & gia đình</span>
-                          <ArrowRight className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
-                  </article>
-                );
-              })()}
-
-            </div>
-
+                  </div>
+                </article>
+              );
+            })}
           </div>
+
         </div>
       </section>
 
