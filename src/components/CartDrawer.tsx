@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CartItem } from '../types';
 import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, Tag, Check, ExternalLink } from 'lucide-react';
+import { trackMarketplaceClick } from '../utils/analytics';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -262,6 +263,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     href="https://s.shopee.vn/9pbeimilNQ"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackMarketplaceClick('Shopee', 'Giỏ hàng - Link Shopee', 'https://s.shopee.vn/9pbeimilNQ')}
                     className="py-2 px-2 rounded-xl bg-[#EE4D2D]/10 hover:bg-[#EE4D2D] hover:text-white text-[#EE4D2D] text-xs font-bold flex items-center justify-center gap-1.5 transition-all text-center"
                   >
                     <span>Link Shopee</span>
@@ -271,6 +273,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     href="https://www.tiktok.com/@hugzvietnam"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackMarketplaceClick('TikTok', 'Giỏ hàng - Link TikTok Shop', 'https://www.tiktok.com/@hugzvietnam')}
                     className="py-2 px-2 rounded-xl bg-black/5 hover:bg-black hover:text-white text-[#201b12] text-xs font-bold flex items-center justify-center gap-1.5 transition-all text-center"
                   >
                     <span>Link TikTok</span>

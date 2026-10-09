@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavTab } from '../types';
 import { ArrowRight, CheckCircle2, Phone, Mail, Clock, ShieldCheck } from 'lucide-react';
+import { trackMarketplaceClick } from '../utils/analytics';
 
 interface FooterProps {
   onSelectTab: (tab: NavTab) => void;
@@ -115,6 +116,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab, onShowToast }) => {
                 href="https://s.shopee.vn/9pbeimilNQ"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackMarketplaceClick('Shopee', 'Footer - Shopee Mall HUGZ Official', 'https://s.shopee.vn/9pbeimilNQ')}
                 className="p-3 rounded-xl bg-[#f8ecdd] flex items-center justify-between hover:bg-[#f2e7d8] transition-colors group shadow-xs border border-[#cac7ae]/30"
               >
                 <div className="flex items-center gap-2.5">
@@ -127,6 +129,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab, onShowToast }) => {
                 href="https://www.tiktok.com/@hugzvietnam"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackMarketplaceClick('TikTok', 'Footer - TikTok Shop Official VN', 'https://www.tiktok.com/@hugzvietnam')}
                 className="p-3 rounded-xl bg-[#f8ecdd] flex items-center justify-between hover:bg-[#f2e7d8] transition-colors group shadow-xs border border-[#cac7ae]/30"
               >
                 <div className="flex items-center gap-2.5">
