@@ -35,7 +35,7 @@ export const trackMarketplaceClick = (
 ) => {
   try {
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-      window.gtag('event', 'click_marketplace', {
+      const eventPayload = {
         event_category: 'outbound_ecommerce',
         event_label: `${platform} - ${productName}`,
         marketplace: platform,
@@ -43,7 +43,14 @@ export const trackMarketplaceClick = (
         link_url: url,
         value: price,
         currency: 'VND',
-      });
+      };
+
+      // 1. Event chung
+      window.gtag('event', 'click_marketplace', eventPayload);
+
+      // 2. Event riêng biệt giúp xem ngay lập tức tên 'click_shopee' hoặc 'click_tiktok' trong danh sách Sự kiện GA4
+      const specificEventName = platform === 'Shopee' ? 'click_shopee' : 'click_tiktok';
+      window.gtag('event', specificEventName, eventPayload);
     }
   } catch (err) {
     console.debug('Analytics error:', err);
