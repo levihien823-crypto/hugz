@@ -137,7 +137,7 @@ export const PRODUCTS: Product[] = [
     soldCount: '419 đã bán',
     badge: 'TOP MAKE UP DUNG TÍCH LỚN',
     badgeColor: 'primary',
-    image: '/images/products/hugz-makeup-large.png',
+    image: '/images/products/hugz-makeup-large-v2.jpg',
     description: 'Túi đựng mỹ phẩm HUGZ form đứng dung tích lớn với họa tiết sọc thanh lịch. Chứa trọn bộ chai lọ dưỡng da, toner, kem nền và cọ trang điểm mà không bị đổ ngã, thích hợp để bàn phấn hoặc mang đi du lịch.',
     features: [
       'Form đứng vững chãi, chống xẹp lún khi đặt trên bàn trang điểm',
