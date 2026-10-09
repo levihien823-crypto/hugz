@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Product } from '../types';
 import { X, Star, ShoppingBag, Check, ShieldCheck, Truck, RotateCcw, ExternalLink } from 'lucide-react';
+import { trackMarketplaceClick, buildTrackedUrl } from '../utils/analytics';
 
 interface ProductDetailModalProps {
   product: Product | null;
@@ -221,9 +222,10 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 
                 <div className="grid grid-cols-2 gap-2.5">
                   <a
-                    href={product.shopeeUrl || 'https://s.shopee.vn/9pbeimilNQ'}
+                    href={buildTrackedUrl(product.shopeeUrl || 'https://shopee.vn/hugzvietnam', 'shopee', product.id)}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackMarketplaceClick('Shopee', product.title, product.shopeeUrl || '', product.price)}
                     className="py-2.5 px-3 rounded-xl bg-[#EE4D2D] hover:bg-[#d83f21] text-white font-display text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition-all text-center"
                   >
                     <span>Link Shopee</span>
@@ -231,9 +233,10 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   </a>
 
                   <a
-                    href={product.tiktokUrl || 'https://www.tiktok.com/@hugzvietnam'}
+                    href={buildTrackedUrl(product.tiktokUrl || 'https://www.tiktok.com/@hugzvietnam', 'tiktok', product.id)}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackMarketplaceClick('TikTok', product.title, product.tiktokUrl || '', product.price)}
                     className="py-2.5 px-3 rounded-xl bg-[#111111] hover:bg-black text-white font-display text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition-all text-center"
                   >
                     <span>Link TikTok</span>

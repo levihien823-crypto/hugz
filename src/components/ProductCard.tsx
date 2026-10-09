@@ -1,6 +1,7 @@
 import React from 'react';
 import { Product } from '../types';
 import { Star, ShoppingBag, Eye, ExternalLink } from 'lucide-react';
+import { trackMarketplaceClick, buildTrackedUrl } from '../utils/analytics';
 
 interface ProductCardProps {
   product: Product;
@@ -133,13 +134,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </button>
         </div>
 
-        {/* 2 Đường dẫn Shopee & TikTok */}
+        {/* 2 Đường dẫn Shopee & TikTok có gắn tự động tham số theo dõi UTM */}
         <div className="grid grid-cols-2 gap-2 pt-0.5">
           <a
-            href={product.shopeeUrl || 'https://s.shopee.vn/9pbeimilNQ'}
+            href={buildTrackedUrl(product.shopeeUrl || 'https://shopee.vn/hugzvietnam', 'shopee', product.id)}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              trackMarketplaceClick('Shopee', product.title, product.shopeeUrl || '', product.price);
+            }}
             className="py-1.5 px-2 rounded-lg bg-[#EE4D2D]/10 hover:bg-[#EE4D2D] hover:text-white text-[#EE4D2D] text-[11px] font-bold transition-all flex items-center justify-center gap-1 text-center"
             title="Đường dẫn Shopee"
           >
@@ -147,10 +151,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             <ExternalLink className="w-3 h-3" />
           </a>
           <a
-            href={product.tiktokUrl || 'https://www.tiktok.com/@hugzvietnam'}
+            href={buildTrackedUrl(product.tiktokUrl || 'https://www.tiktok.com/@hugzvietnam', 'tiktok', product.id)}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              trackMarketplaceClick('TikTok', product.title, product.tiktokUrl || '', product.price);
+            }}
             className="py-1.5 px-2 rounded-lg bg-black/5 hover:bg-black hover:text-white text-[#201b12] text-[11px] font-bold transition-all flex items-center justify-center gap-1 text-center"
             title="Đường dẫn TikTok"
           >

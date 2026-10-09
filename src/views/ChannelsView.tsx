@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Copy, Check, ExternalLink, Sparkles, Clock, ShieldCheck, Ticket } from 'lucide-react';
+import { trackMarketplaceClick, buildTrackedUrl } from '../utils/analytics';
 
 interface ChannelsViewProps {
   onCopyVoucher: (code: string) => void;
@@ -142,9 +143,10 @@ export const ChannelsView: React.FC<ChannelsViewProps> = ({
               </ul>
             </div>
             <a
-              href="https://s.shopee.vn/9pbeimilNQ"
+              href={buildTrackedUrl('https://shopee.vn/hugzvietnam', 'shopee', 'channels_shopee_mall')}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackMarketplaceClick('Shopee', 'Gian Hàng Shopee Mall Official', 'https://shopee.vn/hugzvietnam')}
               className="w-full py-3.5 rounded-xl bg-[#EE4D2D] hover:bg-[#d63f20] text-white font-display text-sm font-bold text-center flex items-center justify-center gap-2 shadow-sm transition-all"
             >
               <span>Truy cập Shopee Mall HUGZ</span>
@@ -179,9 +181,10 @@ export const ChannelsView: React.FC<ChannelsViewProps> = ({
               </ul>
             </div>
             <a
-              href="https://www.tiktok.com/@hugzvietnam"
+              href={buildTrackedUrl('https://www.tiktok.com/@hugzvietnam', 'tiktok', 'channels_tiktok_shop')}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackMarketplaceClick('TikTok', 'Kênh TikTok Shop Official', 'https://www.tiktok.com/@hugzvietnam')}
               className="w-full py-3.5 rounded-xl bg-[#111111] hover:bg-black text-white font-display text-sm font-bold text-center flex items-center justify-center gap-2 shadow-sm transition-all"
             >
               <span>Truy cập TikTok Shop HUGZ</span>
