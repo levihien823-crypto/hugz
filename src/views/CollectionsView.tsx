@@ -88,7 +88,7 @@ export const CollectionsView: React.FC<CollectionsViewProps> = ({
                             <img
                               src={p.image}
                               alt={p.title}
-                              className="w-14 h-14 rounded-lg object-cover bg-white shrink-0"
+                              className="w-14 h-14 rounded-lg object-contain bg-[#faf6ef] shrink-0 p-1 border border-[#cac7ae]/30"
                             />
                             <div className="flex-1 min-w-0">
                               <h5 className="font-display text-xs font-bold text-[#201b12] uppercase truncate group-hover:text-[#626200]">

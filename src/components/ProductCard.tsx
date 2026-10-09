@@ -33,18 +33,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         {/* Thumbnail with Badge & Quick Actions */}
         <div 
           onClick={() => onOpenDetail(product)}
-          className="relative w-full h-60 sm:h-64 rounded-xl overflow-hidden bg-[#f8ecdd] mb-3 cursor-pointer"
+          className="relative w-full aspect-square rounded-xl overflow-hidden bg-[#faf6ef] mb-3 cursor-pointer flex items-center justify-center border border-[#ece8df] p-1 group"
         >
           <img
             src={product.image}
             alt={product.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 rounded-lg"
             loading="lazy"
           />
 
           {/* Badge */}
           {product.badge && (
-            <span className={`absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase shadow-sm ${getBadgeBg()}`}>
+            <span className={`absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase shadow-sm z-10 ${getBadgeBg()}`}>
               {product.badge}
             </span>
           )}

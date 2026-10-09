@@ -296,16 +296,15 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   className="group rounded-2xl overflow-hidden bg-white shadow-2xs hover:shadow-lg transition-all duration-300 flex flex-col border border-[#cac7ae]/40 hover:border-[#626200] cursor-pointer"
                 >
                   {/* Visual thumbnail */}
-                  <div className="relative aspect-4/3 overflow-hidden bg-[#f8ecdd]">
+                  <div className="relative aspect-square overflow-hidden bg-[#faf6ef] p-2 flex items-center justify-center border-b border-[#cac7ae]/30">
                     <img
                       src={cat.image}
                       alt={cat.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 rounded-lg"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10"></div>
 
                     {/* Badge number & count */}
-                    <div className="absolute top-2 left-2 flex items-center gap-1.5">
+                    <div className="absolute top-2 left-2 flex items-center gap-1.5 z-10">
                       <span className="px-2 py-0.5 rounded-full bg-[#f4f34d] text-[#201b12] text-[10px] font-black tracking-wider shadow-2xs">
                         {cat.pillarNumber}
                       </span>
@@ -313,17 +312,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
                         {cat.productCount} SP
                       </span>
                     </div>
-
-                    <div className="absolute bottom-1.5 left-2 right-2">
-                      <span className="text-[10px] uppercase font-bold text-white/90 drop-shadow-sm tracking-wider line-clamp-1">
-                        {cat.badge}
-                      </span>
-                    </div>
                   </div>
 
                   {/* Body */}
                   <div className="p-3 sm:p-3.5 flex flex-col flex-1 justify-between gap-2.5">
                     <div>
+                      <span className="text-[10px] font-bold uppercase text-[#626200] block mb-1">
+                        {cat.badge}
+                      </span>
                       <h3 className="font-display text-xs sm:text-sm font-bold text-[#201b12] group-hover:text-[#626200] transition-colors line-clamp-2 leading-snug">
                         {cat.name}
                       </h3>
@@ -382,13 +378,13 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 const item = products.find((p) => p.id === 'tui-dung-tai-lieu-mini')!;
                 return (
                   <article className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition-shadow border border-[#cac7ae]/40 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                    <div className="lg:col-span-5 relative h-64 sm:h-72 rounded-xl overflow-hidden bg-[#f8ecdd] group">
+                    <div className="lg:col-span-5 relative aspect-square rounded-2xl overflow-hidden bg-[#faf6ef] border border-[#cac7ae]/40 p-2 flex items-center justify-center group">
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                       />
-                      <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#f4f34d] text-[#201b12] text-xs font-bold uppercase shadow-sm">
+                      <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#f4f34d] text-[#201b12] text-xs font-bold uppercase shadow-sm z-10">
                         DÙNG NGAY LẤY NGAY
                       </span>
                     </div>
@@ -578,24 +574,28 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
               {/* Imagery Showcase */}
               <div className="lg:col-span-6 grid grid-cols-2 gap-4">
-                <div className="rounded-2xl overflow-hidden shadow-md bg-white p-2 border border-[#cac7ae]/40">
-                  <img
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5U04j2MZwo0VG9Yxqqh7NzPFnWTCzR9DnfSg4i8aStqGlKgcB6RQfPJlErCultwAbLP76sL-lGpYOVtNk1Id124QJO9SHbcN5igN1BYTMvFSBcHXPLhi-OAZnZQxRNfBk9sB81sRZ8WDGIJuHfn4Ju-ppSMQZ1hVrE3_Aixpmj5rI7Sx-W1RIf3KWuxzYRZ0GPs5wfXt0xrepau0FL6zCyXAZ6sSxcc2EbtNITtSHQDzd77YhzCMiEnTHYub5HVQm-Bw"
-                    alt="Khăn lau mặt Cotton 100% 60 tờ HUGZ Daizy Daily"
-                    className="w-full h-56 sm:h-64 object-cover rounded-xl"
-                  />
+                <div className="rounded-2xl overflow-hidden shadow-md bg-white p-3 border border-[#cac7ae]/40">
+                  <div className="w-full aspect-square bg-[#faf6ef] rounded-xl overflow-hidden flex items-center justify-center p-2 border border-[#ece8df]/60">
+                    <img
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5U04j2MZwo0VG9Yxqqh7NzPFnWTCzR9DnfSg4i8aStqGlKgcB6RQfPJlErCultwAbLP76sL-lGpYOVtNk1Id124QJO9SHbcN5igN1BYTMvFSBcHXPLhi-OAZnZQxRNfBk9sB81sRZ8WDGIJuHfn4Ju-ppSMQZ1hVrE3_Aixpmj5rI7Sx-W1RIf3KWuxzYRZ0GPs5wfXt0xrepau0FL6zCyXAZ6sSxcc2EbtNITtSHQDzd77YhzCMiEnTHYub5HVQm-Bw"
+                      alt="Khăn lau mặt Cotton 100% 60 tờ HUGZ Daizy Daily"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
                   <div className="p-2 text-center">
                     <span className="text-xs font-bold text-[#201b12] block">Khăn Lau Mặt Tím (60 pcs)</span>
                     <span className="text-[11px] text-[#484834]">Skincare & Rửa mặt dịu êm</span>
                   </div>
                 </div>
 
-                <div className="rounded-2xl overflow-hidden shadow-md bg-white p-2 border border-[#cac7ae]/40">
-                  <img
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS7CYlJxUoHUst0FchmoRk-n1u-6Kja5nBwvOyCLJFGU3EokVzeeBH_a5oTvYoZ6-EoCnPmdqAiezqWolyyM0hEuoqMsBVUiOwGdae4_pR8_ty_JCg5fAqBQiJlDf9_WQrYZuq17ZzVJpHcfMOCPj8eQ85hVkbTZG3pZ_0LTplxm_LEmEGO1l5Uzeb1IZ0_Tf3dHCwyz7IfVESLpyws-0Gz6Q86ETEx7XwvqXfdTPYXf_Xd9MvH4PeF4YVk9WbpNxujNc"
-                    alt="Khăn khô đa năng Daizy Daily 200 tờ"
-                    className="w-full h-56 sm:h-64 object-cover rounded-xl"
-                  />
+                <div className="rounded-2xl overflow-hidden shadow-md bg-white p-3 border border-[#cac7ae]/40">
+                  <div className="w-full aspect-square bg-[#faf6ef] rounded-xl overflow-hidden flex items-center justify-center p-2 border border-[#ece8df]/60">
+                    <img
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS7CYlJxUoHUst0FchmoRk-n1u-6Kja5nBwvOyCLJFGU3EokVzeeBH_a5oTvYoZ6-EoCnPmdqAiezqWolyyM0hEuoqMsBVUiOwGdae4_pR8_ty_JCg5fAqBQiJlDf9_WQrYZuq17ZzVJpHcfMOCPj8eQ85hVkbTZG3pZ_0LTplxm_LEmEGO1l5Uzeb1IZ0_Tf3dHCwyz7IfVESLpyws-0Gz6Q86ETEx7XwvqXfdTPYXf_Xd9MvH4PeF4YVk9WbpNxujNc"
+                      alt="Khăn khô đa năng Daizy Daily 200 tờ"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
                   <div className="p-2 text-center">
                     <span className="text-xs font-bold text-[#201b12] block">Khăn Khô Xanh Mint (200 pcs)</span>
                     <span className="text-[11px] text-[#484834]">Mẹ & Bé vệ sinh tiện lợi</span>

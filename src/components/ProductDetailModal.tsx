@@ -50,14 +50,14 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8">
           {/* Left: Image Showcase */}
           <div className="md:col-span-6 flex flex-col gap-3">
-            <div className="relative w-full h-72 sm:h-96 rounded-xl overflow-hidden bg-[#f8ecdd] border border-[#cac7ae]/30">
+            <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#faf6ef] border border-[#cac7ae]/40 flex items-center justify-center p-2">
               <img
                 src={product.image}
                 alt={product.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
               {product.badge && (
-                <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#f4f34d] text-[#201b12] text-xs font-bold uppercase shadow-sm">
+                <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#f4f34d] text-[#201b12] text-xs font-bold uppercase shadow-sm z-10">
                   {product.badge}
                 </span>
               )}
