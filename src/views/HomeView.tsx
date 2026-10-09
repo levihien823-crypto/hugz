@@ -110,21 +110,21 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 </a>
               </div>
 
-              {/* Highlight Micro Stats */}
-              <div className="pt-2 flex items-center gap-3 sm:gap-6 flex-wrap text-xs text-[#484834]">
-                <div className="flex items-center gap-1.5 font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#626200]"></span>
-                  <strong className="text-[#201b12]">5 Nhóm</strong> lưu trữ
+              {/* Highlight Micro Badges */}
+              <div className="pt-4 flex items-center gap-6 sm:gap-8 flex-wrap">
+                <div className="flex flex-col">
+                  <span className="font-display text-xl sm:text-2xl font-bold text-[#201b12]">50.000+</span>
+                  <span className="text-xs text-[#484834]">Tổ ấm yêu chuộng</span>
                 </div>
-                <div className="w-px h-3.5 bg-[#cac7ae]/60"></div>
-                <div className="flex items-center gap-1.5 font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#626200]"></span>
-                  <strong className="text-[#201b12]">16 Sản phẩm</strong> chính hãng
+                <div className="h-8 w-px bg-[#cac7ae]/50"></div>
+                <div className="flex flex-col">
+                  <span className="font-display text-xl sm:text-2xl font-bold text-[#201b12]">4.9 / 5.0 ★</span>
+                  <span className="text-xs text-[#484834]">Đánh giá chính hãng</span>
                 </div>
-                <div className="w-px h-3.5 bg-[#cac7ae]/60"></div>
-                <div className="flex items-center gap-1.5 font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#626200]"></span>
-                  <strong className="text-[#201b12]">100%</strong> kháng nước & bền bỉ
+                <div className="h-8 w-px bg-[#cac7ae]/50"></div>
+                <div className="flex flex-col">
+                  <span className="font-display text-xl sm:text-2xl font-bold text-[#201b12]">100% Cotton</span>
+                  <span className="text-xs text-[#484834]">Thân thiện môi trường</span>
                 </div>
               </div>
             </div>
