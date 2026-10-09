@@ -113,18 +113,41 @@ export const HomeView: React.FC<HomeViewProps> = ({
               {/* Highlight Micro Badges */}
               <div className="pt-4 flex items-center gap-6 sm:gap-8 flex-wrap">
                 <div className="flex flex-col">
-                  <span className="font-display text-xl sm:text-2xl font-bold text-[#201b12]">50.000+</span>
-                  <span className="text-xs text-[#484834]">Tổ ấm yêu chuộng</span>
+                  <div className="flex items-baseline gap-1">
+                    <span className="font-display text-xl sm:text-2xl font-black text-[#201b12]">50.000</span>
+                    <span className="font-display text-lg sm:text-xl font-black text-[#e5a000]">+</span>
+                  </div>
+                  <span className="text-xs text-[#5c5443] font-medium flex items-center gap-1.5 mt-0.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#f4f34d] border border-[#626200]/30 shrink-0"></span>
+                    Tổ ấm yêu chuộng
+                  </span>
                 </div>
+
                 <div className="h-8 w-px bg-[#cac7ae]/50"></div>
+
                 <div className="flex flex-col">
-                  <span className="font-display text-xl sm:text-2xl font-bold text-[#201b12]">4.9 / 5.0 ★</span>
-                  <span className="text-xs text-[#484834]">Đánh giá chính hãng</span>
+                  <div className="flex items-baseline gap-1">
+                    <span className="font-display text-xl sm:text-2xl font-black text-[#201b12]">4.9</span>
+                    <span className="text-sm font-semibold text-[#5c5443]">/ 5.0</span>
+                    <span className="text-base text-[#e5a000] ml-0.5">★</span>
+                  </div>
+                  <span className="text-xs text-[#5c5443] font-medium flex items-center gap-1.5 mt-0.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#f4f34d] border border-[#626200]/30 shrink-0"></span>
+                    Đánh giá chính hãng
+                  </span>
                 </div>
+
                 <div className="h-8 w-px bg-[#cac7ae]/50"></div>
+
                 <div className="flex flex-col">
-                  <span className="font-display text-xl sm:text-2xl font-bold text-[#201b12]">100% Cotton</span>
-                  <span className="text-xs text-[#484834]">Thân thiện môi trường</span>
+                  <div className="flex items-baseline gap-1">
+                    <span className="font-display text-xl sm:text-2xl font-black text-[#e5a000]">100%</span>
+                    <span className="font-display text-lg sm:text-xl font-bold text-[#201b12]">Cotton</span>
+                  </div>
+                  <span className="text-xs text-[#5c5443] font-medium flex items-center gap-1.5 mt-0.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#f4f34d] border border-[#626200]/30 shrink-0"></span>
+                    Thân thiện môi trường
+                  </span>
                 </div>
               </div>
             </div>
