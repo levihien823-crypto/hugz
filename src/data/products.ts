@@ -36,7 +36,7 @@ export const PRODUCTS: Product[] = [
     dimensions: '14cm x 10cm x 5cm',
     material: 'Oxford tráng PU chống thấm nước',
     variants: ['Họa tiết Koala Vàng', 'Lượn sóng Chevron', 'Xanh Biển Pastel', 'Caro Tím Nhạt'],
-    shopeeUrl: 'https://s.shopee.vn/9pbeimilNQ',
+    shopeeUrl: 'https://shopee.vn/T%C3%BAi-Mini-HUGZ-Storage-Bag-Ch%E1%BB%91ng-N%C6%B0%E1%BB%9Bc-T%C3%BAi-%C4%90%E1%BB%B1ng-%C4%90%E1%BB%93-C%C3%A1-Nh%C3%A2n-G%E1%BB%8Dn-Nh%E1%BA%B9-%C4%90a-N%C4%83ng-i.1819870467.44910117632',
     tiktokUrl: 'https://www.tiktok.com/@hugzvietnam',
     isBestSeller: true,
     isNew: true,
