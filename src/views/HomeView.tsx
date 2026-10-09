@@ -2,6 +2,7 @@ import React from 'react';
 import { Product, NavTab } from '../types';
 import { ProductCard } from '../components/ProductCard';
 import { ECOSYSTEM_PILLARS, CATEGORIES } from '../data/products';
+import { trackMarketplaceClick } from '../utils/analytics';
 import { 
   ArrowDown, 
   Sparkles, 
@@ -442,6 +443,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                             href={item.shopeeUrl || 'https://s.shopee.vn/9pbeimilNQ'}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={() => trackMarketplaceClick('Shopee', item.name, item.shopeeUrl || 'https://s.shopee.vn/9pbeimilNQ')}
                             className="py-2.5 px-4 rounded-xl bg-[#EE4D2D] hover:bg-[#d83f21] text-white font-display text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition-all text-center"
                           >
                             <span>Link Shopee</span>
@@ -451,6 +453,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                             href={item.tiktokUrl || 'https://www.tiktok.com/@hugzvietnam'}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={() => trackMarketplaceClick('TikTok', item.name, item.tiktokUrl || 'https://www.tiktok.com/@hugzvietnam')}
                             className="py-2.5 px-4 rounded-xl bg-[#111111] hover:bg-black text-white font-display text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition-all text-center"
                           >
                             <span>Link TikTok</span>
@@ -678,6 +681,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 href="https://s.shopee.vn/9pbeimilNQ"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackMarketplaceClick('Shopee', 'Shopee Mall HUGZ Official (Hub Card)', 'https://s.shopee.vn/9pbeimilNQ')}
                 className="group bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-[#cac7ae]/40 hover:-translate-y-1 flex flex-col justify-between"
               >
                 <div>
@@ -705,6 +709,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 href="https://www.tiktok.com/@hugzvietnam"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackMarketplaceClick('TikTok', 'TikTok Shop HUGZ VN (Hub Card)', 'https://www.tiktok.com/@hugzvietnam')}
                 className="group bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-[#cac7ae]/40 hover:-translate-y-1 flex flex-col justify-between"
               >
                 <div>
