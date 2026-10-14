@@ -1,0 +1,124 @@
+import { PlacedOrder } from '../types';
+
+// Webhook URL mặc định hoặc từ biến môi trường / localStorage
+const metaEnv = (import.meta as unknown as { env?: Record<string, string> }).env;
+export const DEFAULT_GOOGLE_SHEET_WEBHOOK_URL = metaEnv?.VITE_GOOGLE_SHEET_WEBHOOK_URL || '';
+
+export const getStoredWebhookUrl = (): string => {
+  if (typeof window === 'undefined') return DEFAULT_GOOGLE_SHEET_WEBHOOK_URL;
+  return localStorage.getItem('hugz_google_sheet_webhook') || DEFAULT_GOOGLE_SHEET_WEBHOOK_URL;
+};
+
+export const setStoredWebhookUrl = (url: string): void => {
+  if (typeof window === 'undefined') return;
+  localStorage.setItem('hugz_google_sheet_webhook', url.trim());
+};
+
+const formatPrice = (price: number): string => {
+  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+};
+
+const formatVietnamTime = (isoString: string): string => {
+  try {
+    const d = new Date(isoString);
+    return d.toLocaleString('vi-VN', {
+      timeZone: 'Asia/Ho_Chi_Minh',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    });
+  } catch {
+    return isoString;
+  }
+};
+
+/**
+ * Gửi dữ liệu đơn hàng về Google Sheets thông qua Google Apps Script Webhook.
+ * Sử dụng text/plain và mode: 'no-cors' để tránh lỗi CORS do chuyển hướng 302 của Google Apps Script.
+ */
+export const sendOrderToGoogleSheet = async (order: PlacedOrder): Promise<{ success: boolean; message: string }> => {
+  const webhookUrl = getStoredWebhookUrl();
+
+  if (!webhookUrl) {
+    console.warn('[OrderService] Chưa cấu hình Google Sheet Webhook URL. Đơn hàng được lưu trên trình duyệt.');
+    return {
+      success: false,
+      message: 'Chưa cấu hình Google Sheet Webhook URL',
+    };
+  }
+
+  // Tóm tắt danh sách sản phẩm thành chuỗi dễ đọc trên Excel/Google Sheet
+  const itemsText = order.items
+    .map((item, idx) => {
+      const variantInfo = item.variant ? ` (${item.variant})` : '';
+      return `${idx + 1}. ${item.product.title}${variantInfo} x ${item.quantity} [${formatPrice(item.product.price * item.quantity)}]`;
+    })
+    .join('\n');
+
+  const contactMethodLabel = 
+    order.customer.contactMethod === 'zalo' ? 'Nhắn tin qua Zalo' :
+    order.customer.contactMethod === 'sms' ? 'Gửi tin nhắn SMS' : 'Gọi điện thoại trực tiếp';
+
+  const contactTimeLabel =
+    order.customer.contactTime === 'morning' ? 'Buổi sáng (08:00 - 12:00)' :
+    order.customer.contactTime === 'afternoon' ? 'Buổi chiều (13:30 - 17:30)' :
+    order.customer.contactTime === 'evening' ? 'Buổi tối (18:00 - 21:00)' : 'Bất kỳ lúc nào';
+
+  const paymentMethodLabel =
+    order.customer.paymentMethod === 'banking' ? 'Chuyển khoản VietQR' : 'Thanh toán tiền mặt (COD)';
+
+  const payload = {
+    orderId: order.orderId,
+    createdAt: formatVietnamTime(order.createdAt),
+    fullName: order.customer.fullName,
+    phone: order.customer.phone,
+    contactMethod: contactMethodLabel,
+    contactTime: contactTimeLabel,
+    address: order.customer.address,
+    district: order.customer.district || '',
+    province: order.customer.province,
+    fullAddress: `${order.customer.address}${order.customer.district ? `, ${order.customer.district}` : ''}, ${order.customer.province}`,
+    email: order.customer.email || '',
+    paymentMethod: paymentMethodLabel,
+    itemsText: itemsText,
+    totalItems: order.items.reduce((sum, item) => sum + item.quantity, 0),
+    note: order.customer.note || 'Không có',
+    couponCode: order.couponCode || 'Không áp dụng',
+    subtotal: formatPrice(order.subtotal),
+    discount: formatPrice(order.discount),
+    shippingFee: order.shippingFee === 0 ? 'Miễn phí (Freeship)' : formatPrice(order.shippingFee),
+    grandTotal: formatPrice(order.grandTotal),
+    rawTotal: order.grandTotal,
+    status: 'Chờ liên hệ xác nhận',
+  };
+
+  try {
+    // Gửi bằng fetch với mode 'no-cors' và Content-Type: 'text/plain'
+    // Đây là chuẩn tối ưu nhất cho Google Apps Script vì Script luôn trả về redirect 302
+    await fetch(webhookUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    console.log('[OrderService] Đã gửi thông tin đơn hàng tới Google Sheet thành công:', order.orderId);
+    return {
+      success: true,
+      message: 'Đã gửi đơn hàng đến Google Sheet',
+    };
+  } catch (error) {
+    console.error('[OrderService] Lỗi khi gửi đơn hàng tới Google Sheet:', error);
+    return {
+      success: false,
+      message: 'Không thể kết nối đến Google Sheet',
+    };
+  }
+};

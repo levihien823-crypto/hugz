@@ -22,6 +22,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { trackPurchase } from '../utils/analytics';
+import { sendOrderToGoogleSheet } from '../utils/orderService';
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -191,7 +192,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     };
 
     setTimeout(() => {
-      // 1. Lưu vào localStorage để tra cứu lịch sử đơn hàng
+      // 1. Lưu vào localStorage để khách tự tra cứu lịch sử đơn hàng
       try {
         const savedOrders = JSON.parse(localStorage.getItem('hugz_customer_orders') || '[]');
         savedOrders.unshift(newOrder);
@@ -200,13 +201,18 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
         console.error('Save order error:', err);
       }
 
-      // 2. Bắn sự kiện GA4 E-commerce purchase
+      // 2. Gửi tự động về Google Sheets cho chủ shop (nếu đã kết nối Webhook)
+      sendOrderToGoogleSheet(newOrder).catch((err) => {
+        console.error('Lỗi gửi đơn đến Google Sheet:', err);
+      });
+
+      // 3. Bắn sự kiện GA4 E-commerce purchase
       trackPurchase(orderId, items, grandTotal);
 
-      // 3. Callback thông báo thành công cho App
+      // 4. Callback thông báo thành công cho App
       onOrderSuccess(newOrder);
 
-      // 4. Cập nhật state hiển thị màn hình hoàn tất
+      // 5. Cập nhật state hiển thị màn hình hoàn tất
       setIsSubmitting(false);
       setPlacedOrder(newOrder);
     }, 600);
