@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CartItem } from '../types';
 import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, Tag, Check, ExternalLink } from 'lucide-react';
-import { trackMarketplaceClick, buildTrackedUrl } from '../utils/analytics';
+import { trackMarketplaceClick, buildTrackedUrl, trackBeginCheckout, trackPurchase } from '../utils/analytics';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -28,12 +28,18 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   const [couponError, setCouponError] = useState('');
   const [isCheckingOut, setIsCheckingOut] = useState(false);
 
-  if (!isOpen) return null;
-
   const rawSubtotal = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
   const discountAmount = Math.round(rawSubtotal * (discountPercent / 100));
   const shippingFee = rawSubtotal > 300000 || items.length === 0 ? 0 : 20000;
   const grandTotal = Math.max(0, rawSubtotal - discountAmount + shippingFee);
+
+  useEffect(() => {
+    if (isOpen && items.length > 0) {
+      trackBeginCheckout(items, grandTotal);
+    }
+  }, [isOpen]);
+
+  if (!isOpen) return null;
 
   const formatPrice = (val: number) => {
     return new Intl.NumberFormat('vi-VN').format(val) + '₫';
@@ -61,6 +67,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     setIsCheckingOut(true);
     setTimeout(() => {
       setIsCheckingOut(false);
+      trackPurchase(`HUGZ_${Date.now()}`, items, grandTotal);
       onCheckoutSuccess();
       onClearCart();
       onClose();

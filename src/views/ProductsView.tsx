@@ -6,7 +6,8 @@ import {
   FilterState, 
   CATEGORY_OPTIONS, 
   PASTEL_COLORS, 
-  FEATURE_TAGS 
+  FEATURE_TAGS,
+  isProductMatchingCategory
 } from '../components/ProductFilterSidebar';
 import { Search, SlidersHorizontal, ArrowUpDown, X, RotateCcw, Check } from 'lucide-react';
 
@@ -34,14 +35,14 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
     category: selectedCategory || 'all',
     color: null,
     priceRange: 'all',
-    maxSliderPrice: 500000,
+    maxSliderPrice: 1000000,
     features: [],
   });
 
   // Keep filterState.category in sync if parent changes selectedCategory
   React.useEffect(() => {
     if (selectedCategory && selectedCategory !== 'all') {
-      const match = CATEGORY_OPTIONS.find(c => c.slugs.includes(selectedCategory));
+      const match = CATEGORY_OPTIONS.find(c => c.slugs.includes(selectedCategory) || c.id === selectedCategory);
       if (match) {
         setFilterState(prev => ({ ...prev, category: match.id }));
       } else {
@@ -57,7 +58,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
       category: 'all',
       color: null,
       priceRange: 'all',
-      maxSliderPrice: 500000,
+      maxSliderPrice: 1000000,
       features: [],
     });
     setSearchTerm('');
@@ -80,16 +81,8 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
 
         // 2. Category Filter
         if (filterState.category && filterState.category !== 'all') {
-          const catDef = CATEGORY_OPTIONS.find(c => c.id === filterState.category);
-          if (catDef) {
-            const matchesCategory = catDef.slugs.includes(p.categorySlug) || 
-              (catDef.id === 'do-luu-tru-du-lich' && (p.categorySlug === 'phan-loai-san-pham' || p.title.toLowerCase().includes('du lịch') || p.title.toLowerCase().includes('vali'))) ||
-              (catDef.id === 'do-dung-hang-ngay' && (p.categorySlug === 'do-dung-hang-ngay' || p.categorySlug === 'all')) ||
-              (catDef.id === 'tui-ca-nhan-phu-kien' && (p.categorySlug === 'do-ca-nhan' || p.title.toLowerCase().includes('mỹ phẩm') || p.title.toLowerCase().includes('mini') || p.title.toLowerCase().includes('trang sức'))) ||
-              (catDef.id === 'tui-tai-lieu-cong-so' && (p.categorySlug === 'tai-lieu' || p.title.toLowerCase().includes('tài liệu') || p.title.toLowerCase().includes('ví'))) ||
-              (catDef.id === 'vat-dung-nho-khay-chia' && (p.categorySlug === 'vat-dung-nho' || p.title.toLowerCase().includes('khay') || p.title.toLowerCase().includes('phụ kiện'))) ||
-              (catDef.id === 'luu-tru-thuc-pham-bep' && (p.categorySlug === 'thuc-pham-an-uong' || p.title.toLowerCase().includes('cơm') || p.title.toLowerCase().includes('khăn')));
-            if (!matchesCategory) return false;
+          if (!isProductMatchingCategory(p, filterState.category)) {
+            return false;
           }
         }
 
@@ -152,7 +145,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
     if (filterState.category !== 'all') count++;
     if (filterState.color) count++;
     if (filterState.priceRange !== 'all') count++;
-    if (filterState.maxSliderPrice < 500000) count++;
+    if (filterState.maxSliderPrice < 1000000) count++;
     count += filterState.features.length;
     if (searchTerm) count++;
     return count;
@@ -304,6 +297,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
               onReset={handleResetFilters}
               totalProductsCount={products.length}
               filteredCount={filteredAndSortedProducts.length}
+              products={products}
             />
           </aside>
 
@@ -374,6 +368,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
               onReset={handleResetFilters}
               totalProductsCount={products.length}
               filteredCount={filteredAndSortedProducts.length}
+              products={products}
               isMobileModal={true}
               onCloseMobileModal={() => setMobileFilterOpen(false)}
             />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { SlidersHorizontal, Check, X } from 'lucide-react';
+import { Product } from '../types';
 
 export interface FilterState {
   category: string;
@@ -17,6 +18,7 @@ interface ProductFilterSidebarProps {
   filteredCount: number;
   isMobileModal?: boolean;
   onCloseMobileModal?: () => void;
+  products?: Product[];
 }
 
 export const PASTEL_COLORS = [
@@ -28,13 +30,54 @@ export const PASTEL_COLORS = [
   { id: 'xam-da', name: 'Xám Đá', hex: '#C5BEB5', borderHex: '#ADA59B', keywords: ['xám', 'ghi', 'đen', 'đá'] },
 ];
 
+export const isProductMatchingCategory = (product: Product, categoryId: string): boolean => {
+  if (!categoryId || categoryId === 'all') return true;
+
+  if (categoryId === 'do-luu-tru-du-lich' || categoryId === 'phan-loai-san-pham') {
+    return (
+      product.categorySlug === 'phan-loai-san-pham' ||
+      product.title.toLowerCase().includes('du lịch') ||
+      product.title.toLowerCase().includes('vali') ||
+      product.title.toLowerCase().includes('dã ngoại') ||
+      product.title.toLowerCase().includes('hành lý')
+    );
+  }
+
+  if (categoryId === 'do-dung-hang-ngay') {
+    // Đồ dùng hàng ngày encompasses all everyday home, personal, office & kitchen essentials
+    return (
+      ['do-ca-nhan', 'tai-lieu', 'vat-dung-nho', 'thuc-pham-an-uong'].includes(product.categorySlug) ||
+      product.categorySlug === 'do-dung-hang-ngay' ||
+      product.title.toLowerCase().includes('hàng ngày')
+    );
+  }
+
+  if (categoryId === 'tui-ca-nhan-phu-kien' || categoryId === 'do-ca-nhan') {
+    return product.categorySlug === 'do-ca-nhan';
+  }
+
+  if (categoryId === 'tui-tai-lieu-cong-so' || categoryId === 'tai-lieu') {
+    return product.categorySlug === 'tai-lieu';
+  }
+
+  if (categoryId === 'vat-dung-nho-khay-chia' || categoryId === 'vat-dung-nho') {
+    return product.categorySlug === 'vat-dung-nho';
+  }
+
+  if (categoryId === 'luu-tru-thuc-pham-bep' || categoryId === 'thuc-pham-an-uong') {
+    return product.categorySlug === 'thuc-pham-an-uong';
+  }
+
+  return product.categorySlug === categoryId;
+};
+
 export const CATEGORY_OPTIONS = [
-  { id: 'do-luu-tru-du-lich', label: 'Đồ lưu trữ du lịch', count: 12, slugs: ['phan-loai-san-pham'] },
-  { id: 'do-dung-hang-ngay', label: 'Đồ dùng hàng ngày', count: 16, slugs: ['do-dung-hang-ngay'] },
-  { id: 'tui-ca-nhan-phu-kien', label: 'Túi cá nhân & phụ kiện', count: 8, slugs: ['do-ca-nhan'] },
-  { id: 'tui-tai-lieu-cong-so', label: 'Túi tài liệu & công sở', count: 6, slugs: ['tai-lieu'] },
-  { id: 'vat-dung-nho-khay-chia', label: 'Vật dụng nhỏ & Khay chia', count: 10, slugs: ['vat-dung-nho'] },
-  { id: 'luu-tru-thuc-pham-bep', label: 'Lưu trữ thực phẩm & Bếp', count: 7, slugs: ['thuc-pham-an-uong'] },
+  { id: 'do-luu-tru-du-lich', label: 'Đồ lưu trữ du lịch', slugs: ['phan-loai-san-pham'] },
+  { id: 'do-dung-hang-ngay', label: 'Đồ dùng hàng ngày', slugs: ['do-ca-nhan', 'tai-lieu', 'vat-dung-nho', 'thuc-pham-an-uong'] },
+  { id: 'tui-ca-nhan-phu-kien', label: 'Túi cá nhân & phụ kiện', slugs: ['do-ca-nhan'] },
+  { id: 'tui-tai-lieu-cong-so', label: 'Túi tài liệu & công sở', slugs: ['tai-lieu'] },
+  { id: 'vat-dung-nho-khay-chia', label: 'Vật dụng nhỏ & Khay chia', slugs: ['vat-dung-nho'] },
+  { id: 'luu-tru-thuc-pham-bep', label: 'Lưu trữ thực phẩm & Bếp', slugs: ['thuc-pham-an-uong'] },
 ];
 
 export const FEATURE_TAGS = [
@@ -53,13 +96,19 @@ export const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
   filteredCount,
   isMobileModal = false,
   onCloseMobileModal,
+  products = [],
 }) => {
   const hasActiveFilters = 
     filterState.category !== 'all' ||
     filterState.color !== null ||
     filterState.priceRange !== 'all' ||
-    filterState.maxSliderPrice < 500000 ||
+    filterState.maxSliderPrice < 1000000 ||
     filterState.features.length > 0;
+
+  const getCategoryCount = (catId: string) => {
+    if (!products || products.length === 0) return 0;
+    return products.filter(p => isProductMatchingCategory(p, catId)).length;
+  };
 
   const handleSelectCategory = (catId: string) => {
     onChangeFilter({
@@ -76,11 +125,20 @@ export const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
   };
 
   const handleSelectPriceRange = (range: 'all' | 'under150' | '150to300' | 'above300') => {
+    if (filterState.priceRange === range) {
+      onChangeFilter({
+        ...filterState,
+        priceRange: 'all',
+        maxSliderPrice: 1000000,
+      });
+      return;
+    }
+
     let newMax = filterState.maxSliderPrice;
     if (range === 'under150') newMax = 150000;
     else if (range === '150to300') newMax = 300000;
-    else if (range === 'above300') newMax = 500000;
-    else newMax = 500000;
+    else if (range === 'above300') newMax = 1000000;
+    else newMax = 1000000;
 
     onChangeFilter({
       ...filterState,
@@ -197,7 +255,7 @@ export const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
                     ? 'bg-[#f4f34d] text-[#201b12]' 
                     : 'bg-[#f8f5ee] text-[#797862]'
                 }`}>
-                  {cat.count}
+                  {getCategoryCount(cat.id)}
                 </span>
               </label>
             );
@@ -297,14 +355,14 @@ export const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
             <span className="text-[#626200] font-black bg-[#fdf2e3] px-1 py-0.2 rounded">
               Tối đa: {formatPrice(filterState.maxSliderPrice)}
             </span>
-            <span>500k</span>
+            <span>1Tr</span>
           </div>
 
           <input
             type="range"
             min="50000"
-            max="500000"
-            step="25000"
+            max="1000000"
+            step="50000"
             value={filterState.maxSliderPrice}
             onChange={handleSliderChange}
             className="w-full h-1 bg-[#ece7dd] rounded-lg appearance-none cursor-pointer accent-[#626200]"

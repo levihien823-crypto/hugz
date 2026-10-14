@@ -14,6 +14,7 @@ import { CollectionsView } from './views/CollectionsView';
 import { AboutView } from './views/AboutView';
 import { ChannelsView } from './views/ChannelsView';
 import { ContactView } from './views/ContactView';
+import { trackViewItem, trackAddToCart } from './utils/analytics';
 
 export default function App() {
   const [currentTab, setCurrentTab] = useState<NavTab>('trang-chu');
@@ -36,6 +37,11 @@ export default function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [hasCopiedVoucher, setHasCopiedVoucher] = useState(false);
+
+  const handleOpenDetail = (product: Product) => {
+    setSelectedProduct(product);
+    trackViewItem(product);
+  };
 
   // Persist cart
   useEffect(() => {
@@ -76,6 +82,7 @@ export default function App() {
         return [...prev, { product, quantity, variant: chosenVariant }];
       }
     });
+    trackAddToCart(product, quantity, chosenVariant);
     showToast(`Đã thêm "${product.title}" vào giỏ hàng!`);
   };
 
@@ -128,7 +135,7 @@ export default function App() {
         {currentTab === 'trang-chu' && (
           <HomeView
             products={products}
-            onOpenDetail={setSelectedProduct}
+            onOpenDetail={handleOpenDetail}
             onAddToCart={(p) => handleAddToCart(p, 1)}
             onSelectTab={setCurrentTab}
             selectedCategory={selectedCategory}
@@ -142,7 +149,7 @@ export default function App() {
             products={products}
             selectedCategory={selectedCategory}
             onSelectCategory={setSelectedCategory}
-            onOpenDetail={setSelectedProduct}
+            onOpenDetail={handleOpenDetail}
             onAddToCart={(p) => handleAddToCart(p, 1)}
           />
         )}
@@ -150,7 +157,7 @@ export default function App() {
         {currentTab === 'bo-suu-tap' && (
           <CollectionsView
             products={products}
-            onOpenDetail={setSelectedProduct}
+            onOpenDetail={handleOpenDetail}
             onAddToCart={(p) => handleAddToCart(p, 1)}
           />
         )}
@@ -178,7 +185,7 @@ export default function App() {
       <ProductDetailModal
         product={selectedProduct}
         onClose={() => setSelectedProduct(null)}
-        onSelectProduct={(p) => setSelectedProduct(p)}
+        onSelectProduct={(p) => handleOpenDetail(p)}
         onAddToCart={(p, qty, variant) => handleAddToCart(p, qty, variant)}
       />
 
@@ -199,7 +206,7 @@ export default function App() {
         onClose={() => setSearchOpen(false)}
         products={products}
         onSelectProduct={(p) => {
-          setSelectedProduct(p);
+          handleOpenDetail(p);
         }}
       />
 

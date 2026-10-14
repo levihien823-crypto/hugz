@@ -1,4 +1,6 @@
 // Google Analytics 4 & UTM tracking helpers
+import { Product, CartItem } from '../types';
+
 declare global {
   interface Window {
     gtag?: (...args: any[]) => void;
@@ -27,6 +29,9 @@ export const buildTrackedUrl = (
   }
 };
 
+/**
+ * 1. GA4 Outbound Marketplace Click (Khi khách bấm link mua trên Shopee / TikTok)
+ */
 export const trackMarketplaceClick = (
   platform: 'Shopee' | 'TikTok',
   productName: string,
@@ -45,16 +50,12 @@ export const trackMarketplaceClick = (
       transport_type: 'beacon',
     };
 
-    // 1. Nếu có window.gtag (Google tag chuẩn GA4)
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-      // Event tổng hợp sàn
       window.gtag('event', 'click_marketplace', eventPayload);
 
-      // Event riêng theo tên sàn để xem trực tiếp trong bảng Sự kiện GA4
       const specificEventName = platform === 'Shopee' ? 'click_shopee' : 'click_tiktok';
       window.gtag('event', specificEventName, eventPayload);
 
-      // Chuẩn GA4 Outbound link click (tự động gom nhóm trong báo cáo Liên kết ngoài)
       window.gtag('event', 'click', {
         event_category: 'outbound',
         event_label: `${platform} - ${productName}`,
@@ -64,7 +65,6 @@ export const trackMarketplaceClick = (
         transport_type: 'beacon',
       });
 
-      // Chuẩn GA4 Ecommerce select_item
       if (price) {
         window.gtag('event', 'select_item', {
           item_list_name: 'Marketplace Outbound',
@@ -80,7 +80,6 @@ export const trackMarketplaceClick = (
         });
       }
     } else if (typeof window !== 'undefined' && Array.isArray(window.dataLayer)) {
-      // Fallback trực tiếp vào dataLayer nếu gtag script chưa sẵn sàng
       window.dataLayer.push({
         event: 'click_marketplace',
         ...eventPayload,
@@ -95,3 +94,162 @@ export const trackMarketplaceClick = (
   }
 };
 
+/**
+ * 2. GA4 E-commerce view_item: Báo cáo "Số mặt hàng được xem"
+ */
+export const trackViewItem = (product: Product) => {
+  try {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', 'view_item', {
+        currency: 'VND',
+        value: product.price,
+        items: [
+          {
+            item_id: product.id,
+            item_name: product.title,
+            item_brand: 'HUGZ',
+            item_category: product.category,
+            price: product.price,
+            quantity: 1,
+          },
+        ],
+      });
+    } else if (typeof window !== 'undefined' && Array.isArray(window.dataLayer)) {
+      window.dataLayer.push({
+        event: 'view_item',
+        ecommerce: {
+          currency: 'VND',
+          value: product.price,
+          items: [
+            {
+              item_id: product.id,
+              item_name: product.title,
+              item_brand: 'HUGZ',
+              item_category: product.category,
+              price: product.price,
+              quantity: 1,
+            },
+          ],
+        },
+      });
+    }
+  } catch (err) {
+    console.debug('Analytics error trackViewItem:', err);
+  }
+};
+
+/**
+ * 3. GA4 E-commerce add_to_cart: Báo cáo "Số mặt hàng được thêm vào giỏ hàng"
+ */
+export const trackAddToCart = (product: Product, quantity = 1, variant?: string) => {
+  try {
+    const itemTotal = product.price * quantity;
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', 'add_to_cart', {
+        currency: 'VND',
+        value: itemTotal,
+        items: [
+          {
+            item_id: product.id,
+            item_name: product.title,
+            item_brand: 'HUGZ',
+            item_category: product.category,
+            item_variant: variant,
+            price: product.price,
+            quantity: quantity,
+          },
+        ],
+      });
+    } else if (typeof window !== 'undefined' && Array.isArray(window.dataLayer)) {
+      window.dataLayer.push({
+        event: 'add_to_cart',
+        ecommerce: {
+          currency: 'VND',
+          value: itemTotal,
+          items: [
+            {
+              item_id: product.id,
+              item_name: product.title,
+              item_brand: 'HUGZ',
+              item_category: product.category,
+              item_variant: variant,
+              price: product.price,
+              quantity: quantity,
+            },
+          ],
+        },
+      });
+    }
+  } catch (err) {
+    console.debug('Analytics error trackAddToCart:', err);
+  }
+};
+
+/**
+ * 4. GA4 E-commerce begin_checkout: Báo cáo "Bắt đầu thanh toán"
+ */
+export const trackBeginCheckout = (items: CartItem[], totalAmount: number) => {
+  try {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', 'begin_checkout', {
+        currency: 'VND',
+        value: totalAmount,
+        items: items.map((i) => ({
+          item_id: i.product.id,
+          item_name: i.product.title,
+          item_brand: 'HUGZ',
+          item_category: i.product.category,
+          item_variant: i.variant,
+          price: i.product.price,
+          quantity: i.quantity,
+        })),
+      });
+    }
+  } catch (err) {
+    console.debug('Analytics error trackBeginCheckout:', err);
+  }
+};
+
+/**
+ * 5. GA4 E-commerce purchase: Báo cáo "Mặt hàng đã mua" & "Doanh thu theo mặt hàng"
+ */
+export const trackPurchase = (orderId: string, items: CartItem[], totalAmount: number) => {
+  try {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', 'purchase', {
+        transaction_id: orderId,
+        currency: 'VND',
+        value: totalAmount,
+        items: items.map((i) => ({
+          item_id: i.product.id,
+          item_name: i.product.title,
+          item_brand: 'HUGZ',
+          item_category: i.product.category,
+          item_variant: i.variant,
+          price: i.product.price,
+          quantity: i.quantity,
+        })),
+      });
+    } else if (typeof window !== 'undefined' && Array.isArray(window.dataLayer)) {
+      window.dataLayer.push({
+        event: 'purchase',
+        ecommerce: {
+          transaction_id: orderId,
+          currency: 'VND',
+          value: totalAmount,
+          items: items.map((i) => ({
+            item_id: i.product.id,
+            item_name: i.product.title,
+            item_brand: 'HUGZ',
+            item_category: i.product.category,
+            item_variant: i.variant,
+            price: i.product.price,
+            quantity: i.quantity,
+          })),
+        },
+      });
+    }
+  } catch (err) {
+    console.debug('Analytics error trackPurchase:', err);
+  }
+};
