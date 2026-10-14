@@ -10,7 +10,13 @@ interface CartDrawerProps {
   onUpdateQuantity: (productId: string, variant: string, quantity: number) => void;
   onRemoveItem: (productId: string, variant: string) => void;
   onClearCart: () => void;
-  onCheckoutSuccess: () => void;
+  onProceedToCheckout: (checkoutData: {
+    subtotal: number;
+    discountAmount: number;
+    couponCode: string;
+    shippingFee: number;
+    grandTotal: number;
+  }) => void;
 }
 
 export const CartDrawer: React.FC<CartDrawerProps> = ({
@@ -20,13 +26,12 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   onUpdateQuantity,
   onRemoveItem,
   onClearCart,
-  onCheckoutSuccess,
+  onProceedToCheckout,
 }) => {
   const [couponCode, setCouponCode] = useState('HUGZSHOPEE20');
   const [discountPercent, setDiscountPercent] = useState(0);
   const [couponApplied, setCouponApplied] = useState(false);
   const [couponError, setCouponError] = useState('');
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   const rawSubtotal = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
   const discountAmount = Math.round(rawSubtotal * (discountPercent / 100));
@@ -61,17 +66,6 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
       setDiscountPercent(0);
       setCouponApplied(false);
     }
-  };
-
-  const handleSimulateCheckout = () => {
-    setIsCheckingOut(true);
-    setTimeout(() => {
-      setIsCheckingOut(false);
-      trackPurchase(`HUGZ_${Date.now()}`, items, grandTotal);
-      onCheckoutSuccess();
-      onClearCart();
-      onClose();
-    }, 1200);
   };
 
   return (
@@ -249,19 +243,27 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
               {/* Checkout Action Buttons */}
               <div className="space-y-2 pt-2">
+                <div className="p-2.5 rounded-xl bg-[#fdf2e3] border border-[#cac7ae]/40 text-[11px] text-[#201b12] flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping shrink-0" />
+                  <span>
+                    <strong>Mua trực tiếp:</strong> Điền thông tin nhận hàng, HUGZ sẽ gửi xác nhận đơn qua Zalo/SMS trước khi giao hàng!
+                  </span>
+                </div>
+
                 <button
-                  onClick={handleSimulateCheckout}
-                  disabled={isCheckingOut}
-                  className="w-full py-3.5 rounded-xl bg-[#f4f34d] hover:bg-[#eae944] text-[#201b12] font-display text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
+                  onClick={() => {
+                    onProceedToCheckout({
+                      subtotal: rawSubtotal,
+                      discountAmount,
+                      couponCode: couponApplied ? couponCode : '',
+                      shippingFee,
+                      grandTotal,
+                    });
+                  }}
+                  className="w-full py-3.5 rounded-xl bg-[#f4f34d] hover:bg-[#eae944] text-[#201b12] font-display text-sm font-extrabold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  {isCheckingOut ? (
-                    <span>Đang khởi tạo đơn hàng...</span>
-                  ) : (
-                    <>
-                      <span>Đặt hàng trực tiếp ({formatPrice(grandTotal)})</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </>
-                  )}
+                  <span>Đặt Hàng & Điền Thông Tin ({formatPrice(grandTotal)})</span>
+                  <ArrowRight className="w-4 h-4" />
                 </button>
 
                 {/* 2 Đường dẫn Shopee & TikTok */}

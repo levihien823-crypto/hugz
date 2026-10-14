@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { NavTab, Product, CartItem } from './types';
+import { NavTab, Product, CartItem, PlacedOrder } from './types';
 import { PRODUCTS } from './data/products';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { ProductDetailModal } from './components/ProductDetailModal';
 import { CartDrawer } from './components/CartDrawer';
+import { CheckoutModal } from './components/CheckoutModal';
+import { OrderTrackingModal } from './components/OrderTrackingModal';
 import { SearchModal } from './components/SearchModal';
 import { Toast } from './components/Toast';
 import { FloatingSocialWidget } from './components/FloatingSocialWidget';
@@ -35,12 +37,84 @@ export default function App() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [orderTrackingOpen, setOrderTrackingOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [hasCopiedVoucher, setHasCopiedVoucher] = useState(false);
+
+  const [checkoutData, setCheckoutData] = useState<{
+    subtotal: number;
+    discountAmount: number;
+    couponCode: string;
+    shippingFee: number;
+    grandTotal: number;
+    checkoutItems?: CartItem[];
+  }>({
+    subtotal: 0,
+    discountAmount: 0,
+    couponCode: '',
+    shippingFee: 0,
+    grandTotal: 0,
+  });
 
   const handleOpenDetail = (product: Product) => {
     setSelectedProduct(product);
     trackViewItem(product);
+  };
+
+  const handleProceedToCheckoutFromCart = (data: {
+    subtotal: number;
+    discountAmount: number;
+    couponCode: string;
+    shippingFee: number;
+    grandTotal: number;
+  }) => {
+    setCheckoutData({
+      ...data,
+      checkoutItems: cartItems,
+    });
+    setCartOpen(false);
+    setCheckoutOpen(true);
+  };
+
+  const handleBuyNowDirect = (product: Product, quantity = 1, variant?: string) => {
+    const chosenVariant = variant || (product.variants && product.variants.length > 0 ? product.variants[0] : 'Mặc định');
+    const directItem: CartItem = { product, quantity, variant: chosenVariant };
+    
+    // Add to cart if not present
+    setCartItems((prev) => {
+      const existingIdx = prev.findIndex(
+        (item) => item.product.id === product.id && item.variant === chosenVariant
+      );
+      if (existingIdx > -1) {
+        const updated = [...prev];
+        updated[existingIdx].quantity += quantity;
+        return updated;
+      }
+      return [...prev, directItem];
+    });
+
+    const subtotal = product.price * quantity;
+    const shippingFee = subtotal > 300000 ? 0 : 20000;
+    const grandTotal = subtotal + shippingFee;
+
+    setCheckoutData({
+      subtotal,
+      discountAmount: 0,
+      couponCode: '',
+      shippingFee,
+      grandTotal,
+      checkoutItems: [directItem],
+    });
+
+    setSelectedProduct(null);
+    setCartOpen(false);
+    setCheckoutOpen(true);
+  };
+
+  const handleOrderSuccess = (order: PlacedOrder) => {
+    setCartItems([]);
+    showToast(`Đã tiếp nhận đơn hàng #${order.orderId}! HUGZ sẽ gửi xác nhận qua Zalo/SMS cho bạn sớm.`);
   };
 
   // Persist cart
@@ -128,6 +202,7 @@ export default function App() {
         onOpenSearch={() => setSearchOpen(true)}
         onCopyVoucher={handleCopyVoucher}
         hasCopiedVoucher={hasCopiedVoucher}
+        onOpenOrderTracking={() => setOrderTrackingOpen(true)}
       />
 
       {/* Main Content Body */}
@@ -137,6 +212,7 @@ export default function App() {
             products={products}
             onOpenDetail={handleOpenDetail}
             onAddToCart={(p) => handleAddToCart(p, 1)}
+            onBuyNowDirect={handleBuyNowDirect}
             onSelectTab={setCurrentTab}
             selectedCategory={selectedCategory}
             onSelectCategory={setSelectedCategory}
@@ -151,6 +227,7 @@ export default function App() {
             onSelectCategory={setSelectedCategory}
             onOpenDetail={handleOpenDetail}
             onAddToCart={(p) => handleAddToCart(p, 1)}
+            onBuyNowDirect={handleBuyNowDirect}
           />
         )}
 
@@ -179,7 +256,11 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <Footer onSelectTab={setCurrentTab} onShowToast={showToast} />
+      <Footer 
+        onSelectTab={setCurrentTab} 
+        onShowToast={showToast} 
+        onOpenOrderTracking={() => setOrderTrackingOpen(true)}
+      />
 
       {/* Product Detail Modal */}
       <ProductDetailModal
@@ -187,6 +268,7 @@ export default function App() {
         onClose={() => setSelectedProduct(null)}
         onSelectProduct={(p) => handleOpenDetail(p)}
         onAddToCart={(p, qty, variant) => handleAddToCart(p, qty, variant)}
+        onBuyNowDirect={handleBuyNowDirect}
       />
 
       {/* Slide-out Cart Drawer */}
@@ -197,7 +279,31 @@ export default function App() {
         onUpdateQuantity={handleUpdateCartQuantity}
         onRemoveItem={handleRemoveFromCart}
         onClearCart={handleClearCart}
-        onCheckoutSuccess={handleCheckoutSuccess}
+        onProceedToCheckout={handleProceedToCheckoutFromCart}
+      />
+
+      {/* Direct Website Checkout Modal */}
+      <CheckoutModal
+        isOpen={checkoutOpen}
+        onClose={() => setCheckoutOpen(false)}
+        items={checkoutData.checkoutItems && checkoutData.checkoutItems.length > 0 ? checkoutData.checkoutItems : cartItems}
+        subtotal={checkoutData.subtotal}
+        discountAmount={checkoutData.discountAmount}
+        couponCode={checkoutData.couponCode}
+        shippingFee={checkoutData.shippingFee}
+        grandTotal={checkoutData.grandTotal}
+        onOrderSuccess={handleOrderSuccess}
+        onViewOrdersHistory={() => {
+          setCheckoutOpen(false);
+          setOrderTrackingOpen(true);
+        }}
+      />
+
+      {/* Order Tracking / History Modal */}
+      <OrderTrackingModal
+        isOpen={orderTrackingOpen}
+        onClose={() => setOrderTrackingOpen(false)}
+        onContinueShopping={() => setCurrentTab('san-pham')}
       />
 
       {/* Instant Search Modal */}

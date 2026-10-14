@@ -17,6 +17,7 @@ interface ProductsViewProps {
   onSelectCategory: (cat: string) => void;
   onOpenDetail: (product: Product) => void;
   onAddToCart: (product: Product) => void;
+  onBuyNowDirect?: (product: Product) => void;
 }
 
 export const ProductsView: React.FC<ProductsViewProps> = ({
@@ -25,6 +26,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
   onSelectCategory,
   onOpenDetail,
   onAddToCart,
+  onBuyNowDirect,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'featured' | 'price-asc' | 'price-desc' | 'rating'>('featured');
@@ -342,6 +344,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
                     product={product}
                     onOpenDetail={onOpenDetail}
                     onAddToCart={onAddToCart}
+                    onBuyNowDirect={onBuyNowDirect}
                   />
                 ))}
               </div>

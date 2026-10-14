@@ -30,6 +30,7 @@ interface HomeViewProps {
   products: Product[];
   onOpenDetail: (product: Product) => void;
   onAddToCart: (product: Product) => void;
+  onBuyNowDirect?: (product: Product) => void;
   onSelectTab: (tab: NavTab) => void;
   selectedCategory: string;
   onSelectCategory: (cat: string) => void;
@@ -40,6 +41,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   products,
   onOpenDetail,
   onAddToCart,
+  onBuyNowDirect,
   onSelectTab,
   selectedCategory,
   onSelectCategory,
@@ -367,6 +369,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 product={product}
                 onOpenDetail={onOpenDetail}
                 onAddToCart={onAddToCart}
+                onBuyNowDirect={onBuyNowDirect}
               />
             ))}
           </div>
@@ -493,6 +496,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 product={product}
                 onOpenDetail={onOpenDetail}
                 onAddToCart={onAddToCart}
+                onBuyNowDirect={onBuyNowDirect}
               />
             ))}
           </div>

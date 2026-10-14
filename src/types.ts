@@ -96,3 +96,28 @@ export interface CategoryInfo {
   highlightText?: string;
   image?: string;
 }
+
+export interface CustomerOrderInfo {
+  fullName: string;
+  phone: string;
+  email?: string;
+  province: string;
+  district?: string;
+  address: string;
+  note?: string;
+  paymentMethod: 'cod' | 'banking';
+}
+
+export interface PlacedOrder {
+  orderId: string;
+  createdAt: string;
+  customer: CustomerOrderInfo;
+  items: CartItem[];
+  subtotal: number;
+  discount: number;
+  couponCode?: string;
+  shippingFee: number;
+  grandTotal: number;
+  status: 'pending_confirmation' | 'confirmed' | 'shipping' | 'completed';
+}
+

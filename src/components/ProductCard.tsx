@@ -1,18 +1,20 @@
 import React from 'react';
 import { Product } from '../types';
-import { Star, ShoppingBag, Eye, ExternalLink } from 'lucide-react';
+import { Star, ShoppingBag, Eye, ExternalLink, PhoneCall } from 'lucide-react';
 import { trackMarketplaceClick, buildTrackedUrl } from '../utils/analytics';
 
 interface ProductCardProps {
   product: Product;
   onOpenDetail: (product: Product) => void;
   onAddToCart: (product: Product, e?: React.MouseEvent) => void;
+  onBuyNowDirect?: (product: Product) => void;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
   onOpenDetail,
   onAddToCart,
+  onBuyNowDirect,
 }) => {
   const formatPrice = (val: number) => {
     return new Intl.NumberFormat('vi-VN').format(val) + '₫';
@@ -118,19 +120,32 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       {/* Buttons */}
       <div className="pt-3 border-t border-[#f8ecdd] space-y-2">
         <div className="grid grid-cols-2 gap-2">
+          {onBuyNowDirect ? (
+            <button
+              onClick={() => onBuyNowDirect(product)}
+              className="py-2.5 px-2 rounded-xl bg-[#f4f34d] hover:bg-[#eae944] text-[#201b12] text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
+              title="Đặt mua trực tiếp trên website"
+            >
+              <ShoppingBag className="w-3.5 h-3.5 text-[#201b12]" />
+              <span>Mua ngay</span>
+            </button>
+          ) : (
+            <button
+              onClick={() => onAddToCart(product)}
+              className="py-2.5 px-2.5 rounded-xl bg-[#f4f34d] hover:bg-[#eae944] text-[#201b12] text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
+            >
+              <ShoppingBag className="w-3.5 h-3.5" />
+              <span>Thêm giỏ</span>
+            </button>
+          )}
+
           <button
             onClick={() => onAddToCart(product)}
-            className="py-2.5 px-2.5 rounded-xl bg-[#f4f34d] hover:bg-[#eae944] text-[#201b12] text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
+            className="py-2.5 px-2 rounded-xl bg-[#fdf2e3] hover:bg-[#f1ddba] text-[#201b12] text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 border border-[#cac7ae]/40 cursor-pointer"
+            title="Thêm vào giỏ hàng"
           >
-            <ShoppingBag className="w-3.5 h-3.5" />
+            <ShoppingBag className="w-3.5 h-3.5 text-[#626200]" />
             <span>Thêm giỏ</span>
-          </button>
-          <button
-            onClick={() => onOpenDetail(product)}
-            className="py-2.5 px-2.5 rounded-xl bg-[#fdf2e3] hover:bg-[#f1ddba] text-[#201b12] text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 border border-[#cac7ae]/40 cursor-pointer"
-          >
-            <Eye className="w-3.5 h-3.5" />
-            <span>Chi tiết</span>
           </button>
         </div>
 

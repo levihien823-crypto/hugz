@@ -6,9 +6,10 @@ import { trackMarketplaceClick, buildTrackedUrl } from '../utils/analytics';
 interface FooterProps {
   onSelectTab: (tab: NavTab) => void;
   onShowToast: (msg: string) => void;
+  onOpenOrderTracking?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onSelectTab, onShowToast }) => {
+export const Footer: React.FC<FooterProps> = ({ onSelectTab, onShowToast, onOpenOrderTracking }) => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -135,6 +136,17 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab, onShowToast }) => {
                   Hướng dẫn áp dụng mã giảm giá 20%
                 </button>
               </li>
+              {onOpenOrderTracking && (
+                <li>
+                  <button
+                    onClick={onOpenOrderTracking}
+                    className="hover:text-[#201b12] text-[#626200] font-bold transition-colors cursor-pointer text-left flex items-center gap-1.5"
+                  >
+                    <span>Tra cứu đơn hàng trực tiếp</span>
+                    <span className="text-[9px] bg-[#f4f34d] px-1.5 py-0.2 rounded font-bold text-[#201b12]">Mới</span>
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
 

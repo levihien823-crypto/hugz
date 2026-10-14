@@ -3,7 +3,8 @@ import { Product } from '../types';
 import { 
   X, Star, ShieldCheck, Truck, RotateCcw, Box, ExternalLink, 
   Heart, Share2, ZoomIn, Check, Sparkles, Wind, 
-  MessageCircle, ArrowRight, ChevronRight, Layers, Award
+  MessageCircle, ArrowRight, ChevronRight, Layers, Award,
+  ShoppingBag, Plus, Minus, PhoneCall
 } from 'lucide-react';
 import { trackMarketplaceClick, buildTrackedUrl } from '../utils/analytics';
 import { PRODUCTS } from '../data/products';
@@ -13,12 +14,15 @@ interface ProductDetailModalProps {
   onClose: () => void;
   onSelectProduct?: (product: Product) => void;
   onAddToCart?: (product: Product, quantity: number, variant: string) => void;
+  onBuyNowDirect?: (product: Product, quantity: number, variant: string) => void;
 }
 
 export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   product,
   onClose,
   onSelectProduct,
+  onAddToCart,
+  onBuyNowDirect,
 }) => {
   if (!product) return null;
 
@@ -27,6 +31,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   const [isZoomOpen, setIsZoomOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [toastText, setToastText] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState(1);
 
   // Selected Variant (from product.variants)
   const availableVariants = product.variants && product.variants.length > 0
@@ -362,12 +367,86 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 </div>
               )}
 
-              {/* DIRECT OUTBOUND CTAS (HOÀN TOÀN LOẠI BỎ GIỎ HÀNG TRUYỀN THỐNG) */}
+              {/* DIRECT WEBSITE ORDER SECTION */}
+              <div className="p-4 rounded-2xl bg-white border-2 border-[#f4f34d] shadow-sm space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-[#201b12] uppercase tracking-wider flex items-center gap-1.5">
+                    <ShoppingBag className="w-4 h-4 text-[#626200]" />
+                    <span>Đặt mua trực tiếp trên Website</span>
+                  </span>
+                  <span className="text-[10px] font-extrabold text-[#0068FF] bg-[#eef7ff] px-2 py-0.5 rounded-full">
+                    Xác nhận qua Zalo / SMS
+                  </span>
+                </div>
+
+                {/* Quantity selector */}
+                <div className="flex items-center justify-between gap-3 pt-1">
+                  <span className="text-xs text-[#484834] font-medium">Số lượng mua:</span>
+                  <div className="flex items-center border border-[#cac7ae]/60 rounded-xl bg-[#faf6ef] p-0.5">
+                    <button
+                      type="button"
+                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                      className="w-7 h-7 rounded-lg flex items-center justify-center text-[#201b12] hover:bg-white transition-colors cursor-pointer"
+                    >
+                      <Minus className="w-3.5 h-3.5" />
+                    </button>
+                    <span className="w-10 text-center text-xs font-bold text-[#201b12]">
+                      {quantity}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setQuantity(quantity + 1)}
+                      className="w-7 h-7 rounded-lg flex items-center justify-center text-[#201b12] hover:bg-white transition-colors cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Direct Action Buttons */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (onAddToCart) {
+                        onAddToCart(product, quantity, selectedVariant);
+                        setToastText(`Đã thêm ${quantity} sản phẩm vào giỏ hàng!`);
+                        setTimeout(() => setToastText(null), 3000);
+                      }
+                    }}
+                    className="py-3 px-3 rounded-xl bg-white hover:bg-[#f8ecdd] border border-[#cac7ae] text-[#201b12] text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-2xs"
+                  >
+                    <ShoppingBag className="w-4 h-4 text-[#626200]" />
+                    <span>Thêm vào giỏ</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (onBuyNowDirect) {
+                        onBuyNowDirect(product, quantity, selectedVariant);
+                      } else if (onAddToCart) {
+                        onAddToCart(product, quantity, selectedVariant);
+                      }
+                    }}
+                    className="py-3 px-3 rounded-xl bg-[#f4f34d] hover:bg-[#eae944] text-[#201b12] text-xs font-extrabold flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer"
+                  >
+                    <ShoppingBag className="w-4 h-4 text-[#201b12]" />
+                    <span>Mua ngay</span>
+                  </button>
+                </div>
+
+                <p className="text-[10px] text-[#797862] text-center italic">
+                  * Thông tin đơn hàng và mã vận đơn sẽ được gửi xác nhận qua Zalo / Tin nhắn SMS.
+                </p>
+              </div>
+
+              {/* OUTBOUND MARKETPLACE CTAS */}
               <div className="space-y-3 pt-1">
                 <div className="flex items-center gap-2">
                   <div className="h-px flex-1 bg-[#cac7ae]/40"></div>
                   <span className="text-[11px] font-bold text-[#797862] uppercase tracking-wider">
-                    Đặt mua trực tiếp tại sàn chính hãng
+                    Hoặc đặt qua sàn thương mại điện tử
                   </span>
                   <div className="h-px flex-1 bg-[#cac7ae]/40"></div>
                 </div>

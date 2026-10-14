@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavTab } from '../types';
-import { Search, ShoppingBag, Menu, X, Copy, Check, Sparkles, ArrowRight } from 'lucide-react';
+import { Search, ShoppingBag, Menu, X, Copy, Check, Sparkles, ArrowRight, Package } from 'lucide-react';
 
 interface HeaderProps {
   currentTab: NavTab;
@@ -10,6 +10,7 @@ interface HeaderProps {
   onOpenSearch: () => void;
   onCopyVoucher: (code: string) => void;
   hasCopiedVoucher: boolean;
+  onOpenOrderTracking?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -19,7 +20,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenCart,
   onOpenSearch,
   onCopyVoucher,
-  hasCopiedVoucher
+  hasCopiedVoucher,
+  onOpenOrderTracking
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -173,6 +175,20 @@ export const Header: React.FC<HeaderProps> = ({
               )}
             </button>
 
+            {/* Order Tracking Button */}
+            {onOpenOrderTracking && (
+              <button
+                id="order-tracking-trigger-btn"
+                onClick={onOpenOrderTracking}
+                aria-label="Tra cứu đơn hàng"
+                className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-[#484834] hover:bg-[#f8ecdd] hover:text-[#201b12] border border-[#cac7ae]/40 transition-colors cursor-pointer"
+                title="Tra cứu đơn hàng đã đặt"
+              >
+                <Package className="w-4 h-4 text-[#626200]" />
+                <span>Tra cứu đơn</span>
+              </button>
+            )}
+
             {/* Quick Channel Link */}
             <button
               id="header-channels-cta-btn"
@@ -215,6 +231,21 @@ export const Header: React.FC<HeaderProps> = ({
               );
             })}
             <div className="pt-3 border-t border-[#cac7ae]/30 flex flex-col gap-2">
+              {onOpenOrderTracking && (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenOrderTracking();
+                  }}
+                  className="w-full py-2.5 px-4 text-left rounded-lg bg-white border border-[#cac7ae]/50 text-[#201b12] font-semibold text-xs flex items-center justify-between cursor-pointer"
+                >
+                  <div className="flex items-center gap-2">
+                    <Package className="w-4 h-4 text-[#626200]" />
+                    <span>Lịch sử & Tra cứu đơn hàng</span>
+                  </div>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#797862]" />
+                </button>
+              )}
               <button
                 onClick={() => handleNavClick('kenh-mua-hang')}
                 className="w-full py-2.5 text-center rounded-lg bg-[#f4f34d] text-[#201b12] font-semibold text-sm cursor-pointer"
