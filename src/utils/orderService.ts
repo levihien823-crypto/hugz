@@ -2,7 +2,9 @@ import { PlacedOrder } from '../types';
 
 // Webhook URL mặc định hoặc từ biến môi trường / localStorage
 const metaEnv = (import.meta as unknown as { env?: Record<string, string> }).env;
-export const DEFAULT_GOOGLE_SHEET_WEBHOOK_URL = metaEnv?.VITE_GOOGLE_SHEET_WEBHOOK_URL || '';
+export const DEFAULT_GOOGLE_SHEET_WEBHOOK_URL = 
+  metaEnv?.VITE_GOOGLE_SHEET_WEBHOOK_URL || 
+  'https://script.google.com/macros/s/AKfycbwsm6wqesfl_n0QaZEAh8Xzmmeve4Ja7xZxbGO-F91U4rtd-OChhLPOvbkZiaYbrnXJ/exec';
 
 export const getStoredWebhookUrl = (): string => {
   if (typeof window === 'undefined') return DEFAULT_GOOGLE_SHEET_WEBHOOK_URL;
