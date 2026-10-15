@@ -120,6 +120,8 @@ export interface PlacedOrder {
   couponCode?: string;
   shippingFee: number;
   grandTotal: number;
-  status: 'pending_confirmation' | 'confirmed' | 'shipping' | 'completed';
+  status: 'pending_confirmation' | 'confirmed' | 'shipping' | 'completed' | 'cancelled';
+  cancelReason?: string;
+  cancelledAt?: string;
 }
 

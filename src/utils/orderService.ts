@@ -124,3 +124,104 @@ export const sendOrderToGoogleSheet = async (order: PlacedOrder): Promise<{ succ
     };
   }
 };
+
+/**
+ * Cập nhật trạng thái hủy đơn trong localStorage
+ */
+export const cancelOrderInLocalStorage = (
+  orderId: string, 
+  reason: string
+): { success: boolean; order?: PlacedOrder; message: string } => {
+  if (typeof window === 'undefined') {
+    return { success: false, message: 'Window không xác định' };
+  }
+
+  try {
+    const raw = localStorage.getItem('hugz_customer_orders');
+    const orders: PlacedOrder[] = raw ? JSON.parse(raw) : [];
+    const index = orders.findIndex((o) => o.orderId.toUpperCase() === orderId.toUpperCase());
+
+    if (index === -1) {
+      return { success: false, message: 'Không tìm thấy đơn hàng' };
+    }
+
+    const currentOrder = orders[index];
+    if (currentOrder.status === 'shipping' || currentOrder.status === 'completed') {
+      return { 
+        success: false, 
+        message: 'Đơn hàng đang giao hoặc đã hoàn tất, không thể tự hủy trên web. Vui lòng liên hệ Hotline/Zalo.' 
+      };
+    }
+
+    const updatedOrder: PlacedOrder = {
+      ...currentOrder,
+      status: 'cancelled',
+      cancelReason: reason,
+      cancelledAt: new Date().toISOString(),
+    };
+
+    orders[index] = updatedOrder;
+    localStorage.setItem('hugz_customer_orders', JSON.stringify(orders));
+
+    // Bắn event để các component lắng nghe cập nhật nếu cần
+    window.dispatchEvent(new CustomEvent('hugz_orders_updated', { detail: updatedOrder }));
+
+    return {
+      success: true,
+      order: updatedOrder,
+      message: 'Đã hủy đơn hàng thành công',
+    };
+  } catch (err) {
+    console.error('[OrderService] Lỗi khi hủy đơn trong localStorage:', err);
+    return { success: false, message: 'Có lỗi xảy ra khi lưu trạng thái hủy' };
+  }
+};
+
+/**
+ * Gửi thông báo hủy đơn hàng về Google Sheets
+ */
+export const sendCancellationToGoogleSheet = async (
+  order: PlacedOrder,
+  reason: string
+): Promise<{ success: boolean; message: string }> => {
+  const webhookUrl = getStoredWebhookUrl();
+  if (!webhookUrl) {
+    return { success: false, message: 'Chưa cấu hình Google Sheet Webhook URL' };
+  }
+
+  const payload = {
+    action: 'CANCEL_ORDER',
+    isCancel: true,
+    orderId: order.orderId,
+    createdAt: formatVietnamTime(order.createdAt),
+    cancelledAt: formatVietnamTime(new Date().toISOString()),
+    fullName: order.customer.fullName,
+    phone: order.customer.phone,
+    address: order.customer.address,
+    province: order.customer.province,
+    fullAddress: `${order.customer.address}${order.customer.district ? `, ${order.customer.district}` : ''}, ${order.customer.province}`,
+    cancelReason: reason,
+    note: `[ĐÃ HỦY ĐƠN]: Khách yêu cầu hủy đơn vào ${formatVietnamTime(new Date().toISOString())}. Lý do: ${reason}`,
+    status: `ĐÃ HỦY ĐƠN: ${reason}`,
+    grandTotal: formatPrice(order.grandTotal),
+    rawTotal: order.grandTotal,
+  };
+
+  try {
+    await fetch(webhookUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    console.log('[OrderService] Đã gửi thông báo hủy đơn tới Google Sheet:', order.orderId);
+    return { success: true, message: 'Đã đồng bộ trạng thái hủy đơn lên Google Sheet' };
+  } catch (error) {
+    console.error('[OrderService] Lỗi gửi thông báo hủy đơn:', error);
+    return { success: false, message: 'Không thể kết nối đến Google Sheet' };
+  }
+};
