@@ -4,7 +4,6 @@ import {
   X, 
   Package, 
   Search, 
-  Phone, 
   Clock, 
   CheckCircle2, 
   Truck, 
@@ -486,13 +485,6 @@ export const OrderTrackingModal: React.FC<OrderTrackingModalProps> = ({
                       >
                         <MessageCircle className="w-3.5 h-3.5" />
                         <span>Chat Facebook</span>
-                      </a>
-                      <a
-                        href="tel:0987654321"
-                        className="px-3 py-1.5 rounded-lg bg-[#201b12]/5 hover:bg-[#201b12] text-[#201b12] hover:text-white text-[11px] font-bold transition-all flex items-center gap-1 cursor-pointer"
-                      >
-                        <Phone className="w-3.5 h-3.5" />
-                        <span>Hotline</span>
                       </a>
                     </div>
                   </div>
