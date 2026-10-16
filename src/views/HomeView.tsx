@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { Product, NavTab } from '../types';
 import { ProductCard } from '../components/ProductCard';
 import { ECOSYSTEM_PILLARS, CATEGORIES } from '../data/products';
@@ -67,51 +68,85 @@ export const HomeView: React.FC<HomeViewProps> = ({
       
       {/* Hero Section Lifestyle */}
       <section className="w-full relative overflow-hidden py-8 sm:py-12 lg:py-14 bg-gradient-to-b from-[#fff8f2] via-[#fff8f2] to-[#fdf2e3]/40">
-        <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#f4f34d]/20 blur-3xl pointer-events-none"></div>
-        <div className="absolute top-1/2 -right-20 w-80 h-80 rounded-full bg-[#f1ddba]/30 blur-3xl pointer-events-none"></div>
+        <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#f4f34d]/20 blur-3xl pointer-events-none animate-pulse-glow"></div>
+        <div className="absolute top-1/2 -right-20 w-80 h-80 rounded-full bg-[#f1ddba]/30 blur-3xl pointer-events-none animate-pulse-glow"></div>
         
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             {/* Left Hero Copy */}
-            <div className="lg:col-span-6 flex flex-col gap-5 z-10">
-              <div className="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full bg-[#fdf2e3] border border-[#cac7ae]/60 shadow-2xs">
+            <motion.div 
+              initial={{ opacity: 0, x: -28 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:col-span-6 flex flex-col gap-5 z-10"
+            >
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full bg-[#fdf2e3] border border-[#cac7ae]/60 shadow-2xs"
+              >
                 <span className="w-2 h-2 rounded-full bg-[#f4f34d] border border-[#626200]/40 shrink-0"></span>
                 <span className="text-[11px] uppercase tracking-wider font-extrabold text-[#201b12]">
                   PHONG CÁCH SỐNG GIA ĐÌNH HIỆN ĐẠI
                 </span>
-              </div>
+              </motion.div>
 
               <div className="space-y-2">
-                <h1 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-black text-[#201b12] leading-[1.22] tracking-tight uppercase">
+                <motion.h1 
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.65, delay: 0.2 }}
+                  className="font-display text-2xl sm:text-3xl lg:text-[34px] font-black text-[#201b12] leading-[1.22] tracking-tight uppercase"
+                >
                   HỆ SINH THÁI SẢN PHẨM TOÀN DIỆN
-                </h1>
-                <p className="font-display text-sm sm:text-base lg:text-lg font-bold text-[#626200] leading-snug">
-                  Giải pháp sắp xếp & lưu trữ thông minh cho tổ ấm hiện đại
-                </p>
+                </motion.h1>
+                <motion.p 
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="font-display text-sm sm:text-base lg:text-lg font-bold text-[#626200] leading-snug"
+                >
+                  Giải pháp sắp xếp &amp; lưu trữ thông minh cho tổ ấm hiện đại
+                </motion.p>
               </div>
 
-              <p className="text-xs sm:text-sm text-[#5c5443] max-w-xl leading-relaxed">
+              <motion.p 
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-xs sm:text-sm text-[#5c5443] max-w-xl leading-relaxed"
+              >
                 Biến việc sắp xếp và bảo quản đồ đạc thành một phần của phong cách sống thẩm mỹ mỗi ngày. HUGZ kiến tạo 5 nhóm giải pháp lưu trữ toàn diện, giải quyết triệt để từng nhu cầu thiết thực: từ gian bếp gia đình, góc làm đẹp, bàn làm việc cho tới hành lý trên những chuyến du hành xa.
-              </p>
+              </motion.p>
 
               {/* CTAs */}
-              <div className="flex flex-wrap items-center gap-3 pt-1">
-                <a
+              <motion.div 
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className="flex flex-wrap items-center gap-3 pt-1"
+              >
+                <motion.a
+                  whileHover={{ scale: 1.03, y: -1 }}
+                  whileTap={{ scale: 0.97 }}
                   href="#danh-muc"
                   className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#201b12] hover:bg-black text-white font-display text-xs sm:text-sm font-bold shadow-sm hover:shadow-md transition-all cursor-pointer"
                 >
                   <span>Khám phá 5 nhóm giải pháp</span>
-                  <ArrowDown className="w-3.5 h-3.5" />
-                </a>
-                <a
+                  <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
+                </motion.a>
+                <motion.a
+                  whileHover={{ scale: 1.03, y: -1 }}
+                  whileTap={{ scale: 0.97 }}
                   href="#kenh-mua-hang"
                   className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white text-[#201b12] font-display text-xs font-semibold shadow-2xs hover:bg-[#f8ecdd] transition-all border border-[#cac7ae]/50 cursor-pointer"
                 >
                   <span className="w-2 h-2 rounded-full bg-[#b62506]"></span>
-                  <span>Mua trên Shopee & TikTok</span>
-                </a>
-              </div>
+                  <span>Mua trên Shopee &amp; TikTok</span>
+                </motion.a>
+              </motion.div>
 
               {/* Highlight Micro Badges */}
               <div className="pt-4 flex items-center gap-6 sm:gap-8 flex-wrap">
@@ -153,10 +188,25 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Right Hero Visual Bento */}
-            <div className="lg:col-span-6 grid grid-cols-12 gap-3.5 relative">
+            {/* Right Hero Visual Bento with Stagger & Float */}
+            <motion.div 
+              initial={{ opacity: 0, x: 28, scale: 0.96 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{ duration: 0.75, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:col-span-6 grid grid-cols-12 gap-3.5 relative"
+            >
+              {/* Floating Trend Badge */}
+              <motion.div
+                animate={{ y: [-4, 4, -4] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute -top-3 -right-2 sm:-right-4 px-3 py-1.5 rounded-full bg-[#f4f34d] text-[#201b12] text-[10px] font-black uppercase shadow-lg border border-[#626200]/30 z-20 flex items-center gap-1.5"
+              >
+                <Sparkles className="w-3.5 h-3.5 fill-[#201b12]" />
+                <span>Bán Chạy Nhất 2026</span>
+              </motion.div>
+
               {/* Main Hero Image (Chăn sữa) */}
               <div 
                 onClick={() => {
@@ -200,7 +250,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 </div>
 
                 {/* Warm Comfort Quote Tag */}
-                <div className="p-3 sm:p-3.5 rounded-2xl bg-[#f1ddba]/70 shadow-2xs flex flex-col justify-between border border-[#cac7ae]/40">
+                <div className="p-3 sm:p-3.5 rounded-2xl bg-[#f1ddba]/70 shadow-2xs flex flex-col justify-between border border-[#cac7ae]/40 animate-float-slow">
                   <div className="flex items-center gap-1.5 text-[#241a05]">
                     <span className="font-display text-sm font-bold">hug</span>
                     <span className="text-[11px] font-bold text-[#484834]">(</span>
@@ -214,7 +264,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 </div>
               </div>
 
-            </div>
+            </motion.div>
 
           </div>
         </div>
@@ -285,12 +335,17 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
           {/* Compact 5 Categories Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
-            {ECOSYSTEM_PILLARS.map((cat) => {
+            {ECOSYSTEM_PILLARS.map((cat, idx) => {
               const catProducts = products.filter((p) => p.categorySlug === cat.id);
 
               return (
-                <article
+                <motion.article
                   key={cat.id}
+                  initial={{ opacity: 0, y: 26 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.5, delay: idx * 0.08 }}
+                  whileHover={{ y: -4, transition: { duration: 0.2 } }}
                   onClick={() => {
                     onSelectCategory(cat.id);
                     onSelectTab('san-pham');
@@ -335,7 +390,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                       <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                     </div>
                   </div>
-                </article>
+                </motion.article>
               );
             })}
           </div>
@@ -363,14 +418,21 @@ export const HomeView: React.FC<HomeViewProps> = ({
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {newArrivals.slice(0, 6).map((product) => (
-              <ProductCard
+            {newArrivals.slice(0, 6).map((product, idx) => (
+              <motion.div
                 key={product.id}
-                product={product}
-                onOpenDetail={onOpenDetail}
-                onAddToCart={onAddToCart}
-                onBuyNowDirect={onBuyNowDirect}
-              />
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.5, delay: idx * 0.08 }}
+              >
+                <ProductCard
+                  product={product}
+                  onOpenDetail={onOpenDetail}
+                  onAddToCart={onAddToCart}
+                  onBuyNowDirect={onBuyNowDirect}
+                />
+              </motion.div>
             ))}
           </div>
 

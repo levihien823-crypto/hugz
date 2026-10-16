@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavTab } from '../types';
 import { Search, ShoppingBag, Menu, X, Copy, Check, Sparkles, ArrowRight, Package } from 'lucide-react';
+import { AnnouncementMarquee } from './AnnouncementMarquee';
 
 interface HeaderProps {
   currentTab: NavTab;
@@ -42,6 +43,9 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
+      {/* Top Continuous Infinite Marquee Banner */}
+      <AnnouncementMarquee />
+
       {/* Top Notification Promo Banner */}
       <aside 
         id="top-announce-bar" 

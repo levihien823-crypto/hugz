@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { NavTab, Product, CartItem, PlacedOrder } from './types';
 import { PRODUCTS } from './data/products';
 import { Header } from './components/Header';
@@ -10,6 +11,8 @@ import { OrderTrackingModal } from './components/OrderTrackingModal';
 import { SearchModal } from './components/SearchModal';
 import { Toast } from './components/Toast';
 import { FloatingSocialWidget } from './components/FloatingSocialWidget';
+import { BrandIntroMotion } from './components/BrandIntroMotion';
+import { LiveOrderTicker } from './components/LiveOrderTicker';
 import { HomeView } from './views/HomeView';
 import { ProductsView } from './views/ProductsView';
 import { CollectionsView } from './views/CollectionsView';
@@ -205,55 +208,64 @@ export default function App() {
         onOpenOrderTracking={() => setOrderTrackingOpen(true)}
       />
 
-      {/* Main Content Body */}
-      <main className="flex-1 w-full">
-        {currentTab === 'trang-chu' && (
-          <HomeView
-            products={products}
-            onOpenDetail={handleOpenDetail}
-            onAddToCart={(p) => handleAddToCart(p, 1)}
-            onBuyNowDirect={handleBuyNowDirect}
-            onSelectTab={setCurrentTab}
-            selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
-            onCopyVoucher={handleCopyVoucher}
-          />
-        )}
+      {/* Main Content Body with Smooth View Transitions */}
+      <AnimatePresence mode="wait">
+        <motion.main
+          key={currentTab}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.28, ease: 'easeOut' }}
+          className="flex-1 w-full"
+        >
+          {currentTab === 'trang-chu' && (
+            <HomeView
+              products={products}
+              onOpenDetail={handleOpenDetail}
+              onAddToCart={(p) => handleAddToCart(p, 1)}
+              onBuyNowDirect={handleBuyNowDirect}
+              onSelectTab={setCurrentTab}
+              selectedCategory={selectedCategory}
+              onSelectCategory={setSelectedCategory}
+              onCopyVoucher={handleCopyVoucher}
+            />
+          )}
 
-        {currentTab === 'san-pham' && (
-          <ProductsView
-            products={products}
-            selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
-            onOpenDetail={handleOpenDetail}
-            onAddToCart={(p) => handleAddToCart(p, 1)}
-            onBuyNowDirect={handleBuyNowDirect}
-          />
-        )}
+          {currentTab === 'san-pham' && (
+            <ProductsView
+              products={products}
+              selectedCategory={selectedCategory}
+              onSelectCategory={setSelectedCategory}
+              onOpenDetail={handleOpenDetail}
+              onAddToCart={(p) => handleAddToCart(p, 1)}
+              onBuyNowDirect={handleBuyNowDirect}
+            />
+          )}
 
-        {currentTab === 'bo-suu-tap' && (
-          <CollectionsView
-            products={products}
-            onOpenDetail={handleOpenDetail}
-            onAddToCart={(p) => handleAddToCart(p, 1)}
-          />
-        )}
+          {currentTab === 'bo-suu-tap' && (
+            <CollectionsView
+              products={products}
+              onOpenDetail={handleOpenDetail}
+              onAddToCart={(p) => handleAddToCart(p, 1)}
+            />
+          )}
 
-        {currentTab === 've-chung-toi' && (
-          <AboutView onSelectTab={setCurrentTab} />
-        )}
+          {currentTab === 've-chung-toi' && (
+            <AboutView onSelectTab={setCurrentTab} />
+          )}
 
-        {currentTab === 'kenh-mua-hang' && (
-          <ChannelsView
-            onCopyVoucher={handleCopyVoucher}
-            hasCopiedVoucher={hasCopiedVoucher}
-          />
-        )}
+          {currentTab === 'kenh-mua-hang' && (
+            <ChannelsView
+              onCopyVoucher={handleCopyVoucher}
+              hasCopiedVoucher={hasCopiedVoucher}
+            />
+          )}
 
-        {currentTab === 'lien-he' && (
-          <ContactView onShowToast={showToast} />
-        )}
-      </main>
+          {currentTab === 'lien-he' && (
+            <ContactView onShowToast={showToast} />
+          )}
+        </motion.main>
+      </AnimatePresence>
 
       {/* Footer */}
       <Footer 
@@ -318,6 +330,12 @@ export default function App() {
 
       {/* Floating Social Media & Messenger Widget */}
       <FloatingSocialWidget />
+
+      {/* Live Order & Activity Notification Ticker */}
+      <LiveOrderTicker />
+
+      {/* Brand Opening Entrance Motion */}
+      <BrandIntroMotion />
 
       {/* Floating Feedback Toast */}
       <Toast

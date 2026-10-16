@@ -68,6 +68,7 @@ export const FloatingSocialWidget: React.FC = () => {
           <X className="w-6 h-6 text-white" />
         ) : (
           <>
+            <span className="absolute inset-0 rounded-full border-2 border-[#f4f34d]/50 animate-ping opacity-40 pointer-events-none" />
             <MessageCircle className="w-6 h-6" />
             <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 rounded-full border-2 border-white animate-pulse" />
           </>
