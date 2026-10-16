@@ -41,16 +41,16 @@ export const CollectionsView: React.FC<CollectionsViewProps> = ({
             return (
               <section 
                 key={lookbook.id}
-                className="bg-white rounded-3xl p-6 sm:p-10 border border-[#cac7ae]/40 shadow-sm overflow-hidden"
+                className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-10 border border-[#cac7ae]/40 shadow-sm overflow-hidden"
               >
-                <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 items-center ${isReversed ? 'lg:flex-row-reverse' : ''}`}>
+                <div className={`grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 items-center ${isReversed ? 'lg:flex-row-reverse' : ''}`}>
                   
                   {/* Visual Image */}
-                  <div className={`lg:col-span-6 relative rounded-2xl overflow-hidden shadow-md bg-[#f8ecdd] ${isReversed ? 'lg:order-2' : ''}`}>
+                  <div className={`lg:col-span-6 relative rounded-xl sm:rounded-2xl overflow-hidden shadow-md bg-[#f8ecdd] ${isReversed ? 'lg:order-2' : ''}`}>
                     <img
                       src={lookbook.image}
                       alt={lookbook.title}
-                      className="w-full h-80 sm:h-96 object-cover hover:scale-105 transition-transform duration-700"
+                      className="w-full h-52 sm:h-96 object-cover hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute top-4 left-4">
                       <span className="px-3 py-1 rounded-full bg-[#201b12] text-white text-xs font-bold tracking-wider">

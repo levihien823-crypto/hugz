@@ -582,7 +582,7 @@ export const PRODUCTS: Product[] = [
 export const FAQS = [
   {
     q: 'Sản phẩm HUGZ có bảo hành và chính sách đổi trả như thế nào?',
-    a: 'HUGZ hỗ trợ đổi trả miễn phí trong vòng 7 ngày nếu sản phẩm có lỗi từ nhà sản xuất (đứt chỉ, hỏng khóa kéo, sai kích thước hoặc không đúng mô tả). Khách hàng chỉ cần nhắn tin qua Zalo CSKH hoặc Shopee Mall để được bưu tá đến tận nơi thu đổi.'
+    a: 'HUGZ hỗ trợ đổi trả miễn phí trong vòng 7 ngày nếu sản phẩm có lỗi từ nhà sản xuất (đứt chỉ, hỏng khóa kéo, sai kích thước hoặc không đúng mô tả). Khách hàng chỉ cần nhắn tin qua Fanpage Facebook CSKH hoặc Shopee Mall để được bưu tá đến tận nơi thu đổi.'
   },
   {
     q: 'Khăn lau mặt Daizy Daily có tái sử dụng được không?',

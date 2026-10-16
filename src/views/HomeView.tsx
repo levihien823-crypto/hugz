@@ -148,43 +148,39 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 </motion.a>
               </motion.div>
 
-              {/* Highlight Micro Badges */}
-              <div className="pt-4 flex items-center gap-6 sm:gap-8 flex-wrap">
-                <div className="flex flex-col">
+              {/* Highlight Micro Badges - Responsive 3 Columns on Mobile */}
+              <div className="pt-3 sm:pt-4 grid grid-cols-3 gap-2 sm:flex sm:items-center sm:gap-8 border-t border-[#cac7ae]/30 sm:border-t-0">
+                <div className="flex flex-col text-left">
                   <div className="flex items-baseline gap-1">
-                    <span className="font-display text-xl sm:text-2xl font-black text-[#201b12]">50.000</span>
-                    <span className="font-display text-lg sm:text-xl font-black text-[#e5a000]">+</span>
+                    <span className="font-display text-lg sm:text-2xl font-black text-[#201b12]">50.000</span>
+                    <span className="font-display text-base sm:text-xl font-black text-[#e5a000]">+</span>
                   </div>
-                  <span className="text-xs text-[#5c5443] font-medium flex items-center gap-1.5 mt-0.5">
+                  <span className="text-[10px] sm:text-xs text-[#5c5443] font-medium flex items-center gap-1 mt-0.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#f4f34d] border border-[#626200]/30 shrink-0"></span>
-                    Tổ ấm yêu chuộng
+                    Tổ ấm tin chọn
                   </span>
                 </div>
 
-                <div className="h-8 w-px bg-[#cac7ae]/50"></div>
-
-                <div className="flex flex-col">
+                <div className="flex flex-col text-left border-l border-[#cac7ae]/40 pl-2 sm:border-l-0 sm:pl-0">
                   <div className="flex items-baseline gap-1">
-                    <span className="font-display text-xl sm:text-2xl font-black text-[#201b12]">4.9</span>
-                    <span className="text-sm font-semibold text-[#5c5443]">/ 5.0</span>
-                    <span className="text-base text-[#e5a000] ml-0.5">★</span>
+                    <span className="font-display text-lg sm:text-2xl font-black text-[#201b12]">4.9</span>
+                    <span className="text-xs sm:text-sm font-semibold text-[#5c5443]">/5.0</span>
+                    <span className="text-sm sm:text-base text-[#e5a000] ml-0.5">★</span>
                   </div>
-                  <span className="text-xs text-[#5c5443] font-medium flex items-center gap-1.5 mt-0.5">
+                  <span className="text-[10px] sm:text-xs text-[#5c5443] font-medium flex items-center gap-1 mt-0.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#f4f34d] border border-[#626200]/30 shrink-0"></span>
-                    Đánh giá chính hãng
+                    Đánh giá 5 sao
                   </span>
                 </div>
 
-                <div className="h-8 w-px bg-[#cac7ae]/50"></div>
-
-                <div className="flex flex-col">
+                <div className="flex flex-col text-left border-l border-[#cac7ae]/40 pl-2 sm:border-l-0 sm:pl-0">
                   <div className="flex items-baseline gap-1">
-                    <span className="font-display text-xl sm:text-2xl font-black text-[#e5a000]">100%</span>
-                    <span className="font-display text-lg sm:text-xl font-bold text-[#201b12]">Cotton</span>
+                    <span className="font-display text-lg sm:text-2xl font-black text-[#e5a000]">100%</span>
+                    <span className="font-display text-sm sm:text-xl font-bold text-[#201b12]">Cotton</span>
                   </div>
-                  <span className="text-xs text-[#5c5443] font-medium flex items-center gap-1.5 mt-0.5">
+                  <span className="text-[10px] sm:text-xs text-[#5c5443] font-medium flex items-center gap-1 mt-0.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#f4f34d] border border-[#626200]/30 shrink-0"></span>
-                    Thân thiện môi trường
+                    Vải tự nhiên
                   </span>
                 </div>
               </div>
@@ -195,13 +191,13 @@ export const HomeView: React.FC<HomeViewProps> = ({
               initial={{ opacity: 0, x: 28, scale: 0.96 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ duration: 0.75, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:col-span-6 grid grid-cols-12 gap-3.5 relative"
+              className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-12 gap-3.5 relative"
             >
               {/* Floating Trend Badge */}
               <motion.div
                 animate={{ y: [-4, 4, -4] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -top-3 -right-2 sm:-right-4 px-3 py-1.5 rounded-full bg-[#f4f34d] text-[#201b12] text-[10px] font-black uppercase shadow-lg border border-[#626200]/30 z-20 flex items-center gap-1.5"
+                className="absolute -top-3 right-2 sm:-right-2 px-3 py-1.5 rounded-full bg-[#f4f34d] text-[#201b12] text-[10px] font-black uppercase shadow-lg border border-[#626200]/30 z-20 flex items-center gap-1.5"
               >
                 <Sparkles className="w-3.5 h-3.5 fill-[#201b12]" />
                 <span>Bán Chạy Nhất 2026</span>
@@ -213,12 +209,12 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   const chan = products.find((p) => p.id === 'chan-sua-hugz');
                   if (chan) onOpenDetail(chan);
                 }}
-                className="col-span-7 relative group rounded-2xl overflow-hidden shadow-lg bg-[#f8ecdd] cursor-pointer"
+                className="sm:col-span-7 relative group rounded-2xl overflow-hidden shadow-lg bg-[#f8ecdd] cursor-pointer"
               >
                 <img
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDy-dhihuBqQ01UYv1jcruTXfOV6ao2npzNhy6RRyjhOACGn-8_MYA6srFMCki7uz9l2C7TYzFkWzKVm62iiOx0SDCdPPMQElkpQTFsRxI4PIi6GDEmyU054gRCm2pbb3DccT2hHBOaD4sUD3MDb_HDyqSYsCjnv6iZznREKrHlL0aHBy3fcWrWKEnJoc0i6_nBTCTSLqurLG_ZuLMZFXWokOg4rgLN95ci6unGj5oyjG1XrdJdrRrEjdhgoi-vVLdUY-g"
                   alt="Chăn sữa HUGZ cao cấp vỗ về cảm xúc"
-                  className="w-full h-64 sm:h-72 object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-52 sm:h-72 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-3.5 text-white">
                   <span className="inline-block self-start px-2 py-0.5 rounded bg-[#f4f34d] text-[10px] font-bold text-[#201b12] uppercase mb-1">
@@ -230,7 +226,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
               </div>
 
               {/* Secondary Hero Image (Túi tote 2 lớp tháo rời) */}
-              <div className="col-span-5 flex flex-col gap-3.5">
+              <div className="sm:col-span-5 flex flex-col gap-3.5">
                 <div 
                   onClick={() => {
                     const tote = products.find((p) => p.id === 'tui-tote-2-lop');
@@ -271,9 +267,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
       </section>
 
       {/* Quick Category Bar */}
-      <section className="w-full py-3.5 bg-[#fdf2e3] border-y border-[#cac7ae]/30 sticky top-20 z-30 shadow-2xs">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto pb-1 scrollbar-none">
+      <section className="w-full py-2 sm:py-3.5 bg-[#fdf2e3] border-y border-[#cac7ae]/30 sticky top-[53px] sm:top-[61px] lg:top-[77px] z-30 shadow-2xs">
+        <div className="max-w-[1280px] mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 overflow-x-auto pb-0.5 no-scrollbar">
             <span className="font-display text-xs sm:text-sm font-bold text-[#201b12] whitespace-nowrap mr-1">
               Danh mục:
             </span>
@@ -417,7 +413,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-6">
             {newArrivals.slice(0, 6).map((product, idx) => (
               <motion.div
                 key={product.id}
@@ -551,7 +547,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-6">
             {bestSellers.map((product) => (
               <ProductCard
                 key={product.id}

@@ -4,7 +4,7 @@ import {
   X, Star, ShieldCheck, Truck, RotateCcw, Box, ExternalLink, 
   Heart, Share2, ZoomIn, Check, Sparkles, Wind, 
   MessageCircle, ArrowRight, ChevronRight, Layers, Award,
-  ShoppingBag, Plus, Minus, PhoneCall
+  ShoppingBag, Plus, Minus
 } from 'lucide-react';
 import { trackMarketplaceClick, buildTrackedUrl } from '../utils/analytics';
 import { PRODUCTS } from '../data/products';
@@ -374,8 +374,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     <ShoppingBag className="w-4 h-4 text-[#626200]" />
                     <span>Đặt mua trực tiếp trên Website</span>
                   </span>
-                  <span className="text-[10px] font-extrabold text-[#0068FF] bg-[#eef7ff] px-2 py-0.5 rounded-full">
-                    Xác nhận qua Zalo / SMS
+                  <span className="text-[10px] font-extrabold text-[#1877F2] bg-[#eef7ff] px-2 py-0.5 rounded-full">
+                    Xác nhận qua SMS
                   </span>
                 </div>
 
@@ -437,7 +437,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 </div>
 
                 <p className="text-[10px] text-[#797862] text-center italic">
-                  * Thông tin đơn hàng và mã vận đơn sẽ được gửi xác nhận qua Zalo / Tin nhắn SMS.
+                  * Thông tin đơn hàng và mã vận đơn sẽ được gửi xác nhận qua tin nhắn SMS.
                 </p>
               </div>
 

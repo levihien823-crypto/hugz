@@ -101,7 +101,7 @@ export interface CustomerOrderInfo {
   fullName: string;
   phone: string;
   email?: string;
-  contactMethod?: 'phone' | 'zalo' | 'sms';
+  contactMethod?: 'phone' | 'sms';
   contactTime?: 'anytime' | 'morning' | 'afternoon' | 'evening';
   province: string;
   district?: string;

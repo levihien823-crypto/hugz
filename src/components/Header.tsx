@@ -49,28 +49,28 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Top Notification Promo Banner */}
       <aside 
         id="top-announce-bar" 
-        className="w-full bg-[#f1ddba]/70 py-2 px-4 border-b border-[#cac7ae]/40 text-xs sm:text-sm text-[#201b12] relative z-50"
+        className="w-full bg-[#f1ddba]/70 py-1.5 sm:py-2 px-3 sm:px-4 border-b border-[#cac7ae]/40 text-[11px] sm:text-xs text-[#201b12] relative z-50"
       >
-        <div className="max-w-[1280px] mx-auto flex items-center justify-between gap-3 flex-wrap">
-          <div className="flex items-center gap-2 font-medium">
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#f4f34d] text-[#201b12] text-[11px] font-bold shadow-xs">
-              <Sparkles className="w-3 h-3" />
+        <div className="max-w-[1280px] mx-auto flex items-center justify-between gap-2 flex-wrap">
+          <div className="flex items-center gap-1.5 sm:gap-2 font-medium flex-wrap">
+            <span className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#f4f34d] text-[#201b12] text-[10px] sm:text-[11px] font-bold shadow-xs shrink-0">
+              <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
             </span>
-            <span>Ưu đãi độc quyền: Giảm ngay 20% trên Shopee Mall & TikTok Shop</span>
+            <span className="truncate max-w-[200px] sm:max-w-none">Ưu đãi độc quyền: Giảm 20% Shopee &amp; TikTok</span>
             <button
               id="copy-voucher-top-btn"
               onClick={() => onCopyVoucher('HUGZSHOPEE20')}
-              className="inline-flex items-center gap-1 font-bold underline hover:text-[#626200] transition-colors cursor-pointer bg-white/60 px-2 py-0.5 rounded-full"
+              className="inline-flex items-center gap-1 font-bold underline hover:text-[#626200] transition-colors cursor-pointer bg-white/70 px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] shrink-0"
               title="Nhấp để sao chép mã"
             >
               {hasCopiedVoucher ? (
                 <>
                   <Check className="w-3 h-3 text-emerald-600" />
-                  <span className="text-emerald-700">Đã chép: HUGZSHOPEE20</span>
+                  <span className="text-emerald-700">Đã chép mã</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-3 h-3" />
+                  <Copy className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                   <span>Mã: HUGZSHOPEE20 →</span>
                 </>
               )}
@@ -78,7 +78,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Social Links on Top Bar */}
-          <div className="hidden sm:flex items-center gap-3 text-xs font-semibold">
+          <div className="hidden md:flex items-center gap-3 text-xs font-semibold">
             <span className="text-[#797862] text-[11px]">Kết nối:</span>
             <a
               href="https://www.facebook.com/thehugzlife"
@@ -109,8 +109,8 @@ export const Header: React.FC<HeaderProps> = ({
       </aside>
 
       {/* Main Sticky Header */}
-      <header className="sticky top-0 left-0 w-full z-40 bg-[#fff8f2]/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-[#cac7ae]/30">
-        <div className="h-20 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      <header className="sticky top-0 left-0 w-full z-40 bg-[#fff8f2]/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-[#cac7ae]/30">
+        <div className="h-14 sm:h-16 lg:h-20 max-w-[1280px] mx-auto px-3.5 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
           
           {/* Logo */}
           <div className="flex items-center gap-6">
@@ -119,11 +119,11 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => handleNavClick('trang-chu')}
               className="flex items-center gap-1 group text-left cursor-pointer focus:outline-none"
             >
-              <span className="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-[#201b12]">
+              <span className="font-display text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-[#201b12]">
                 hug
-                <span className="text-[#484834] font-normal text-xl sm:text-2xl">(</span>
-                <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#f4f34d] mx-0.5 transform group-hover:scale-125 transition-transform"></span>
-                <span className="text-[#484834] font-normal text-xl sm:text-2xl">)</span>
+                <span className="text-[#484834] font-normal text-lg sm:text-xl lg:text-2xl">(</span>
+                <span className="inline-block w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#f4f34d] mx-0.5 transform group-hover:scale-125 transition-transform"></span>
+                <span className="text-[#484834] font-normal text-lg sm:text-xl lg:text-2xl">)</span>
                 z
               </span>
             </button>

@@ -62,8 +62,7 @@ export const sendOrderToGoogleSheet = async (order: PlacedOrder): Promise<{ succ
     .join('\n');
 
   const contactMethodLabel = 
-    order.customer.contactMethod === 'zalo' ? 'Nhắn tin qua Zalo' :
-    order.customer.contactMethod === 'sms' ? 'Gửi tin nhắn SMS' : 'Gọi điện thoại trực tiếp';
+    order.customer.contactMethod === 'sms' ? 'Gửi tin nhắn SMS' : 'Nhắn tin SMS xác nhận';
 
   const contactTimeLabel =
     order.customer.contactTime === 'morning' ? 'Buổi sáng (08:00 - 12:00)' :
@@ -149,7 +148,7 @@ export const cancelOrderInLocalStorage = (
     if (currentOrder.status === 'shipping' || currentOrder.status === 'completed') {
       return { 
         success: false, 
-        message: 'Đơn hàng đang giao hoặc đã hoàn tất, không thể tự hủy trên web. Vui lòng liên hệ Hotline/Zalo.' 
+        message: 'Đơn hàng đang giao hoặc đã hoàn tất, không thể tự hủy trên web. Vui lòng nhắn tin Fanpage Facebook HUGZ để được hỗ trợ nhanh nhất.' 
       };
     }
 

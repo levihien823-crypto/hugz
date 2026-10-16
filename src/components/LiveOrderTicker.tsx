@@ -86,7 +86,7 @@ export const LiveOrderTicker: React.FC = () => {
   const IconComponent = currentItem.icon;
 
   return (
-    <div className="fixed bottom-6 left-4 sm:left-6 z-40 max-w-[340px] pointer-events-auto">
+    <div className="fixed bottom-20 sm:bottom-6 left-3 sm:left-6 z-40 max-w-[280px] sm:max-w-[340px] pointer-events-auto">
       <AnimatePresence mode="wait">
         {isVisible && (
           <motion.div

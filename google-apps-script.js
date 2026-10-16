@@ -146,7 +146,7 @@ function doPost(e) {
       data.createdAt || new Date().toLocaleString("vi-VN"),
       data.fullName || "",
       "'" + (data.phone || ""), // Thêm dấu ' để Excel/Sheet không làm mất số 0 đầu số điện thoại
-      data.contactMethod || "Nhắn tin qua Zalo",
+      data.contactMethod || "Nhắn tin qua SMS",
       data.contactTime || "Bất kỳ lúc nào",
       data.fullAddress || data.address || "",
       data.province || "",

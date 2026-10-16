@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavTab } from '../types';
-import { ArrowRight, CheckCircle2, Phone, Mail, Clock, ShieldCheck } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Mail, Clock, ShieldCheck } from 'lucide-react';
 import { trackMarketplaceClick, buildTrackedUrl } from '../utils/analytics';
 
 interface FooterProps {
@@ -44,10 +44,6 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab, onShowToast, onOpen
               Giải pháp lưu trữ thông minh và tối giản cho không gian sống hiện đại. Khơi gợi sự an yên, trật tự và ấm áp trong từng góc nhỏ gia đình bạn.
             </p>
             <div className="flex flex-col gap-2 text-xs text-[#484834] pt-2">
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-[#626200]" />
-                <span>Hotline CSKH: <strong className="text-[#201b12] text-sm">1900 6868</strong></span>
-              </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#626200]" />
                 <span>Email hỗ trợ: <strong className="text-[#201b12]">cskh@hugzhome.vn</strong></span>

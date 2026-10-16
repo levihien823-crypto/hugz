@@ -13,6 +13,7 @@ import { Toast } from './components/Toast';
 import { FloatingSocialWidget } from './components/FloatingSocialWidget';
 import { BrandIntroMotion } from './components/BrandIntroMotion';
 import { LiveOrderTicker } from './components/LiveOrderTicker';
+import { MobileBottomNav } from './components/MobileBottomNav';
 import { HomeView } from './views/HomeView';
 import { ProductsView } from './views/ProductsView';
 import { CollectionsView } from './views/CollectionsView';
@@ -117,7 +118,7 @@ export default function App() {
 
   const handleOrderSuccess = (order: PlacedOrder) => {
     setCartItems([]);
-    showToast(`Đã tiếp nhận đơn hàng #${order.orderId}! HUGZ sẽ gửi xác nhận qua Zalo/SMS cho bạn sớm.`);
+    showToast(`Đã tiếp nhận đơn hàng #${order.orderId}! HUGZ sẽ gửi tin nhắn xác nhận qua SMS cho bạn sớm.`);
   };
 
   // Persist cart
@@ -195,7 +196,7 @@ export default function App() {
   const totalCartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#fff8f2] text-[#201b12]">
+    <div className="min-h-screen flex flex-col bg-[#fff8f2] text-[#201b12] pb-16 lg:pb-0 overflow-x-hidden">
       {/* Top Bar & Main Header */}
       <Header
         currentTab={currentTab}
@@ -336,6 +337,16 @@ export default function App() {
 
       {/* Brand Opening Entrance Motion */}
       <BrandIntroMotion />
+
+      {/* Mobile Fixed Bottom Navigation Bar */}
+      <MobileBottomNav
+        currentTab={currentTab}
+        onSelectTab={setCurrentTab}
+        cartCount={totalCartCount}
+        onOpenCart={() => setCartOpen(true)}
+        onOpenSearch={() => setSearchOpen(true)}
+        onOpenOrderTracking={() => setOrderTrackingOpen(true)}
+      />
 
       {/* Floating Feedback Toast */}
       <Toast

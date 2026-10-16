@@ -5,7 +5,7 @@ export const FloatingSocialWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2.5">
+    <div className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-40 flex flex-col items-end gap-2.5">
       {/* Expanded Menu */}
       {isOpen && (
         <div className="flex flex-col gap-2 mb-1 animate-in fade-in slide-in-from-bottom-3 duration-200">
