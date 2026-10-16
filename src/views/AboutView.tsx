@@ -48,7 +48,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onSelectTab }) => {
               </div>
 
               {/* Slogan Chính */}
-              <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-[#201b12] uppercase tracking-tight leading-snug mb-3">
+              <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-[#201b12] leading-snug mb-3">
                 “Making hugz a happy source in children's lives”
               </h1>
               <p className="font-display text-sm sm:text-base font-bold text-[#626200] italic mb-6">
@@ -341,8 +341,8 @@ export const AboutView: React.FC<AboutViewProps> = ({ onSelectTab }) => {
               <Sparkles className="w-3.5 h-3.5 text-[#626200]" />
               <span>PHONG CÁCH SỐNG GIA ĐÌNH HIỆN ĐẠI</span>
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-[#201b12] uppercase tracking-tight">
-              HỆ SINH THÁI SẢN PHẨM TOÀN DIỆN
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-[#201b12] text-balance leading-snug">
+              Hệ thống 5 nhóm giải pháp lưu trữ thông minh
             </h2>
             <p className="font-display text-base sm:text-lg font-bold text-[#626200] mt-1">
               Giải pháp sắp xếp & lưu trữ thông minh cho tổ ấm

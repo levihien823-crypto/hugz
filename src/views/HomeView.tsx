@@ -98,9 +98,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   initial={{ opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.65, delay: 0.2 }}
-                  className="font-display text-2xl sm:text-3xl lg:text-[34px] font-black text-[#201b12] leading-[1.22] tracking-tight uppercase"
+                  className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-[#201b12] leading-[1.25] text-balance"
                 >
-                  HỆ SINH THÁI SẢN PHẨM TOÀN DIỆN
+                  Hệ sinh thái tiện ích &amp; lưu trữ thông minh HUGZ
                 </motion.h1>
                 <motion.p 
                   initial={{ opacity: 0, y: 15 }}
@@ -309,8 +309,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 <span className="w-2 h-2 rounded-full bg-[#f4f34d]"></span>
                 <span>5 NHÓM GIẢI PHÁP TIỆN ÍCH</span>
               </div>
-              <h2 className="font-display text-xl sm:text-2xl lg:text-3xl font-black text-[#201b12] uppercase tracking-tight">
-                Hệ Thống 5 Nhóm Lưu Trữ Thông Minh HUGZ
+              <h2 className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-[#201b12] text-balance leading-snug">
+                Hệ thống 5 nhóm lưu trữ thông minh HUGZ
               </h2>
               <p className="text-xs sm:text-sm text-[#626200] font-semibold mt-0.5">
                 Phân loại khoa học theo từng không gian sinh hoạt: bếp ăn, bàn trang điểm, tài liệu & hành lý
@@ -404,8 +404,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>NEW ARRIVALS • BỘ SƯU TẬP TIỆN ÍCH HẰNG NGÀY</span>
               </div>
-              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-[#201b12]">
-                Trọn Bộ Sưu Tập Tiện Ích Du Lịch & Đời Sống HUGZ
+              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-[#201b12] text-balance leading-snug">
+                Trọn bộ sưu tập tiện ích du lịch &amp; đời sống
               </h2>
             </div>
             <p className="text-sm text-[#484834] max-w-md">
@@ -538,8 +538,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 <ShieldCheck className="w-4 h-4 text-[#626200]" />
                 <span>Bestsellers • Yêu Thích Nhất</span>
               </div>
-              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-[#201b12]">
-                Sản Phẩm Được Mua Nhiều Nhất
+              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-[#201b12] text-balance leading-snug">
+                Sản phẩm được yêu chuộng nhất
               </h2>
             </div>
             <p className="text-sm text-[#484834] max-w-sm">
@@ -728,8 +728,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
               Official Marketplace Hub
             </span>
 
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#201b12] max-w-2xl leading-tight mb-3">
-              Mua Sắm Dễ Dàng Với Trọn Vẹn Ưu Đãi
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-[#201b12] max-w-2xl leading-tight mb-3 text-balance">
+              Mua sắm dễ dàng với trọn vẹn ưu đãi
             </h2>
 
             <p className="text-sm sm:text-base text-[#484834] max-w-xl mb-8 leading-relaxed">

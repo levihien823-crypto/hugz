@@ -270,7 +270,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   </span>
                 </div>
 
-                <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-[#201b12] tracking-tight leading-snug">
+                <h1 className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-[#201b12] leading-snug">
                   {product.title}
                 </h1>
 

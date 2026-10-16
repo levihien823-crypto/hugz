@@ -158,15 +158,16 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Title & Breadcrumbs */}
-        <div className="mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f8ecdd] text-xs font-bold text-[#626200] mb-2 shadow-2xs">
-            <span>HUGZ CATALOGUE</span>
+        <div className="mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f2e7d8] text-[11px] font-semibold text-[#626200] mb-2.5 border border-[#cac7ae]/40">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#626200]"></span>
+            <span>Bộ sưu tập tiện ích HUGZ</span>
           </div>
-          <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#201b12]">
-            Tất Cả Sản Phẩm Tiện Ích HUGZ
+          <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-[#201b12] leading-tight text-balance">
+            Tất cả sản phẩm tiện ích HUGZ
           </h1>
-          <p className="text-sm text-[#484834] mt-1 max-w-2xl leading-relaxed">
-            Hệ sinh thái lưu trữ thông minh, chăn sữa và đồ dùng cá nhân được thiết kế tỉ mỉ với chất liệu organic và gam màu pastel ấm áp.
+          <p className="text-xs sm:text-sm text-[#5c5443] mt-2 max-w-2xl leading-relaxed">
+            Hệ sinh thái lưu trữ thông minh, chăn sữa và đồ dùng cá nhân được thiết kế tỉ mỉ với chất liệu an toàn và gam màu pastel ấm áp.
           </p>
         </div>
 

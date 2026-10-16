@@ -24,8 +24,8 @@ export const CollectionsView: React.FC<CollectionsViewProps> = ({
             <Sparkles className="w-3.5 h-3.5" />
             <span>LOOKBOOK & CURATED EDITIONS</span>
           </div>
-          <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#201b12]">
-            Bộ Sưu Tập Cảm Xúc HUGZ
+          <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-[#201b12] text-balance leading-snug">
+            Bộ sưu tập cảm xúc HUGZ
           </h1>
           <p className="text-sm text-[#484834] mt-2 leading-relaxed">
             Mỗi bộ sưu tập là một câu chuyện về không gian sống an yên, nâng niu từng thói quen thường nhật với sự gọn gàng và những gam màu vỗ về tâm hồn.
