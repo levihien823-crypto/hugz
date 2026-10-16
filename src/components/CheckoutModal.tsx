@@ -474,13 +474,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
               <div className="flex items-center flex-wrap gap-2.5 w-full sm:w-auto">
                 <a
-                  href={`https://zalo.me/0987654321?text=${encodeURIComponent(`Xin chào HUGZ, tôi vừa đặt đơn hàng mã ${placedOrder.orderId} trên website và muốn theo dõi đơn.`)}`}
+                  href="https://www.facebook.com/thehugzlife"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2.5 rounded-xl bg-white hover:bg-[#fdf2e3] border border-[#cac7ae]/50 text-xs font-bold text-[#0068FF] flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+                  className="px-4 py-2.5 rounded-xl bg-white hover:bg-[#fdf2e3] border border-[#cac7ae]/50 text-xs font-bold text-[#1877F2] flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
                 >
                   <MessageCircle className="w-3.5 h-3.5" />
-                  <span>Chat Zalo CSKH</span>
+                  <span>Chat Facebook Fanpage</span>
                 </a>
 
                 {onViewOrdersHistory && (

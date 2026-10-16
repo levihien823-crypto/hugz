@@ -505,16 +505,16 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   <ExternalLink className="w-5 h-5 text-white/90 group-hover:translate-x-1 transition-transform" />
                 </a>
 
-                {/* Secondary Actions: Zalo Chat & Wishlist */}
+                {/* Secondary Actions: Facebook Chat & Wishlist */}
                 <div className="grid grid-cols-2 gap-3 pt-1">
                   <a
-                    href="https://zalo.me/0987654321"
+                    href="https://www.facebook.com/thehugzlife"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-3 px-4 rounded-xl bg-white hover:bg-[#f8ecdd] border border-[#cac7ae]/50 text-[#201b12] text-xs font-bold flex items-center justify-center gap-2 transition-colors"
+                    className="py-3 px-4 rounded-xl bg-white hover:bg-[#f8ecdd] border border-[#cac7ae]/50 text-[#1877F2] text-xs font-bold flex items-center justify-center gap-2 transition-colors"
                   >
-                    <MessageCircle className="w-4 h-4 text-[#0068FF]" />
-                    <span>Chat nhanh qua Zalo</span>
+                    <MessageCircle className="w-4 h-4 text-[#1877F2]" />
+                    <span>Chat Facebook Fanpage</span>
                   </a>
 
                   <button

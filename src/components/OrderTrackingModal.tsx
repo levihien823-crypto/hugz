@@ -479,13 +479,13 @@ export const OrderTrackingModal: React.FC<OrderTrackingModalProps> = ({
 
                       {/* Nút liên hệ */}
                       <a
-                        href={`https://zalo.me/0987654321?text=${encodeURIComponent(`Xin chào HUGZ, tôi muốn trao đổi về đơn hàng mã ${order.orderId}`)}`}
+                        href="https://www.facebook.com/thehugzlife"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-1.5 rounded-lg bg-[#0068FF]/10 hover:bg-[#0068FF] text-[#0068FF] hover:text-white text-[11px] font-bold transition-all flex items-center gap-1 cursor-pointer"
+                        className="px-3 py-1.5 rounded-lg bg-[#1877F2]/10 hover:bg-[#1877F2] text-[#1877F2] hover:text-white text-[11px] font-bold transition-all flex items-center gap-1 cursor-pointer"
                       >
                         <MessageCircle className="w-3.5 h-3.5" />
-                        <span>Hỏi qua Zalo</span>
+                        <span>Chat Facebook</span>
                       </a>
                       <a
                         href="tel:0987654321"

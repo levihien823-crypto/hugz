@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageCircle, X } from 'lucide-react';
+import { MessageCircle, X, Phone } from 'lucide-react';
 
 export const FloatingSocialWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,17 +41,15 @@ export const FloatingSocialWidget: React.FC = () => {
             </div>
           </a>
 
-          {/* Hotline / Zalo Direct */}
+          {/* Hotline Direct Call */}
           <a
-            href="https://zalo.me/0987654321"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-full bg-[#0068FF] text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all text-xs font-bold group"
-            title="Tư vấn nhanh qua Zalo"
+            href="tel:0987654321"
+            className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-full bg-[#201b12] text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all text-xs font-bold group"
+            title="Gọi Hotline tư vấn"
           >
-            <span className="hidden sm:inline group-hover:inline">Zalo tư vấn</span>
+            <span className="hidden sm:inline group-hover:inline">Gọi Hotline</span>
             <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-              <span className="font-bold text-[10px]">Z</span>
+              <Phone className="w-3.5 h-3.5" />
             </div>
           </a>
         </div>
