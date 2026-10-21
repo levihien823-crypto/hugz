@@ -11,12 +11,36 @@ import { CollectionsView } from './views/CollectionsView';
 import { AboutView } from './views/AboutView';
 import { ChannelsView } from './views/ChannelsView';
 import { ContactView } from './views/ContactView';
+import { AdminView } from './views/AdminView';
+import { getStoredProducts, saveStoredProducts } from './utils/productStorage';
 import { trackViewItem, trackAddToCart } from './utils/analytics';
 
 export default function App() {
   const [currentTab, setCurrentTab] = useState<NavTab>('trang-chu');
-  const [products] = useState<Product[]>(PRODUCTS);
+  const [products, setProducts] = useState<Product[]>(() => getStoredProducts());
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
+  useEffect(() => {
+    // Tự động mở tab quản trị nếu gõ #admin trên URL
+    if (window.location.hash === '#admin') {
+      setCurrentTab('quan-tri');
+    }
+
+    const handleStorageSync = () => {
+      setProducts(getStoredProducts());
+    };
+    window.addEventListener('hugz-products-updated', handleStorageSync);
+    window.addEventListener('storage', handleStorageSync);
+    return () => {
+      window.removeEventListener('hugz-products-updated', handleStorageSync);
+      window.removeEventListener('storage', handleStorageSync);
+    };
+  }, []);
+
+  const handleUpdateProducts = (newProducts: Product[]) => {
+    saveStoredProducts(newProducts);
+    setProducts(newProducts);
+  };
   
   // Cart state with localStorage support
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
@@ -255,6 +279,15 @@ export default function App() {
 
           {currentTab === 'lien-he' && (
             <ContactView onShowToast={showToast} />
+          )}
+
+          {currentTab === 'quan-tri' && (
+            <AdminView
+              products={products}
+              onUpdateProducts={handleUpdateProducts}
+              onNavigateTab={setCurrentTab}
+              showToast={showToast}
+            />
           )}
         </motion.main>
       </AnimatePresence>

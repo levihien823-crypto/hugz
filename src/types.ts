@@ -4,7 +4,8 @@ export type NavTab =
   | 'san-pham' 
   | 'bo-suu-tap' 
   | 'kenh-mua-hang' 
-  | 'lien-he';
+  | 'lien-he'
+  | 'quan-tri';
 
 export interface ProductColorVariant {
   name: string;
