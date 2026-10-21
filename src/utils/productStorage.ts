@@ -4,7 +4,10 @@ import { PRODUCTS, ECOSYSTEM_PILLARS, CATEGORIES, FAQS, LOOKBOOKS } from '../dat
 const STORAGE_KEY = 'hugz_custom_products';
 const AUTH_KEY = 'hugz_admin_auth';
 
-export const ADMIN_PIN_DEFAULT = 'hugz2026';
+export const ADMIN_CREDENTIALS = {
+  email: 'Levihien823@gmail.com',
+  password: 'Hugzlife2026@',
+};
 
 /**
  * Kiểm tra trạng thái đăng nhập admin trong phiên làm việc hiện tại
@@ -18,10 +21,13 @@ export function isAdminAuthenticated(): boolean {
 }
 
 /**
- * Đăng nhập admin với mật mã
+ * Đăng nhập admin với email và mật khẩu
  */
-export function authenticateAdmin(pin: string): boolean {
-  if (pin.trim() === ADMIN_PIN_DEFAULT) {
+export function authenticateAdmin(email: string, pass: string): boolean {
+  const isMatchEmail = email.trim().toLowerCase() === ADMIN_CREDENTIALS.email.toLowerCase();
+  const isMatchPass = pass.trim() === ADMIN_CREDENTIALS.password;
+
+  if (isMatchEmail && isMatchPass) {
     try {
       sessionStorage.setItem(AUTH_KEY, 'true');
     } catch {

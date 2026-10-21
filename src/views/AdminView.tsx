@@ -18,7 +18,11 @@ import {
   Lock, 
   ArrowRight, 
   FileCode,
-  Tag
+  Tag,
+  Mail,
+  Eye,
+  EyeOff,
+  User
 } from 'lucide-react';
 import { Product, NavTab } from '../types';
 import { CATEGORIES } from '../data/products';
@@ -26,7 +30,7 @@ import {
   isAdminAuthenticated, 
   authenticateAdmin, 
   logoutAdmin, 
-  ADMIN_PIN_DEFAULT 
+  ADMIN_CREDENTIALS 
 } from '../utils/productStorage';
 import { ProductFormModal } from '../components/admin/ProductFormModal';
 import { ProductExportModal } from '../components/admin/ProductExportModal';
@@ -45,7 +49,9 @@ export const AdminView: React.FC<AdminViewProps> = ({
   showToast
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => isAdminAuthenticated());
-  const [inputPin, setInputPin] = useState('');
+  const [inputEmail, setInputEmail] = useState('');
+  const [inputPassword, setInputPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState('');
 
   // Modals state
@@ -59,20 +65,21 @@ export const AdminView: React.FC<AdminViewProps> = ({
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (authenticateAdmin(inputPin)) {
+    if (authenticateAdmin(inputEmail, inputPassword)) {
       setIsAuthenticated(true);
       setLoginError('');
-      showToast('Đăng nhập Quản trị viên thành công!');
+      showToast('Đăng nhập thành công!');
     } else {
-      setLoginError('Mật mã không chính xác. Gợi ý: mật mã mặc định là hugz2026');
+      setLoginError('Tài khoản email hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại!');
     }
   };
 
   const handleLogout = () => {
     logoutAdmin();
     setIsAuthenticated(false);
-    setInputPin('');
-    showToast('Đã đăng xuất khỏi trang quản trị');
+    setInputEmail('');
+    setInputPassword('');
+    showToast('Đã đăng xuất khỏi tài khoản');
   };
 
   // CRUD Actions
@@ -152,21 +159,47 @@ export const AdminView: React.FC<AdminViewProps> = ({
           </p>
 
           <form onSubmit={handleLogin} className="space-y-4">
+            {/* Email Field */}
             <div className="text-left">
               <label className="block text-xs font-semibold text-stone-700 mb-1">
-                Mật mã bảo mật (PIN)
+                Tài khoản Email
               </label>
-              <input
-                type="password"
-                required
-                value={inputPin}
-                onChange={e => setInputPin(e.target.value)}
-                placeholder="Nhập mật mã..."
-                className="w-full px-4 py-3 rounded-2xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-sm tracking-wider"
-              />
-              <p className="text-[11px] text-stone-400 mt-1">
-                Mật mã mặc định cho nhóm: <code className="text-amber-700 font-mono font-bold bg-amber-50 px-1 py-0.5 rounded">{ADMIN_PIN_DEFAULT}</code>
-              </p>
+              <div className="relative">
+                <Mail className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <input
+                  type="email"
+                  required
+                  value={inputEmail}
+                  onChange={e => setInputEmail(e.target.value)}
+                  placeholder="Levihien823@gmail.com"
+                  className="w-full pl-10 pr-4 py-3 rounded-2xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-sm"
+                />
+              </div>
+            </div>
+
+            {/* Password Field */}
+            <div className="text-left">
+              <label className="block text-xs font-semibold text-stone-700 mb-1">
+                Mật khẩu
+              </label>
+              <div className="relative">
+                <Lock className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  value={inputPassword}
+                  onChange={e => setInputPassword(e.target.value)}
+                  placeholder="Nhập mật khẩu..."
+                  className="w-full pl-10 pr-11 py-3 rounded-2xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-sm tracking-wider"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-700 transition-colors p-1"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
 
             {loginError && (
@@ -177,7 +210,7 @@ export const AdminView: React.FC<AdminViewProps> = ({
 
             <button
               type="submit"
-              className="w-full py-3.5 px-6 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-lg shadow-amber-600/25 transition-all flex items-center justify-center gap-2"
+              className="w-full py-3.5 px-6 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-lg shadow-amber-600/25 transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <ShieldCheck className="w-4 h-4" />
               Đăng Nhập
@@ -218,7 +251,7 @@ export const AdminView: React.FC<AdminViewProps> = ({
                 </span>
               </div>
               <p className="text-xs text-stone-500">
-                Thêm, chỉnh sửa sản phẩm nhanh chóng và xuất file <strong>products.ts</strong> để đẩy lên Git.
+                Tài khoản: <strong className="text-stone-700">{ADMIN_CREDENTIALS.email}</strong> • Thêm, chỉnh sửa sản phẩm và xuất file <strong>products.ts</strong> để đẩy lên Git.
               </p>
             </div>
           </div>
