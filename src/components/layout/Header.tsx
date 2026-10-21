@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavTab } from '../../types';
-import { Search, ShoppingBag, Menu, X, Copy, Check, Sparkles, ArrowRight, Package, Lock } from 'lucide-react';
+import { Search, ShoppingBag, Menu, X, Copy, Check, Sparkles, ArrowRight, Package, Lock, User } from 'lucide-react';
 import { AnnouncementMarquee } from './AnnouncementMarquee';
 
 interface HeaderProps {
@@ -193,20 +193,20 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
             )}
 
-            {/* Admin Management Button */}
+            {/* Admin / Login Button */}
             <button
               id="header-admin-btn"
               onClick={() => handleNavClick('quan-tri')}
-              aria-label="Quản trị sản phẩm"
+              aria-label="Đăng nhập"
               className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
                 currentTab === 'quan-tri'
                   ? 'bg-amber-600 text-white border-amber-600 shadow-xs'
                   : 'text-[#484834] hover:bg-[#f8ecdd] hover:text-[#201b12] border-[#cac7ae]/40'
               }`}
-              title="Trang Quản trị sản phẩm (Admin)"
+              title="Đăng nhập hệ thống"
             >
-              <Lock className="w-3.5 h-3.5 text-amber-600" />
-              <span className="hidden md:inline">Quản trị</span>
+              <User className="w-3.5 h-3.5 text-amber-600" />
+              <span className="hidden md:inline">Đăng nhập</span>
             </button>
 
             {/* Quick Channel Link */}
@@ -274,8 +274,8 @@ export const Header: React.FC<HeaderProps> = ({
                 className="w-full py-2.5 px-4 text-left rounded-lg bg-amber-50/80 border border-amber-200/70 text-amber-900 font-semibold text-xs flex items-center justify-between cursor-pointer"
               >
                 <div className="flex items-center gap-2">
-                  <Lock className="w-4 h-4 text-amber-600" />
-                  <span>Trang Quản trị sản phẩm</span>
+                  <User className="w-4 h-4 text-amber-600" />
+                  <span>Đăng nhập</span>
                 </div>
                 <ArrowRight className="w-3.5 h-3.5 text-amber-700" />
               </button>

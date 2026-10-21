@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavTab } from '../../types';
-import { ArrowRight, CheckCircle2, Mail, Clock, ShieldCheck, Lock } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Mail, Clock, ShieldCheck, User } from 'lucide-react';
 import { trackMarketplaceClick, buildTrackedUrl } from '../../utils/analytics';
 
 interface FooterProps {
@@ -252,10 +252,10 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab, onShowToast, onOpen
                 window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
               }}
               className="hover:text-amber-700 text-[#484834] transition-colors cursor-pointer flex items-center gap-1 font-semibold"
-              title="Dành cho Quản trị viên & Nhóm phát triển"
+              title="Đăng nhập hệ thống"
             >
-              <Lock className="w-3 h-3 text-amber-600" />
-              <span>Quản trị viên</span>
+              <User className="w-3.5 h-3.5 text-amber-600" />
+              <span>Đăng nhập</span>
             </button>
           </div>
         </div>

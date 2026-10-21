@@ -145,10 +145,10 @@ export const AdminView: React.FC<AdminViewProps> = ({
           </div>
 
           <h2 className="text-2xl font-bold text-stone-900 mb-2">
-            Quản Trị Viên HUGZ
+            Đăng Nhập Hệ Thống
           </h2>
           <p className="text-xs text-stone-500 mb-6">
-            Dành cho nhóm phát triển để thêm, sửa, xóa sản phẩm và đồng bộ mã nguồn lên Git.
+            Dành cho nhóm phát triển để quản lý sản phẩm và đồng bộ mã nguồn lên Git.
           </p>
 
           <form onSubmit={handleLogin} className="space-y-4">
@@ -180,7 +180,7 @@ export const AdminView: React.FC<AdminViewProps> = ({
               className="w-full py-3.5 px-6 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-lg shadow-amber-600/25 transition-all flex items-center justify-center gap-2"
             >
               <ShieldCheck className="w-4 h-4" />
-              Đăng Nhập Quản Trị
+              Đăng Nhập
             </button>
           </form>
 
