@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { NavTab, Product, CartItem, PlacedOrder } from './types';
 import { PRODUCTS } from './data/products';
 import { Header, Footer, MobileBottomNav, FloatingSocialWidget } from './components/layout';
-import { ProductDetailModal, CartDrawer, CheckoutModal, OrderTrackingModal, SearchModal } from './components/modals';
+import { ProductDetailModal, CartDrawer, CheckoutModal, OrderTrackingModal, SearchModal, LoginModal } from './components/modals';
 import { Toast, BrandIntroMotion, LiveOrderTicker } from './components/common';
 import { HomeView } from './views/HomeView';
 import { ProductsView } from './views/ProductsView';
@@ -12,13 +12,15 @@ import { AboutView } from './views/AboutView';
 import { ChannelsView } from './views/ChannelsView';
 import { ContactView } from './views/ContactView';
 import { AdminView } from './views/AdminView';
-import { getStoredProducts, saveStoredProducts } from './utils/productStorage';
+import { getStoredProducts, saveStoredProducts, isAdminAuthenticated } from './utils/productStorage';
 import { trackViewItem, trackAddToCart } from './utils/analytics';
 
 export default function App() {
   const [currentTab, setCurrentTab] = useState<NavTab>('trang-chu');
   const [products, setProducts] = useState<Product[]>(() => getStoredProducts());
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [isLoggedIn, setIsLoggedIn] = useState(() => isAdminAuthenticated());
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
 
   useEffect(() => {
     // Luôn cuộn lên đầu trang tức thì khi chuyển tab
@@ -26,10 +28,19 @@ export default function App() {
   }, [currentTab]);
 
   useEffect(() => {
+    const handleAuthSync = () => {
+      setIsLoggedIn(isAdminAuthenticated());
+    };
+    window.addEventListener('hugz-auth-changed', handleAuthSync);
+
     // Lắng nghe sự kiện hash URL (#admin)
     const handleHash = () => {
       if (window.location.hash === '#admin') {
-        setCurrentTab('quan-tri');
+        if (isAdminAuthenticated()) {
+          setCurrentTab('quan-tri');
+        } else {
+          setLoginModalOpen(true);
+        }
       }
     };
     handleHash();
@@ -41,11 +52,20 @@ export default function App() {
     window.addEventListener('hugz-products-updated', handleStorageSync);
     window.addEventListener('storage', handleStorageSync);
     return () => {
+      window.removeEventListener('hugz-auth-changed', handleAuthSync);
       window.removeEventListener('hashchange', handleHash);
       window.removeEventListener('hugz-products-updated', handleStorageSync);
       window.removeEventListener('storage', handleStorageSync);
     };
   }, []);
+
+  const handleOpenLogin = () => {
+    if (isAdminAuthenticated()) {
+      setCurrentTab('quan-tri');
+    } else {
+      setLoginModalOpen(true);
+    }
+  };
 
   const handleUpdateProducts = (newProducts: Product[]) => {
     saveStoredProducts(newProducts);
@@ -232,6 +252,8 @@ export default function App() {
         onCopyVoucher={handleCopyVoucher}
         hasCopiedVoucher={hasCopiedVoucher}
         onOpenOrderTracking={() => setOrderTrackingOpen(true)}
+        isLoggedIn={isLoggedIn}
+        onOpenLogin={handleOpenLogin}
       />
 
       {/* Main Content Body with Smooth View Transitions */}
@@ -308,6 +330,8 @@ export default function App() {
           onSelectTab={setCurrentTab} 
           onShowToast={showToast} 
           onOpenOrderTracking={() => setOrderTrackingOpen(true)}
+          isLoggedIn={isLoggedIn}
+          onOpenLogin={handleOpenLogin}
         />
       )}
 
@@ -353,6 +377,18 @@ export default function App() {
         isOpen={orderTrackingOpen}
         onClose={() => setOrderTrackingOpen(false)}
         onContinueShopping={() => setCurrentTab('san-pham')}
+      />
+
+      {/* Account Login Modal */}
+      <LoginModal
+        isOpen={loginModalOpen}
+        onClose={() => setLoginModalOpen(false)}
+        onLoginSuccess={() => {
+          setIsLoggedIn(true);
+          setLoginModalOpen(false);
+          setCurrentTab('quan-tri');
+          showToast('Đăng nhập thành công! Chào mừng Levihien823@gmail.com');
+        }}
       />
 
       {/* Instant Search Modal */}

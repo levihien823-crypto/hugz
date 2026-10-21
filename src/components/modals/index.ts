@@ -3,3 +3,4 @@ export * from './CheckoutModal';
 export * from './OrderTrackingModal';
 export * from './ProductDetailModal';
 export * from './SearchModal';
+export * from './LoginModal';

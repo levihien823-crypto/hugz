@@ -7,9 +7,17 @@ interface FooterProps {
   onSelectTab: (tab: NavTab) => void;
   onShowToast: (msg: string) => void;
   onOpenOrderTracking?: () => void;
+  isLoggedIn?: boolean;
+  onOpenLogin?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onSelectTab, onShowToast, onOpenOrderTracking }) => {
+export const Footer: React.FC<FooterProps> = ({ 
+  onSelectTab, 
+  onShowToast, 
+  onOpenOrderTracking,
+  isLoggedIn = false,
+  onOpenLogin
+}) => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -247,15 +255,18 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab, onShowToast, onOpen
             <span>•</span>
             <button
               onClick={() => {
-                window.location.hash = '#admin';
-                onSelectTab('quan-tri');
-                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                if (onOpenLogin) {
+                  onOpenLogin();
+                } else {
+                  onSelectTab('quan-tri');
+                  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                }
               }}
               className="hover:text-amber-700 text-[#484834] transition-colors cursor-pointer flex items-center gap-1 font-semibold"
-              title="Đăng nhập hệ thống"
+              title={isLoggedIn ? 'Trang Quản trị sản phẩm' : 'Đăng nhập hệ thống'}
             >
               <User className="w-3.5 h-3.5 text-amber-600" />
-              <span>Đăng nhập</span>
+              <span>{isLoggedIn ? 'Quản trị' : 'Đăng nhập'}</span>
             </button>
           </div>
         </div>

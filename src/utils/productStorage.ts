@@ -2,7 +2,15 @@ import { Product } from '../types';
 import { PRODUCTS, ECOSYSTEM_PILLARS, CATEGORIES, FAQS, LOOKBOOKS } from '../data/products';
 
 const STORAGE_KEY = 'hugz_custom_products';
-const AUTH_KEY = 'hugz_admin_auth';
+const AUTH_KEY = 'hugz_admin_auth_v3';
+
+// Xóa bỏ các session cũ để bắt buộc đăng nhập bằng tài khoản mới
+try {
+  sessionStorage.removeItem('hugz_admin_auth');
+  sessionStorage.removeItem('hugz_admin_auth_v2');
+} catch {
+  // ignore
+}
 
 export const ADMIN_CREDENTIALS = {
   email: 'Levihien823@gmail.com',
@@ -30,6 +38,7 @@ export function authenticateAdmin(email: string, pass: string): boolean {
   if (isMatchEmail && isMatchPass) {
     try {
       sessionStorage.setItem(AUTH_KEY, 'true');
+      window.dispatchEvent(new Event('hugz-auth-changed'));
     } catch {
       // fallback
     }
@@ -44,6 +53,7 @@ export function authenticateAdmin(email: string, pass: string): boolean {
 export function logoutAdmin(): void {
   try {
     sessionStorage.removeItem(AUTH_KEY);
+    window.dispatchEvent(new Event('hugz-auth-changed'));
   } catch {
     // fallback
   }

@@ -74,11 +74,20 @@ export const AdminView: React.FC<AdminViewProps> = ({
     }
   };
 
+  useEffect(() => {
+    const syncAuth = () => {
+      setIsAuthenticated(isAdminAuthenticated());
+    };
+    window.addEventListener('hugz-auth-changed', syncAuth);
+    return () => window.removeEventListener('hugz-auth-changed', syncAuth);
+  }, []);
+
   const handleLogout = () => {
     logoutAdmin();
     setIsAuthenticated(false);
     setInputEmail('');
     setInputPassword('');
+    onNavigateTab('trang-chu');
     showToast('Đã đăng xuất khỏi tài khoản');
   };
 
