@@ -21,10 +21,19 @@ export default function App() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   useEffect(() => {
-    // Tự động mở tab quản trị nếu gõ #admin trên URL
-    if (window.location.hash === '#admin') {
-      setCurrentTab('quan-tri');
-    }
+    // Luôn cuộn lên đầu trang tức thì khi chuyển tab
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [currentTab]);
+
+  useEffect(() => {
+    // Lắng nghe sự kiện hash URL (#admin)
+    const handleHash = () => {
+      if (window.location.hash === '#admin') {
+        setCurrentTab('quan-tri');
+      }
+    };
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
 
     const handleStorageSync = () => {
       setProducts(getStoredProducts());
@@ -32,6 +41,7 @@ export default function App() {
     window.addEventListener('hugz-products-updated', handleStorageSync);
     window.addEventListener('storage', handleStorageSync);
     return () => {
+      window.removeEventListener('hashchange', handleHash);
       window.removeEventListener('hugz-products-updated', handleStorageSync);
       window.removeEventListener('storage', handleStorageSync);
     };
@@ -292,12 +302,14 @@ export default function App() {
         </motion.main>
       </AnimatePresence>
 
-      {/* Footer */}
-      <Footer 
-        onSelectTab={setCurrentTab} 
-        onShowToast={showToast} 
-        onOpenOrderTracking={() => setOrderTrackingOpen(true)}
-      />
+      {/* Footer (Ẩn khi ở trang quản trị để tập trung vào bảng điều khiển) */}
+      {currentTab !== 'quan-tri' && (
+        <Footer 
+          onSelectTab={setCurrentTab} 
+          onShowToast={showToast} 
+          onOpenOrderTracking={() => setOrderTrackingOpen(true)}
+        />
+      )}
 
       {/* Product Detail Modal */}
       <ProductDetailModal
@@ -362,15 +374,17 @@ export default function App() {
       {/* Brand Opening Entrance Motion */}
       <BrandIntroMotion />
 
-      {/* Mobile Fixed Bottom Navigation Bar */}
-      <MobileBottomNav
-        currentTab={currentTab}
-        onSelectTab={setCurrentTab}
-        cartCount={totalCartCount}
-        onOpenCart={() => setCartOpen(true)}
-        onOpenSearch={() => setSearchOpen(true)}
-        onOpenOrderTracking={() => setOrderTrackingOpen(true)}
-      />
+      {/* Mobile Fixed Bottom Navigation Bar (Ẩn khi ở trang quản trị) */}
+      {currentTab !== 'quan-tri' && (
+        <MobileBottomNav
+          currentTab={currentTab}
+          onSelectTab={setCurrentTab}
+          cartCount={totalCartCount}
+          onOpenCart={() => setCartOpen(true)}
+          onOpenSearch={() => setSearchOpen(true)}
+          onOpenOrderTracking={() => setOrderTrackingOpen(true)}
+        />
+      )}
 
       {/* Floating Feedback Toast */}
       <Toast

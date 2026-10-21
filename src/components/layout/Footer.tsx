@@ -246,7 +246,11 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab, onShowToast, onOpen
             </span>
             <span>•</span>
             <button
-              onClick={() => onSelectTab('quan-tri')}
+              onClick={() => {
+                window.location.hash = '#admin';
+                onSelectTab('quan-tri');
+                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+              }}
               className="hover:text-amber-700 text-[#484834] transition-colors cursor-pointer flex items-center gap-1 font-semibold"
               title="Dành cho Quản trị viên & Nhóm phát triển"
             >
