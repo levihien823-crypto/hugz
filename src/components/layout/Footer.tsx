@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { NavTab } from '../types';
+﻿import React, { useState } from 'react';
+import { NavTab } from '../../types';
 import { ArrowRight, CheckCircle2, Mail, Clock, ShieldCheck } from 'lucide-react';
-import { trackMarketplaceClick, buildTrackedUrl } from '../utils/analytics';
+import { trackMarketplaceClick, buildTrackedUrl } from '../../utils/analytics';
 
 interface FooterProps {
   onSelectTab: (tab: NavTab) => void;

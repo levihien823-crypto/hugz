@@ -1,7 +1,7 @@
-import React from 'react';
-import { Product } from '../types';
+﻿import React from 'react';
+import { Product } from '../../types';
 import { Star, ShoppingBag, Eye, ExternalLink } from 'lucide-react';
-import { trackMarketplaceClick, buildTrackedUrl } from '../utils/analytics';
+import { trackMarketplaceClick, buildTrackedUrl } from '../../utils/analytics';
 
 interface ProductCardProps {
   product: Product;

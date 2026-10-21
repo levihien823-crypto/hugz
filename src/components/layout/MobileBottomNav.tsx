@@ -1,6 +1,6 @@
-import React from 'react';
+﻿import React from 'react';
 import { Home, Grid, Search, ShoppingBag, ClipboardList } from 'lucide-react';
-import { NavTab } from '../types';
+import { NavTab } from '../../types';
 
 interface MobileBottomNavProps {
   currentTab: NavTab;

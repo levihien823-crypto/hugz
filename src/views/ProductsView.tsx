@@ -1,14 +1,14 @@
 import React, { useState, useMemo } from 'react';
 import { Product } from '../types';
-import { ProductCard } from '../components/ProductCard';
 import { 
+  ProductCard,
   ProductFilterSidebar, 
   FilterState, 
   CATEGORY_OPTIONS, 
   PASTEL_COLORS, 
   FEATURE_TAGS,
   isProductMatchingCategory
-} from '../components/ProductFilterSidebar';
+} from '../components/products';
 import { Search, SlidersHorizontal, ArrowUpDown, X, RotateCcw, Check } from 'lucide-react';
 
 interface ProductsViewProps {

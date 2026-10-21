@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { NavTab } from '../types';
+﻿import React, { useState } from 'react';
+import { NavTab } from '../../types';
 import { Search, ShoppingBag, Menu, X, Copy, Check, Sparkles, ArrowRight, Package } from 'lucide-react';
 import { AnnouncementMarquee } from './AnnouncementMarquee';
 

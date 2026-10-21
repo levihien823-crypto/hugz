@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Product } from '../types';
+﻿import React, { useState, useEffect } from 'react';
+import { Product } from '../../types';
 import { 
   X, Star, ShieldCheck, Truck, RotateCcw, Box, ExternalLink, 
   Heart, Share2, ZoomIn, Check, Sparkles, Wind, 
   MessageCircle, ArrowRight, ChevronRight, Layers, Award,
   ShoppingBag, Plus, Minus
 } from 'lucide-react';
-import { trackMarketplaceClick, buildTrackedUrl } from '../utils/analytics';
-import { PRODUCTS } from '../data/products';
+import { trackMarketplaceClick, buildTrackedUrl } from '../../utils/analytics';
+import { PRODUCTS } from '../../data/products';
 
 interface ProductDetailModalProps {
   product: Product | null;

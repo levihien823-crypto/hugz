@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Product } from '../types';
+﻿import React, { useState, useMemo } from 'react';
+import { Product } from '../../types';
 import { Search, X, Star, ArrowRight } from 'lucide-react';
 
 interface SearchModalProps {

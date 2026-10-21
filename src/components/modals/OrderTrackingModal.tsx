@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { PlacedOrder } from '../types';
+﻿import React, { useState, useEffect } from 'react';
+import { PlacedOrder } from '../../types';
 import { 
   X, 
   Package, 
@@ -18,7 +18,7 @@ import {
 import { 
   cancelOrderInLocalStorage, 
   sendCancellationToGoogleSheet 
-} from '../utils/orderService';
+} from '../../utils/orderService';
 
 interface OrderTrackingModalProps {
   isOpen: boolean;

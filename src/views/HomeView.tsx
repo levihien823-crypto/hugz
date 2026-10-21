@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Product, NavTab } from '../types';
-import { ProductCard } from '../components/ProductCard';
+import { ProductCard } from '../components/products';
 import { ECOSYSTEM_PILLARS, CATEGORIES } from '../data/products';
 import { trackMarketplaceClick, buildTrackedUrl } from '../utils/analytics';
 import { 

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { CartItem } from '../types';
+﻿import React, { useState, useEffect } from 'react';
+import { CartItem } from '../../types';
 import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, Tag, Check, ExternalLink } from 'lucide-react';
-import { trackMarketplaceClick, buildTrackedUrl, trackBeginCheckout, trackPurchase } from '../utils/analytics';
+import { trackMarketplaceClick, buildTrackedUrl, trackBeginCheckout, trackPurchase } from '../../utils/analytics';
 
 interface CartDrawerProps {
   isOpen: boolean;

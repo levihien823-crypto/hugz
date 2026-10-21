@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { CartItem, PlacedOrder, CustomerOrderInfo } from '../types';
+﻿import React, { useState } from 'react';
+import { CartItem, PlacedOrder, CustomerOrderInfo } from '../../types';
 import { 
   X, 
   CheckCircle2, 
@@ -21,8 +21,8 @@ import {
   Building,
   ArrowRight
 } from 'lucide-react';
-import { trackPurchase } from '../utils/analytics';
-import { sendOrderToGoogleSheet } from '../utils/orderService';
+import { trackPurchase } from '../../utils/analytics';
+import { sendOrderToGoogleSheet } from '../../utils/orderService';
 
 interface CheckoutModalProps {
   isOpen: boolean;
