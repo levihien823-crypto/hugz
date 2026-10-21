@@ -180,7 +180,7 @@ export const AdminView: React.FC<AdminViewProps> = ({
                   required
                   value={inputEmail}
                   onChange={e => setInputEmail(e.target.value)}
-                  placeholder="Levihien823@gmail.com"
+                  placeholder="Nhập địa chỉ email..."
                   className="w-full pl-10 pr-4 py-3 rounded-2xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-sm"
                 />
               </div>
