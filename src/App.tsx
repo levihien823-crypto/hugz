@@ -118,7 +118,7 @@ export default function App() {
 
   const handleOrderSuccess = (order: PlacedOrder) => {
     setCartItems([]);
-    showToast(`Đã tiếp nhận đơn hàng #${order.orderId}! HUGZ sẽ gửi tin nhắn xác nhận qua SMS cho bạn sớm.`);
+    showToast(`Đã tiếp nhận đơn hàng #${order.orderId}! HUGZ sẽ gửi tin nhắn xác nhận qua SMS hoặc qua Zalo sớm nhất cho bạn.`);
   };
 
   // Persist cart

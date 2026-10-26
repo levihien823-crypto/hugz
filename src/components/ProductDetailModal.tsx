@@ -375,7 +375,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     <span>Đặt mua trực tiếp trên Website</span>
                   </span>
                   <span className="text-[10px] font-extrabold text-[#1877F2] bg-[#eef7ff] px-2 py-0.5 rounded-full">
-                    Xác nhận qua SMS
+                    Xác nhận qua SMS / Zalo
                   </span>
                 </div>
 
@@ -437,7 +437,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 </div>
 
                 <p className="text-[10px] text-[#797862] text-center italic">
-                  * Thông tin đơn hàng và mã vận đơn sẽ được gửi xác nhận qua tin nhắn SMS.
+                  * Thông tin đơn hàng và mã vận đơn sẽ được gửi xác nhận qua SMS hoặc qua Zalo sớm nhất.
                 </p>
               </div>
 

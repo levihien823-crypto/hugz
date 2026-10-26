@@ -246,7 +246,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 <div className="p-2.5 rounded-xl bg-[#fdf2e3] border border-[#cac7ae]/40 text-[11px] text-[#201b12] flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping shrink-0" />
                   <span>
-                    <strong>Mua trực tiếp:</strong> Điền thông tin nhận hàng, HUGZ sẽ gửi xác nhận đơn qua tin nhắn SMS trước khi giao hàng!
+                    <strong>Mua trực tiếp:</strong> Điền thông tin nhận hàng, HUGZ sẽ gửi xác nhận đơn qua SMS hoặc qua Zalo sớm nhất trước khi giao hàng!
                   </span>
                 </div>
 

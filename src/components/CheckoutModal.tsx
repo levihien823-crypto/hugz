@@ -8,8 +8,6 @@ import {
   MapPin, 
   Mail, 
   FileText, 
-  CreditCard, 
-  Banknote, 
   QrCode, 
   ShieldCheck, 
   Copy, 
@@ -265,8 +263,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               </div>
               <p className="text-xs text-[#797862]">
                 {placedOrder 
-                  ? 'HUGZ sẽ gửi thông báo xác nhận đơn qua SMS cho bạn' 
-                  : 'Điền thông tin nhận hàng — HUGZ sẽ gửi xác nhận đơn qua tin nhắn SMS'}
+                  ? 'HUGZ sẽ gửi thông báo xác nhận đơn qua SMS hoặc qua Zalo sớm nhất cho bạn' 
+                  : 'Điền thông tin nhận hàng — HUGZ sẽ gửi xác nhận đơn qua SMS hoặc qua Zalo sớm nhất'}
               </p>
             </div>
           </div>
@@ -293,7 +291,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             <span className={`w-5 h-5 rounded-full text-[11px] flex items-center justify-center ${placedOrder ? 'bg-[#626200] text-white' : 'bg-[#cac7ae]/50 text-[#797862]'}`}>
               2
             </span>
-            <span>2. HUGZ gửi xác nhận qua SMS</span>
+            <span>2. HUGZ gửi xác nhận qua SMS hoặc qua Zalo</span>
           </div>
           <span className="text-[#cac7ae]">→</span>
           <div className="flex items-center gap-2 font-bold text-[#797862]">
@@ -335,17 +333,17 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               </div>
             </div>
 
-            {/* Notification Banner: Xác nhận qua Tin nhắn SMS */}
+            {/* Notification Banner: Xác nhận qua SMS hoặc qua Zalo */}
             <div className="p-4 sm:p-5 rounded-2xl bg-[#eef7ff] border border-[#bcdbf7] flex items-start gap-3.5 shadow-xs">
               <div className="w-10 h-10 rounded-full bg-[#1877F2] flex items-center justify-center text-white shrink-0 mt-0.5">
                 <MessageCircle className="w-5 h-5" />
               </div>
               <div className="text-xs sm:text-sm text-[#201b12] leading-relaxed">
                 <strong className="font-bold text-[#1877F2] text-sm block mb-1">
-                  💬 Xác nhận đơn hàng qua Tin nhắn SMS:
+                  💬 Xác nhận đơn hàng qua SMS hoặc qua Zalo:
                 </strong>
                 HUGZ đã tiếp nhận thông tin đơn hàng của bạn. Chúng tôi sẽ 
-                <strong> gửi tin nhắn xác nhận chi tiết đơn hàng và mã vận đơn theo dõi tới số điện thoại {placedOrder.customer.phone}</strong> trong vòng 15 - 30 phút. Bạn không phải lo bị làm phiền bởi cuộc gọi rác!
+                <strong> gửi tin nhắn xác nhận chi tiết đơn hàng và mã vận đơn theo dõi tới số điện thoại {placedOrder.customer.phone} qua SMS hoặc qua Zalo sớm nhất</strong>. Bạn không phải lo bị làm phiền bởi cuộc gọi rác!
               </div>
             </div>
 
@@ -512,7 +510,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             <div className="p-3.5 rounded-xl bg-[#fdf2e3] border border-[#cac7ae]/40 flex items-start sm:items-center gap-2.5 text-xs text-[#201b12]">
               <ShieldCheck className="w-5 h-5 text-[#626200] shrink-0 mt-0.5 sm:mt-0" />
               <div className="leading-relaxed">
-                <strong>Đặt hàng trực tiếp tiện lợi:</strong> Quý khách chỉ cần điền thông tin nhận hàng bên dưới. HUGZ sẽ gửi tin nhắn xác nhận đơn qua SMS và đóng gói giao tận tay bạn nhanh chóng!
+                <strong>Đặt hàng trực tiếp tiện lợi:</strong> Quý khách chỉ cần điền thông tin nhận hàng bên dưới. HUGZ sẽ gửi tin nhắn xác nhận đơn qua SMS hoặc qua Zalo sớm nhất và đóng gói giao tận tay bạn nhanh chóng!
               </div>
             </div>
 
@@ -522,7 +520,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               <div className="lg:col-span-7 space-y-4">
                 <h4 className="font-display text-sm font-bold text-[#201b12] uppercase tracking-wider flex items-center gap-1.5 pb-1 border-b border-[#cac7ae]/30">
                   <User className="w-4 h-4 text-[#626200]" />
-                  <span>1. Thông tin người nhận hàng</span>
+                  <span>Thông tin người nhận hàng</span>
                 </h4>
 
                 {/* Họ tên & Số điện thoại */}
@@ -671,71 +669,6 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     />
                   </div>
                 </div>
-
-                {/* 2. Phương thức thanh toán */}
-                <div className="pt-2 space-y-2">
-                  <h4 className="font-display text-sm font-bold text-[#201b12] uppercase tracking-wider flex items-center gap-1.5 pb-1 border-b border-[#cac7ae]/30">
-                    <CreditCard className="w-4 h-4 text-[#626200]" />
-                    <span>2. Hình thức thanh toán</span>
-                  </h4>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {/* Option 1: COD */}
-                    <label
-                      onClick={() => setFormData({ ...formData, paymentMethod: 'cod' })}
-                      className={`p-3 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between ${
-                        formData.paymentMethod === 'cod'
-                          ? 'border-[#201b12] bg-[#fffbf2] shadow-xs ring-1 ring-[#201b12]/20'
-                          : 'border-[#cac7ae]/40 bg-white hover:border-[#cac7ae]'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between mb-1">
-                        <div className="flex items-center gap-2">
-                          <Banknote className="w-4 h-4 text-emerald-700" />
-                          <span className="font-bold text-xs text-[#201b12]">Tiền mặt khi nhận (COD)</span>
-                        </div>
-                        <input
-                          type="radio"
-                          name="paymentMethod"
-                          checked={formData.paymentMethod === 'cod'}
-                          onChange={() => {}}
-                          className="accent-[#201b12]"
-                        />
-                      </div>
-                      <p className="text-[10px] text-[#797862] leading-relaxed">
-                        Đồng kiểm hàng chuẩn đẹp tận tay rồi mới thanh toán cho shipper.
-                      </p>
-                    </label>
-
-                    {/* Option 2: Banking VietQR */}
-                    <label
-                      onClick={() => setFormData({ ...formData, paymentMethod: 'banking' })}
-                      className={`p-3 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between ${
-                        formData.paymentMethod === 'banking'
-                          ? 'border-[#201b12] bg-[#fffbf2] shadow-xs ring-1 ring-[#201b12]/20'
-                          : 'border-[#cac7ae]/40 bg-white hover:border-[#cac7ae]'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between mb-1">
-                        <div className="flex items-center gap-2">
-                          <QrCode className="w-4 h-4 text-[#626200]" />
-                          <span className="font-bold text-xs text-[#201b12]">Chuyển khoản VietQR</span>
-                        </div>
-                        <input
-                          type="radio"
-                          name="paymentMethod"
-                          checked={formData.paymentMethod === 'banking'}
-                          onChange={() => {}}
-                          className="accent-[#201b12]"
-                        />
-                      </div>
-                      <p className="text-[10px] text-[#797862] leading-relaxed">
-                        Tự động sinh mã VietQR theo số tiền, xử lý đơn hàng nhanh ưu tiên.
-                      </p>
-                    </label>
-                  </div>
-                </div>
-
               </div>
 
               {/* RIGHT: ORDER SUMMARY (5 COLUMNS) */}
@@ -832,7 +765,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     🛡️ Cam kết an tâm tại HUGZ
                   </p>
                   <p>
-                    Thông tin đơn hàng và mã vận đơn sẽ được gửi xác nhận qua tin nhắn SMS trước khi bưu tá giao tới.
+                    Thông tin đơn hàng và mã vận đơn sẽ được gửi xác nhận qua SMS hoặc qua Zalo sớm nhất trước khi bưu tá giao tới.
                   </p>
                 </div>
               </div>
