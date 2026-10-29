@@ -252,22 +252,6 @@ export const Footer: React.FC<FooterProps> = ({
               <ShieldCheck className="w-3.5 h-3.5" />
               Sản phẩm đạt chuẩn an toàn
             </span>
-            <span>•</span>
-            <button
-              onClick={() => {
-                if (onOpenLogin) {
-                  onOpenLogin();
-                } else {
-                  onSelectTab('quan-tri');
-                  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-                }
-              }}
-              className="hover:text-amber-700 text-[#484834] transition-colors cursor-pointer flex items-center gap-1 font-semibold"
-              title={isLoggedIn ? 'Trang Quản trị sản phẩm' : 'Đăng nhập hệ thống'}
-            >
-              <User className="w-3.5 h-3.5 text-amber-600" />
-              <span>{isLoggedIn ? 'Quản trị' : 'Đăng nhập'}</span>
-            </button>
           </div>
         </div>
 

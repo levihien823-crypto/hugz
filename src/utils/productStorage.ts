@@ -1,4 +1,4 @@
-import { Product } from '../types';
+import { Product, CategoryInfo, PlacedOrder, Coupon } from '../types';
 import { PRODUCTS, ECOSYSTEM_PILLARS, CATEGORIES, FAQS, LOOKBOOKS } from '../data/products';
 
 const STORAGE_KEY = 'hugz_custom_products';
@@ -150,3 +150,259 @@ export function downloadFile(filename: string, content: string, mimeType: string
   document.body.removeChild(link);
   URL.revokeObjectURL(url);
 }
+
+// ==========================================
+// 1. QUẢN LÝ MÃ GIẢM GIÁ (COUPONS / VOUCHERS)
+// ==========================================
+const COUPONS_STORAGE_KEY = 'hugz_custom_coupons';
+
+export const DEFAULT_COUPONS: Coupon[] = [
+  {
+    id: 'c-1',
+    code: 'HUGZSHOPEE20',
+    discountPercent: 20,
+    minOrderAmount: 0,
+    description: 'Giảm 20% cho đơn hàng đầu tiên qua Shopee Mall & Website',
+    isActive: true,
+    usageCount: 42,
+  },
+  {
+    id: 'c-2',
+    code: 'TIKTOKHUGZ30',
+    discountPercent: 30,
+    minOrderAmount: 250000,
+    description: 'Giảm 30% cho đơn hàng từ 250.000đ từ kênh TikTok Shop',
+    isActive: true,
+    usageCount: 28,
+  },
+  {
+    id: 'c-3',
+    code: 'CHAOBANMOI',
+    discountPercent: 15,
+    minOrderAmount: 100000,
+    description: 'Voucher chào bạn mới giảm 15% tất cả sản phẩm HUGZ',
+    isActive: true,
+    usageCount: 15,
+  },
+  {
+    id: 'c-4',
+    code: 'FREESHIP',
+    discountPercent: 10,
+    discountAmount: 25000,
+    minOrderAmount: 200000,
+    description: 'Hỗ trợ 25.000đ phí vận chuyển toàn quốc cho đơn từ 200k',
+    isActive: true,
+    usageCount: 63,
+  }
+];
+
+export function getStoredCoupons(): Coupon[] {
+  try {
+    const raw = localStorage.getItem(COUPONS_STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch {
+    // fallback
+  }
+  return [...DEFAULT_COUPONS];
+}
+
+export function saveStoredCoupons(coupons: Coupon[]): void {
+  try {
+    localStorage.setItem(COUPONS_STORAGE_KEY, JSON.stringify(coupons));
+    window.dispatchEvent(new Event('hugz-coupons-updated'));
+  } catch (err) {
+    console.error('Lỗi khi lưu coupons:', err);
+  }
+}
+
+// ==========================================
+// 2. QUẢN LÝ ĐƠN HÀNG (ORDERS MANAGEMENT)
+// ==========================================
+const ORDERS_STORAGE_KEY = 'hugz_customer_orders';
+
+export const SAMPLE_ORDERS: PlacedOrder[] = [
+  {
+    orderId: 'HUGZ-8892',
+    createdAt: new Date(Date.now() - 1000 * 60 * 35).toISOString(),
+    customer: {
+      fullName: 'Nguyễn Thị Minh Châu',
+      phone: '0912345678',
+      address: 'Phòng 402, Chung cư Sunrise, 25 Lê Văn Lương, Cầu Giấy, Hà Nội',
+      note: 'Giao giờ hành chính giúp em ạ, gọi trước khi đến',
+      paymentMethod: 'cod'
+    },
+    items: [
+      {
+        product: PRODUCTS[0] || {
+          id: 'p-1',
+          title: 'Túi Mini HUGZ Storage Bag',
+          price: 150000,
+          image: '/images/products/hugz-mini-pouch.jpg',
+          category: 'Túi đựng đồ cá nhân'
+        } as Product,
+        quantity: 2,
+        color: 'Màu Be'
+      }
+    ],
+    subtotal: 300000,
+    discount: 60000,
+    couponCode: 'HUGZSHOPEE20',
+    shippingFee: 25000,
+    grandTotal: 265000,
+    status: 'pending_confirmation'
+  },
+  {
+    orderId: 'HUGZ-8854',
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 5).toISOString(),
+    customer: {
+      fullName: 'Trần Hoàng Long',
+      phone: '0988776655',
+      address: 'Số 18/42 Võ Thị Sáu, Phường Đa Kao, Quận 1, TP. Hồ Chí Minh',
+      note: 'Hàng dễ vỡ, bọc kỹ xốp khí giúp mình',
+      paymentMethod: 'banking'
+    },
+    items: [
+      {
+        product: PRODUCTS[1] || {
+          id: 'p-2',
+          title: 'Hộp Đựng Trang Sức Đa Năng HUGZ Jewelry Box',
+          price: 220000,
+          image: '/images/products/hugz-jewelry-box.jpg',
+          category: 'Hộp phụ kiện'
+        } as Product,
+        quantity: 1,
+        color: 'Hồng Pastel'
+      }
+    ],
+    subtotal: 220000,
+    discount: 0,
+    shippingFee: 25000,
+    grandTotal: 245000,
+    status: 'shipping'
+  },
+  {
+    orderId: 'HUGZ-8790',
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 26).toISOString(),
+    customer: {
+      fullName: 'Lê Thu Trang',
+      phone: '0903112233',
+      address: 'Toà S2.03 Vinhomes Ocean Park, Đa Tốn, Gia Lâm, Hà Nội',
+      paymentMethod: 'cod'
+    },
+    items: [
+      {
+        product: PRODUCTS[2] || {
+          id: 'p-3',
+          title: 'Túi Giữ Nhiệt HUGZ Lunch Cooler Bag',
+          price: 180000,
+          image: '/images/products/hugz-lunch-bag.jpg',
+          category: 'Túi giữ nhiệt'
+        } as Product,
+        quantity: 1
+      }
+    ],
+    subtotal: 180000,
+    discount: 36000,
+    couponCode: 'HUGZSHOPEE20',
+    shippingFee: 25000,
+    grandTotal: 169000,
+    status: 'completed'
+  }
+];
+
+export function getStoredOrders(): PlacedOrder[] {
+  try {
+    const raw = localStorage.getItem(ORDERS_STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch {
+    // fallback
+  }
+  try {
+    localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(SAMPLE_ORDERS));
+  } catch {}
+  return [...SAMPLE_ORDERS];
+}
+
+export function saveStoredOrders(orders: PlacedOrder[]): void {
+  try {
+    localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(orders));
+    window.dispatchEvent(new Event('hugz-orders-updated'));
+  } catch (err) {
+    console.error('Lỗi khi lưu đơn hàng:', err);
+  }
+}
+
+export function updateStoredOrderStatus(orderId: string, status: PlacedOrder['status']): void {
+  const orders = getStoredOrders();
+  const index = orders.findIndex(o => o.orderId.toUpperCase() === orderId.toUpperCase());
+  if (index !== -1) {
+    orders[index] = {
+      ...orders[index],
+      status,
+      ...(status === 'cancelled' && !orders[index].cancelledAt ? { cancelledAt: new Date().toISOString() } : {})
+    };
+    saveStoredOrders(orders);
+  }
+}
+
+export function deleteStoredOrder(orderId: string): void {
+  const orders = getStoredOrders().filter(o => o.orderId.toUpperCase() !== orderId.toUpperCase());
+  saveStoredOrders(orders);
+}
+
+// ==========================================
+// 3. QUẢN LÝ THÔNG BÁO BANNER (ANNOUNCEMENT)
+// ==========================================
+const ANNOUNCEMENT_STORAGE_KEY = 'hugz_announcement_text';
+export const DEFAULT_ANNOUNCEMENT = 'Ưu đãi độc quyền: Giảm 20% Shopee & TikTok';
+
+export function getStoredAnnouncement(): string {
+  try {
+    return localStorage.getItem(ANNOUNCEMENT_STORAGE_KEY) || DEFAULT_ANNOUNCEMENT;
+  } catch {
+    return DEFAULT_ANNOUNCEMENT;
+  }
+}
+
+export function saveStoredAnnouncement(text: string): void {
+  try {
+    localStorage.setItem(ANNOUNCEMENT_STORAGE_KEY, text);
+    window.dispatchEvent(new Event('hugz-announcement-updated'));
+  } catch {}
+}
+
+// ==========================================
+// 4. QUẢN LÝ DANH MỤC (CATEGORIES)
+// ==========================================
+const CATEGORIES_STORAGE_KEY = 'hugz_categories_list';
+
+export function getStoredCategories(): CategoryInfo[] {
+  try {
+    const raw = localStorage.getItem(CATEGORIES_STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch {}
+  return [...CATEGORIES];
+}
+
+export function saveStoredCategories(cats: CategoryInfo[]): void {
+  try {
+    localStorage.setItem(CATEGORIES_STORAGE_KEY, JSON.stringify(cats));
+    window.dispatchEvent(new Event('hugz-categories-updated'));
+  } catch {}
+}
+

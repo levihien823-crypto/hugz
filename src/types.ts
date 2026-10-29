@@ -63,6 +63,7 @@ export interface Product {
   variants?: string[];
   isBestSeller?: boolean;
   isNew?: boolean;
+  images?: string[];
   // Enhanced Content-driven Commerce PDP fields
   gallery?: {
     id: string;
@@ -126,3 +127,16 @@ export interface PlacedOrder {
   cancelledAt?: string;
 }
 
+export interface Coupon {
+  id: string;
+  code: string;
+  discountPercent: number;
+  discountAmount?: number;
+  minOrderAmount?: number;
+  description: string;
+  isActive: boolean;
+  expiryDate?: string;
+  usageCount?: number;
+}
+
+export type AdminTab = 'products' | 'orders' | 'coupons' | 'categories' | 'analytics';

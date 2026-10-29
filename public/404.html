@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <title>HUGZ Lifestyle & Storage</title>
+    <script>
+      // Lưu lại đường dẫn hiện tại và chuyển về trang chủ để SPA xử lý (hỗ trợ /admin trên GitHub Pages)
+      sessionStorage.setItem('hugz_redirect', window.location.pathname + window.location.search + window.location.hash);
+      window.location.replace('/');
+    </script>
+    <meta http-equiv="refresh" content="0;URL='/'" />
+  </head>
+  <body>
+    <p>Đang chuyển hướng đến HUGZ...</p>
+  </body>
+</html>

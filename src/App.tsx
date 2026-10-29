@@ -33,18 +33,32 @@ export default function App() {
     };
     window.addEventListener('hugz-auth-changed', handleAuthSync);
 
-    // Lắng nghe sự kiện hash URL (#admin)
-    const handleHash = () => {
-      if (window.location.hash === '#admin') {
-        if (isAdminAuthenticated()) {
-          setCurrentTab('quan-tri');
-        } else {
-          setLoginModalOpen(true);
+    // Lắng nghe sự kiện URL pathname và hash (#admin hoặc /admin)
+    const checkAndSetAdminRoute = () => {
+      try {
+        const redirect = sessionStorage.getItem('hugz_redirect');
+        if (redirect) {
+          sessionStorage.removeItem('hugz_redirect');
+          window.history.replaceState(null, '', redirect);
         }
+      } catch {
+        // ignore
+      }
+
+      const pathname = window.location.pathname.toLowerCase().replace(/\/+$/, '');
+      const hash = window.location.hash.toLowerCase();
+      if (
+        pathname.endsWith('/admin') ||
+        hash === '#admin' ||
+        hash === '#/admin'
+      ) {
+        setCurrentTab('quan-tri');
       }
     };
-    handleHash();
-    window.addEventListener('hashchange', handleHash);
+
+    checkAndSetAdminRoute();
+    window.addEventListener('hashchange', checkAndSetAdminRoute);
+    window.addEventListener('popstate', checkAndSetAdminRoute);
 
     const handleStorageSync = () => {
       setProducts(getStoredProducts());
@@ -53,7 +67,8 @@ export default function App() {
     window.addEventListener('storage', handleStorageSync);
     return () => {
       window.removeEventListener('hugz-auth-changed', handleAuthSync);
-      window.removeEventListener('hashchange', handleHash);
+      window.removeEventListener('hashchange', checkAndSetAdminRoute);
+      window.removeEventListener('popstate', checkAndSetAdminRoute);
       window.removeEventListener('hugz-products-updated', handleStorageSync);
       window.removeEventListener('storage', handleStorageSync);
     };
