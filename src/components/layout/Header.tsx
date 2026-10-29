@@ -197,30 +197,6 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
             )}
 
-            {/* Admin / Login Button */}
-            <button
-              id="header-admin-btn"
-              onClick={() => {
-                if (onOpenLogin) {
-                  onOpenLogin();
-                } else {
-                  handleNavClick('quan-tri');
-                }
-              }}
-              aria-label={isLoggedIn ? 'Trang Quản trị' : 'Đăng nhập'}
-              className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
-                currentTab === 'quan-tri'
-                  ? 'bg-amber-600 text-white border-amber-600 shadow-xs'
-                  : 'text-[#484834] hover:bg-[#f8ecdd] hover:text-[#201b12] border-[#cac7ae]/40'
-              }`}
-              title={isLoggedIn ? 'Hệ thống Quản trị sản phẩm' : 'Đăng nhập tài khoản'}
-            >
-              <User className="w-3.5 h-3.5 text-amber-600" />
-              <span className="hidden md:inline">
-                {isLoggedIn ? 'Quản trị' : 'Đăng nhập'}
-              </span>
-            </button>
-
             {/* Quick Channel Link */}
             <button
               id="header-channels-cta-btn"
@@ -278,23 +254,6 @@ export const Header: React.FC<HeaderProps> = ({
                   <ArrowRight className="w-3.5 h-3.5 text-[#797862]" />
                 </button>
               )}
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  if (onOpenLogin) {
-                    onOpenLogin();
-                  } else {
-                    handleNavClick('quan-tri');
-                  }
-                }}
-                className="w-full py-2.5 px-4 text-left rounded-lg bg-amber-50/80 border border-amber-200/70 text-amber-900 font-semibold text-xs flex items-center justify-between cursor-pointer"
-              >
-                <div className="flex items-center gap-2">
-                  <User className="w-4 h-4 text-amber-600" />
-                  <span>{isLoggedIn ? 'Quản trị sản phẩm' : 'Đăng nhập'}</span>
-                </div>
-                <ArrowRight className="w-3.5 h-3.5 text-amber-700" />
-              </button>
 
               <button
                 onClick={() => handleNavClick('kenh-mua-hang')}

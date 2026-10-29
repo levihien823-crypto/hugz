@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Product } from '../../types';
 import { 
   X, Star, ShieldCheck, Truck, RotateCcw, Box, ExternalLink, 
@@ -40,8 +40,16 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   const [selectedVariant, setSelectedVariant] = useState(availableVariants[0]);
 
   // Build gallery items dynamically from product
-  const galleryItems = product.gallery && product.gallery.length > 0
+  const galleryItems = (product.gallery && product.gallery.length > 0)
     ? product.gallery
+    : (product.images && product.images.length > 0)
+    ? product.images.map((url, idx) => ({
+        id: `img-${idx + 1}`,
+        url,
+        title: `${product.title} - Ảnh ${idx + 1}`,
+        desc: product.subtitle || 'Ảnh sản phẩm chính hãng HUGZ Living',
+        badge: idx === 0 ? 'Ảnh đại diện' : `Góc nhìn ${idx + 1}`
+      }))
     : [
         {
           id: '1',
@@ -204,12 +212,6 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   <span>Phóng to</span>
                 </button>
 
-                {/* Image Caption Overlay */}
-                {activeImage.badge && (
-                  <div className="absolute bottom-4 left-4 px-3 py-1.5 rounded-xl bg-[#201b12]/80 backdrop-blur-md text-white text-xs font-medium">
-                    <span className="font-semibold text-[#f4f34d]">{activeImage.badge}</span>
-                  </div>
-                )}
               </div>
 
               {/* Thumbnails Row if multiple images */}
@@ -220,7 +222,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     <span className="text-[#626200] font-normal lowercase">chạm để xem chi tiết</span>
                   </div>
                   
-                  <div className="grid grid-cols-5 gap-3">
+                  <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-8 gap-2.5 max-h-56 overflow-y-auto p-1 custom-scrollbar">
                     {galleryItems.map((item, idx) => {
                       const isActive = idx === activeImageIndex;
                       return (
@@ -241,9 +243,6 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                           {isActive && (
                             <div className="absolute inset-0 bg-[#201b12]/10 rounded-xl" />
                           )}
-                          <span className="absolute bottom-1 inset-x-1 text-[9px] font-bold text-center bg-black/70 text-white rounded px-0.5 truncate py-0.5">
-                            {item.badge || `Ảnh ${idx + 1}`}
-                          </span>
                         </button>
                       );
                     })}

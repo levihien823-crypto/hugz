@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Product } from '../../types';
 import { Star, ShoppingBag, Eye, ExternalLink } from 'lucide-react';
 import { trackMarketplaceClick, buildTrackedUrl } from '../../utils/analytics';
@@ -87,19 +87,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </span>
         </div>
 
-        {/* Title & Description */}
+        {/* Title */}
         <h3 
           onClick={() => onOpenDetail(product)}
-          className="font-display text-xs sm:text-base font-bold text-[#201b12] mb-1 tracking-tight group-hover:text-[#626200] transition-colors cursor-pointer line-clamp-2 leading-snug"
+          className="font-display text-xs sm:text-base font-bold text-[#201b12] mb-2 sm:mb-3 tracking-tight group-hover:text-[#626200] transition-colors cursor-pointer line-clamp-2 leading-snug min-h-[2.4rem] sm:min-h-[2.75rem]"
         >
           <span className="bg-[#d0011b] text-white text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded mr-1 shrink-0 inline-block align-middle">
             Mall
           </span>
           {product.title}
         </h3>
-        <p className="text-[11px] sm:text-xs text-[#484834] mb-2 sm:mb-3 line-clamp-1 sm:line-clamp-2 leading-relaxed hidden sm:block">
-          {product.description}
-        </p>
 
         {/* Pricing */}
         <div className="flex items-baseline gap-1.5 sm:gap-2 mb-2 sm:mb-4 flex-wrap">

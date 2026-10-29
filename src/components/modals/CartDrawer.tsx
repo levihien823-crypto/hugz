@@ -1,7 +1,8 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CartItem } from '../../types';
 import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, Tag, Check, ExternalLink } from 'lucide-react';
 import { trackMarketplaceClick, buildTrackedUrl, trackBeginCheckout, trackPurchase } from '../../utils/analytics';
+import { getStoredCoupons } from '../../utils/productStorage';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -53,12 +54,21 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   const handleApplyCoupon = (e: React.FormEvent) => {
     e.preventDefault();
     const code = couponCode.trim().toUpperCase();
-    if (code === 'HUGZSHOPEE20' || code === 'HUGZ20') {
-      setDiscountPercent(20);
+    const coupons = getStoredCoupons();
+    const matched = coupons.find(c => c.code.toUpperCase() === code && c.isActive);
+
+    if (matched) {
+      if (matched.minOrderAmount && subtotal < matched.minOrderAmount) {
+        setCouponError(`Mã áp dụng cho đơn từ ${new Intl.NumberFormat('vi-VN').format(matched.minOrderAmount)}₫`);
+        setDiscountPercent(0);
+        setCouponApplied(false);
+        return;
+      }
+      setDiscountPercent(matched.discountPercent);
       setCouponApplied(true);
       setCouponError('');
-    } else if (code === 'TIKTOKHUGZ30' || code === 'HUGZ30') {
-      setDiscountPercent(30);
+    } else if (code === 'HUGZSHOPEE20' || code === 'HUGZ20') {
+      setDiscountPercent(20);
       setCouponApplied(true);
       setCouponError('');
     } else {
