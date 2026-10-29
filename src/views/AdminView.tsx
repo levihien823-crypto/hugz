@@ -38,7 +38,8 @@ import {
   Calendar,
   CreditCard,
   Percent,
-  RefreshCw
+  RefreshCw,
+  FileSpreadsheet
 } from 'lucide-react';
 import { Product, NavTab, PlacedOrder, Coupon, CategoryInfo, AdminTab } from '../types';
 import { CATEGORIES } from '../data/products';
@@ -56,8 +57,10 @@ import {
   getStoredCategories,
   saveStoredCategories,
   getStoredAnnouncement,
-  saveStoredAnnouncement
+  saveStoredAnnouncement,
+  SAMPLE_ORDERS
 } from '../utils/productStorage';
+import { fetchOrdersFromGoogleSheet } from '../utils/orderService';
 import { 
   ProductFormModal, 
   ProductExportModal, 
@@ -103,6 +106,7 @@ export const AdminView: React.FC<AdminViewProps> = ({
   const [orderStatusFilter, setOrderStatusFilter] = useState<string>('all');
   const [selectedOrder, setSelectedOrder] = useState<PlacedOrder | null>(null);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+  const [isSyncingSheet, setIsSyncingSheet] = useState(false);
 
   // Coupons State
   const [coupons, setCoupons] = useState<Coupon[]>(() => getStoredCoupons());
@@ -246,6 +250,38 @@ export const AdminView: React.FC<AdminViewProps> = ({
       deleteStoredOrder(orderId);
       setOrders(getStoredOrders());
       showToast(`Đã xóa đơn hàng #${orderId}`);
+    }
+  };
+
+  const handleSyncFromGoogleSheet = async () => {
+    setIsSyncingSheet(true);
+    try {
+      const res = await fetchOrdersFromGoogleSheet();
+      if (res.success && res.orders && res.orders.length > 0) {
+        const existingIds = new Set(orders.map(o => o.orderId.toUpperCase()));
+        const newOrders = res.orders.filter(o => !existingIds.has(o.orderId.toUpperCase()));
+        const merged = [...newOrders, ...orders];
+        saveStoredOrders(merged);
+        setOrders(merged);
+        showToast(`Đồng bộ thành công! Đã thêm ${newOrders.length} đơn hàng mới từ Google Sheets.`);
+      } else {
+        showToast(res.message);
+      }
+    } catch (e: any) {
+      showToast('Lỗi khi đồng bộ: ' + (e?.message || 'Không thể kết nối'));
+    } finally {
+      setIsSyncingSheet(false);
+    }
+  };
+
+  const handleLoadSampleOrders = () => {
+    if (window.confirm('Bạn có muốn nạp thêm các đơn hàng mẫu vào danh sách để kiểm tra tính toán doanh số và báo cáo?')) {
+      const existingIds = new Set(orders.map(o => o.orderId.toUpperCase()));
+      const toAdd = SAMPLE_ORDERS.filter(o => !existingIds.has(o.orderId.toUpperCase()));
+      const merged = [...orders, ...toAdd];
+      saveStoredOrders(merged);
+      setOrders(merged);
+      showToast(`Đã nạp thêm ${toAdd.length} đơn hàng mẫu vào hệ thống!`);
     }
   };
 
@@ -830,6 +866,64 @@ export const AdminView: React.FC<AdminViewProps> = ({
         ========================================== */}
         {activeTab === 'orders' && (
           <div className="space-y-6">
+            {/* Google Sheets Audit & Real-time Banner */}
+            <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-stone-50 border border-emerald-200/90 rounded-3xl p-5 shadow-sm">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                <div className="flex items-start gap-3.5">
+                  <div className="w-10 h-10 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-emerald-600/20">
+                    <FileSpreadsheet className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h4 className="font-bold text-stone-900 text-sm">
+                        Tra soát đơn hàng (Google Sheets & Bộ nhớ trình duyệt)
+                      </h4>
+                      <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                        Đang kết nối Google Sheets
+                      </span>
+                    </div>
+                    <p className="text-xs text-stone-600 mt-1 leading-relaxed max-w-3xl">
+                      Bảng bên dưới đang hiển thị <strong>{orders.length} đơn hàng</strong> lưu trong bộ nhớ trình duyệt này.
+                      Tất cả các đơn thực tế do khách hàng đặt từ các máy tính/điện thoại khác đều được <strong>tự động chuyển ngay vào Google Sheets</strong> của bạn theo thời gian thực để không bao giờ thất lạc!
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+                  <button
+                    onClick={handleSyncFromGoogleSheet}
+                    disabled={isSyncingSheet}
+                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-stone-200 hover:border-emerald-300 hover:bg-emerald-50/50 text-stone-700 hover:text-emerald-800 rounded-2xl text-xs font-semibold shadow-sm transition-all cursor-pointer disabled:opacity-50"
+                    title="Đồng bộ danh sách từ Google Sheets về trình duyệt này"
+                  >
+                    <RefreshCw className={`w-3.5 h-3.5 ${isSyncingSheet ? 'animate-spin text-emerald-600' : ''}`} />
+                    {isSyncingSheet ? 'Đang đồng bộ...' : 'Đồng bộ từ Google Sheets'}
+                  </button>
+
+                  <a
+                    href="https://docs.google.com/spreadsheets/u/0/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl text-xs font-bold shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
+                  >
+                    <FileSpreadsheet className="w-4 h-4" />
+                    <span>Mở Google Sheets</span>
+                    <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+                  </a>
+
+                  {orders.length < 5 && (
+                    <button
+                      onClick={handleLoadSampleOrders}
+                      className="inline-flex items-center gap-1.5 px-3 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-600 rounded-2xl text-xs font-medium transition-colors cursor-pointer"
+                      title="Nạp thêm đơn hàng mẫu để kiểm tra giao diện thống kê"
+                    >
+                      + Nạp đơn mẫu
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+
             {/* Orders KPI Bar */}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               <div className="bg-white p-5 rounded-3xl border border-stone-200/80 shadow-sm">

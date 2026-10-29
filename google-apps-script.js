@@ -19,10 +19,84 @@
  */
 
 function doGet(e) {
-  return ContentService.createTextOutput(JSON.stringify({
-    status: "success",
-    message: "HUGZ Webhook is active and ready to receive orders!"
-  })).setMimeType(ContentService.MimeType.JSON);
+  try {
+    var doc = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = doc.getActiveSheet();
+    var data = sheet.getDataRange().getValues();
+    
+    if (data.length <= 1) {
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "success",
+        count: 0,
+        orders: []
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    var orders = [];
+    for (var i = 1; i < data.length; i++) {
+      var row = data[i];
+      if (!row[0]) continue;
+      
+      var rawStatus = String(row[16] || "").toLowerCase();
+      var mappedStatus = "pending_confirmation";
+      if (rawStatus.includes("hủy") || rawStatus.includes("cancel")) {
+        mappedStatus = "cancelled";
+      } else if (rawStatus.includes("hoàn tất") || rawStatus.includes("thành công") || rawStatus.includes("completed")) {
+        mappedStatus = "completed";
+      } else if (rawStatus.includes("đang giao") || rawStatus.includes("shipping")) {
+        mappedStatus = "shipping";
+      } else if (rawStatus.includes("đã xác nhận") || rawStatus.includes("confirmed")) {
+        mappedStatus = "confirmed";
+      }
+
+      var rawTotal = String(row[14] || "").replace(/[^0-9]/g, "");
+      var totalNum = parseInt(rawTotal, 10) || 0;
+
+      orders.push({
+        orderId: String(row[0]),
+        createdAt: String(row[1]),
+        customer: {
+          fullName: String(row[2] || ""),
+          phone: String(row[3] || "").replace(/^'/, ""),
+          contactMethod: String(row[4] || ""),
+          contactTime: String(row[5] || ""),
+          address: String(row[6] || ""),
+          province: String(row[7] || ""),
+          paymentMethod: String(row[8] || "").toLowerCase().includes("chuyển khoản") || String(row[8] || "").toLowerCase().includes("vietqr") ? "banking" : "cod",
+          note: String(row[15] || "")
+        },
+        items: [
+          {
+            product: {
+              id: "item-" + i,
+              title: String(row[9] || "Sản phẩm đặt mua"),
+              price: totalNum,
+              image: "/images/products/hugz-mini-pouch.jpg",
+              category: "Đơn hàng Web"
+            },
+            quantity: parseInt(row[10], 10) || 1
+          }
+        ],
+        subtotal: totalNum,
+        discount: 0,
+        shippingFee: 0,
+        grandTotal: totalNum,
+        status: mappedStatus
+      });
+    }
+
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success",
+      count: orders.length,
+      orders: orders.reverse() // Đơn mới nhất lên đầu
+    })).setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "error",
+      message: err.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
 }
 
 function doPost(e) {

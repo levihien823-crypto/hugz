@@ -224,3 +224,38 @@ export const sendCancellationToGoogleSheet = async (
     return { success: false, message: 'Không thể kết nối đến Google Sheet' };
   }
 };
+
+/**
+ * Tải danh sách đơn hàng từ Google Sheet (thông qua Webhook doGet)
+ */
+export const fetchOrdersFromGoogleSheet = async (): Promise<{ success: boolean; orders?: PlacedOrder[]; message: string }> => {
+  const webhookUrl = getStoredWebhookUrl();
+  if (!webhookUrl) {
+    return { success: false, message: 'Chưa cấu hình URL Webhook Google Sheet' };
+  }
+
+  try {
+    const res = await fetch(webhookUrl, { method: 'GET', cache: 'no-cache' });
+    if (!res.ok) {
+      return { success: false, message: `Lỗi kết nối Webhook (${res.status})` };
+    }
+    const data = await res.json();
+    if (data.status === 'success' && Array.isArray(data.orders)) {
+      return { 
+        success: true, 
+        orders: data.orders, 
+        message: `Đã nạp thành công ${data.orders.length} đơn hàng từ Google Sheet!` 
+      };
+    }
+    return { 
+      success: false, 
+      message: data.message || 'Phiên bản Webhook hiện tại chưa hỗ trợ API trả về danh sách đơn. Bạn có thể mở trực tiếp file Google Sheets để xem.' 
+    };
+  } catch (err: any) {
+    return { 
+      success: false, 
+      message: 'Không thể tải trực tiếp qua Webhook GET (cần cập nhật file Google Apps Script). Bạn có thể mở trực tiếp Google Sheets để xem toàn bộ đơn.' 
+    };
+  }
+};
+

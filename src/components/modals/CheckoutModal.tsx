@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { CartItem, PlacedOrder, CustomerOrderInfo } from '../../types';
 import { 
   X, 
@@ -195,6 +195,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
         const savedOrders = JSON.parse(localStorage.getItem('hugz_customer_orders') || '[]');
         savedOrders.unshift(newOrder);
         localStorage.setItem('hugz_customer_orders', JSON.stringify(savedOrders));
+        window.dispatchEvent(new Event('hugz-orders-updated'));
       } catch (err) {
         console.error('Save order error:', err);
       }
