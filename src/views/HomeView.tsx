@@ -49,7 +49,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   onCopyVoucher,
 }) => {
   const categoryPills = [
-    { id: 'all', label: 'Tất cả sản phẩm (16)' },
+    { id: 'all', label: `Tất cả sản phẩm (${products.length})` },
     { id: 'thuc-pham-an-uong', label: '01. Thực phẩm & Ăn uống' },
     { id: 'vat-dung-nho', label: '02. Vật dụng nhỏ' },
     { id: 'tai-lieu', label: '03. Túi đựng tài liệu' },
@@ -280,9 +280,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   key={cat.id}
                   onClick={() => {
                     onSelectCategory(cat.id);
-                    if (cat.id !== 'all') {
-                      onSelectTab('san-pham');
-                    }
+                    onSelectTab('san-pham');
                   }}
                   className={`px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer shadow-2xs ${
                     isActive
@@ -324,7 +322,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
               }}
               className="self-start sm:self-auto px-4 py-2 rounded-xl bg-[#201b12] hover:bg-black text-white text-xs font-bold shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer group shrink-0"
             >
-              <span>Xem tất cả 16 sản phẩm</span>
+              <span>Xem tất cả {products.length} sản phẩm</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
@@ -362,7 +360,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                         {cat.pillarNumber}
                       </span>
                       <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-white text-[10px] font-semibold">
-                        {cat.productCount} SP
+                        {catProducts.length} SP
                       </span>
                     </div>
                   </div>

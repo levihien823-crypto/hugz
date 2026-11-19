@@ -411,7 +411,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onSelectTab }) => {
               className="px-8 py-3.5 rounded-xl bg-[#201b12] hover:bg-black text-white font-display text-xs sm:text-sm font-bold shadow-md transition-all inline-flex items-center gap-2 cursor-pointer"
             >
               <ShoppingBag className="w-4 h-4" />
-              <span>Khám phá trọn bộ 16 sản phẩm trong Hệ Sinh Thái HUGZ</span>
+              <span>Khám phá trọn bộ sản phẩm trong Hệ Sinh Thái HUGZ</span>
             </button>
           </div>
         </section>
