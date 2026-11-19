@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { NavTab, Product, CartItem, PlacedOrder } from './types';
 import { PRODUCTS } from './data/products';
-import { Header, Footer, MobileBottomNav, FloatingSocialWidget } from './components/layout';
+import { Header, Footer, MobileBottomNav } from './components/layout';
+import { HugzAIChat } from './components/chat';
 import { ProductDetailModal, CartDrawer, CheckoutModal, OrderTrackingModal, SearchModal, LoginModal } from './components/modals';
 import { Toast, BrandIntroMotion, LiveOrderTicker } from './components/common';
 import { HomeView } from './views/HomeView';
@@ -416,8 +417,8 @@ export default function App() {
         }}
       />
 
-      {/* Floating Social Media & Messenger Widget */}
-      <FloatingSocialWidget />
+      {/* HUGZ AI Assistant & Customer Care Widget (n8n AI Agent) */}
+      <HugzAIChat onOpenProductDetail={handleOpenDetail} />
 
       {/* Live Order & Activity Notification Ticker */}
       <LiveOrderTicker />
