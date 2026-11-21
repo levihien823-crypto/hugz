@@ -14,7 +14,7 @@ export const STORAGE_KEYS = {
   CUSTOM_N8N_URL: 'hugz_ai_custom_n8n_url',
 } as const;
 
-export const CHAT_TIMEOUT_MS = 30000;
+export const CHAT_TIMEOUT_MS = 60000;
 
 export const INITIAL_SUGGESTIONS = [
   'Gợi ý túi du lịch đựng mỹ phẩm',

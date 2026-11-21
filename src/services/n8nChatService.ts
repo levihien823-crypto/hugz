@@ -164,11 +164,12 @@ export async function sendChatMessageToN8n(
   } catch (err: unknown) {
     clearTimeout(timeoutId);
     const errorObj = err as { name?: string; message?: string };
+    console.error('[HUGZ AI Chat] Error connecting to n8n:', err);
 
-    if (errorObj?.name === 'AbortError') {
+    if (errorObj?.name === 'AbortError' || controller.signal.aborted) {
       return {
         success: false,
-        replyText: 'Thời gian chờ phản hồi từ AI vượt quá 30 giây. Xin bạn vui lòng gửi lại tin nhắn hoặc nhắn tin trực tiếp với nhân viên qua Facebook Fanpage của HUGZ nhé!',
+        replyText: 'Thời gian AI xử lý và tra cứu dữ liệu vượt quá 60 giây. Xin bạn vui lòng gửi lại tin nhắn hoặc liên hệ trực tiếp với chuyên viên qua Facebook Fanpage của HUGZ nhé!',
         error: 'TIMEOUT',
       };
     }
