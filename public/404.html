@@ -4,13 +4,29 @@
     <meta charset="utf-8" />
     <title>HUGZ Lifestyle & Storage</title>
     <script>
-      // Lưu lại đường dẫn hiện tại và chuyển về trang chủ để SPA xử lý (hỗ trợ /admin trên GitHub Pages)
-      sessionStorage.setItem('hugz_redirect', window.location.pathname + window.location.search + window.location.hash);
-      window.location.replace('/');
+      // Lưu lại đường dẫn hiện tại và chuyển về trang chủ để SPA xử lý (cho các trang /admin, /san-pham...)
+      // Tránh chuyển hướng nếu là yêu cầu file dữ liệu (.json, ảnh, assets)
+      var path = window.location.pathname;
+      var isDataOrAsset = path.endsWith('.json') || 
+                          path.startsWith('/data/') || 
+                          path.startsWith('/images/') || 
+                          path.startsWith('/assets/');
+
+      if (!isDataOrAsset) {
+        sessionStorage.setItem('hugz_redirect', path + window.location.search + window.location.hash);
+        window.location.replace('/');
+      }
     </script>
-    <meta http-equiv="refresh" content="0;URL='/'" />
   </head>
   <body>
-    <p>Đang chuyển hướng đến HUGZ...</p>
+    <div style="font-family: system-ui, sans-serif; text-align: center; padding: 40px; color: #333;">
+      <h2>404 - Không tìm thấy tài nguyên</h2>
+      <p id="msg">Đang chuyển hướng về trang chủ HUGZ...</p>
+    </div>
+    <script>
+      if (isDataOrAsset) {
+        document.getElementById('msg').innerText = 'Tài nguyên ' + path + ' chưa được triển khai hoặc không tồn tại.';
+      }
+    </script>
   </body>
 </html>

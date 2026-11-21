@@ -418,7 +418,10 @@ export default function App() {
       />
 
       {/* HUGZ AI Assistant & Customer Care Widget (n8n AI Agent) */}
-      <HugzAIChat onOpenProductDetail={handleOpenDetail} />
+      <HugzAIChat 
+        onOpenProductDetail={handleOpenDetail} 
+        onAddToCart={(p) => handleAddToCart(p, 1)} 
+      />
 
       {/* Live Order & Activity Notification Ticker */}
       <LiveOrderTicker />

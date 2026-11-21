@@ -2,8 +2,10 @@ import { ChatMessage } from '../types/chat';
 
 const metaEnv = (import.meta as unknown as { env?: Record<string, string> }).env;
 
-export const DEFAULT_N8N_CHAT_URL = 
-  metaEnv?.VITE_N8N_CHAT_URL || 
+export const IS_PRODUCTION = Boolean(metaEnv?.PROD);
+
+export const DEFAULT_N8N_CHAT_URL =
+  metaEnv?.VITE_N8N_CHAT_URL ||
   'https://trangtran.app.n8n.cloud/webhook/6e97e807-3c58-4ac7-8f6a-e264341d777d/chat';
 
 export const STORAGE_KEYS = {
@@ -31,31 +33,33 @@ export const INITIAL_WELCOME_MESSAGE: ChatMessage = {
 };
 
 /**
- * Lấy URL n8n Chat Webhook (ưu tiên localStorage nếu có cấu hình trực tiếp từ giao diện, sau đó đến .env)
+ * Lấy URL n8n Chat Webhook (ưu tiên localStorage ở môi trường development, cố định URL chính thức ở production)
  */
 export function getN8nChatUrl(): string {
   if (typeof window === 'undefined') return DEFAULT_N8N_CHAT_URL;
   try {
-    const customUrl = localStorage.getItem(STORAGE_KEYS.CUSTOM_N8N_URL);
-    if (customUrl && customUrl.trim()) {
-      return customUrl.trim();
+    if (!IS_PRODUCTION) {
+      const customUrl = localStorage.getItem(STORAGE_KEYS.CUSTOM_N8N_URL);
+      if (customUrl && customUrl.trim()) {
+        return customUrl.trim();
+      }
     }
-  } catch {}
+  } catch { }
   return DEFAULT_N8N_CHAT_URL;
 }
 
 /**
- * Cập nhật URL n8n vào localStorage (tiện lợi cho việc test nhanh mà không cần build lại code)
+ * Cập nhật URL n8n vào localStorage (chỉ áp dụng ở môi trường development để thử nghiệm)
  */
 export function setN8nChatUrl(url: string): void {
-  if (typeof window === 'undefined') return;
+  if (typeof window === 'undefined' || IS_PRODUCTION) return;
   try {
     if (!url || !url.trim()) {
       localStorage.removeItem(STORAGE_KEYS.CUSTOM_N8N_URL);
     } else {
       localStorage.setItem(STORAGE_KEYS.CUSTOM_N8N_URL, url.trim());
     }
-  } catch {}
+  } catch { }
 }
 
 /**

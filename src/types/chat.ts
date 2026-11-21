@@ -5,14 +5,7 @@ export interface ChatMessage {
   timestamp: string;
   status?: 'sending' | 'sent' | 'error';
   suggestions?: string[];
-  productCards?: Array<{
-    id: string;
-    title: string;
-    price: number;
-    originalPrice?: number;
-    image: string;
-    url?: string;
-  }>;
+  productIds?: string[];
 }
 
 export interface ChatSession {
@@ -38,5 +31,6 @@ export interface N8nChatResponse {
   text?: string;
   response?: string;
   message?: string;
+  productIds?: string[];
   error?: string;
 }

@@ -13,7 +13,8 @@ import {
   Check, 
   AlertCircle,
   Minimize2,
-  Maximize2
+  Maximize2,
+  ShoppingCart
 } from 'lucide-react';
 import { ChatMessage } from '../../types/chat';
 import { Product } from '../../types';
@@ -31,9 +32,10 @@ import { sendChatMessageToN8n } from '../../services/n8nChatService';
 
 interface HugzAIChatProps {
   onOpenProductDetail?: (product: Product) => void;
+  onAddToCart?: (product: Product) => void;
 }
 
-export const HugzAIChat: React.FC<HugzAIChatProps> = ({ onOpenProductDetail }) => {
+export const HugzAIChat: React.FC<HugzAIChatProps> = ({ onOpenProductDetail, onAddToCart }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -146,6 +148,7 @@ export const HugzAIChat: React.FC<HugzAIChatProps> = ({ onOpenProductDetail }) =
         text: res.replyText,
         timestamp: new Date().toISOString(),
         status: res.success ? 'sent' : 'error',
+        productIds: res.productIds,
       };
 
       setMessages((prev) => [...prev, newBotMsg]);
@@ -182,30 +185,43 @@ export const HugzAIChat: React.FC<HugzAIChatProps> = ({ onOpenProductDetail }) =
     }
   };
 
-  // Phát hiện sản phẩm HUGZ được đề cập trong câu trả lời của AI
-  const detectProductsInMessage = (text: string): Product[] => {
-    if (!text) return [];
-    const lowerText = text.toLowerCase();
+  // Tìm sản phẩm dựa trên productIds do AI trả về hoặc nhận diện thông minh trong câu trả lời
+  const resolveProductsForMessage = (msg: ChatMessage): Product[] => {
     const found: Product[] = [];
 
-    for (const p of allProducts) {
-      const lowerId = p.id.toLowerCase();
-      const lowerTitle = p.title.toLowerCase();
-      const shortTitle = lowerTitle.split(',')[0].trim();
-
-      // Kiểm tra nếu text chứa ID hoặc toàn bộ tên hoặc cụm tên chính
-      if (
-        lowerText.includes(lowerId) ||
-        lowerText.includes(lowerTitle) ||
-        (shortTitle.length > 10 && lowerText.includes(shortTitle))
-      ) {
-        if (!found.some((item) => item.id === p.id)) {
-          found.push(p);
+    // 1. Ưu tiên lấy theo productIds cấu trúc từ n8n AI Agent
+    if (msg.productIds && Array.isArray(msg.productIds) && msg.productIds.length > 0) {
+      for (const id of msg.productIds) {
+        const prod = allProducts.find((p) => p.id === id);
+        if (prod && !found.some((p) => p.id === prod.id)) {
+          found.push(prod);
         }
       }
-      if (found.length >= 3) break; // Tối đa hiển thị 3 sản phẩm để gọn gàng
     }
-    return found;
+
+    // 2. Fallback nhận diện thông minh từ text nếu chưa có productIds
+    if (found.length === 0 && msg.text) {
+      const lowerText = msg.text.toLowerCase();
+      for (const p of allProducts) {
+        const lowerId = p.id.toLowerCase();
+        const lowerTitle = p.title.toLowerCase();
+        const shortTitle = lowerTitle.split(',')[0].trim();
+
+        // Kiểm tra nếu text chứa ID hoặc toàn bộ tên hoặc cụm tên chính
+        if (
+          lowerText.includes(lowerId) ||
+          lowerText.includes(lowerTitle) ||
+          (shortTitle.length > 10 && lowerText.includes(shortTitle))
+        ) {
+          if (!found.some((item) => item.id === p.id)) {
+            found.push(p);
+          }
+        }
+        if (found.length >= 3) break; // Tối đa 3 sản phẩm
+      }
+    }
+
+    return found.slice(0, 3);
   };
 
   // Render text có hỗ trợ markdown đơn giản (ảnh ![alt](url), bold **text**, link [text](url))
@@ -480,56 +496,80 @@ export const HugzAIChat: React.FC<HugzAIChatProps> = ({ onOpenProductDetail }) =
                       </div>
                     </div>
 
-                    {/* Thẻ sản phẩm tự động xuất hiện khi AI nhắc đến tên sản phẩm */}
+                    {/* Thẻ sản phẩm gợi ý thông minh từ n8n AI Agent hoặc nhận diện danh mục */}
                     {!isUser && (() => {
-                      const matched = detectProductsInMessage(msg.text);
+                      const matched = resolveProductsForMessage(msg);
                       if (matched.length === 0) return null;
                       return (
                         <div className="mt-2.5 pl-8 flex flex-col gap-2 w-full max-w-[95%]">
                           {matched.map((p) => (
                             <div
                               key={p.id}
-                              className="flex items-center gap-3 p-2 rounded-2xl bg-white border border-[#cac7ae]/50 shadow-xs hover:border-[#626200] transition-all group"
+                              className="flex flex-col sm:flex-row sm:items-center gap-2.5 p-2.5 rounded-2xl bg-white border border-[#cac7ae]/50 shadow-xs hover:border-[#626200] transition-all group"
                             >
-                              <div className="w-13 h-13 rounded-xl overflow-hidden bg-[#faf6ef] border border-[#cac7ae]/30 shrink-0 p-1 flex items-center justify-center">
-                                <img
-                                  src={p.image}
-                                  alt={p.title}
-                                  className="w-full h-full object-contain group-hover:scale-105 transition-transform"
-                                />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <h4 className="text-[11px] font-bold text-[#201b12] line-clamp-1 group-hover:text-[#626200] transition-colors leading-snug">
-                                  {p.title}
-                                </h4>
-                                <div className="flex items-baseline gap-2 mt-0.5">
-                                  <span className="text-xs font-black text-[#b62506]">
-                                    {new Intl.NumberFormat('vi-VN').format(p.price)}₫
-                                  </span>
-                                  {p.originalPrice > p.price && (
-                                    <span className="text-[10px] text-stone-400 line-through">
-                                      {new Intl.NumberFormat('vi-VN').format(p.originalPrice)}₫
+                              <div className="flex items-center gap-2.5 flex-1 min-w-0">
+                                <div className="w-13 h-13 rounded-xl overflow-hidden bg-[#faf6ef] border border-[#cac7ae]/30 shrink-0 p-1 flex items-center justify-center">
+                                  <img
+                                    src={p.image}
+                                    alt={p.title}
+                                    className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                                    onError={(e) => {
+                                      e.currentTarget.onerror = null;
+                                      e.currentTarget.src = '/favicon.svg';
+                                    }}
+                                    loading="lazy"
+                                  />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <h4 className="text-[11px] font-bold text-[#201b12] line-clamp-1 group-hover:text-[#626200] transition-colors leading-snug">
+                                    {p.title}
+                                  </h4>
+                                  {p.description && (
+                                    <p className="text-[10px] text-[#797862] line-clamp-1 mt-0.5">
+                                      {p.description}
+                                    </p>
+                                  )}
+                                  <div className="flex items-baseline gap-2 mt-0.5">
+                                    <span className="text-xs font-black text-[#b62506]">
+                                      {new Intl.NumberFormat('vi-VN').format(p.price)}₫
                                     </span>
-                                  )}
+                                    {p.originalPrice > p.price && (
+                                      <span className="text-[10px] text-stone-400 line-through">
+                                        {new Intl.NumberFormat('vi-VN').format(p.originalPrice)}₫
+                                      </span>
+                                    )}
+                                  </div>
                                 </div>
-                                <div className="flex items-center gap-1.5 mt-1">
+                              </div>
+
+                              <div className="flex items-center gap-1.5 shrink-0 sm:ml-auto">
+                                <button
+                                  type="button"
+                                  onClick={() => onOpenProductDetail && onOpenProductDetail(p)}
+                                  className="px-2.5 py-1 rounded-lg bg-[#201b12] hover:bg-black text-white text-[10px] font-bold transition-all cursor-pointer shadow-2xs"
+                                >
+                                  Xem chi tiết
+                                </button>
+                                {onAddToCart && (
                                   <button
-                                    onClick={() => onOpenProductDetail && onOpenProductDetail(p)}
-                                    className="px-2 py-0.5 rounded-lg bg-[#201b12] hover:bg-black text-white text-[10px] font-bold transition-all cursor-pointer shadow-2xs"
+                                    type="button"
+                                    onClick={() => onAddToCart(p)}
+                                    title="Thêm vào giỏ hàng"
+                                    className="p-1.5 rounded-lg bg-[#f4f34d] hover:bg-[#e4e33d] text-[#201b12] text-[10px] font-bold transition-all cursor-pointer shadow-2xs flex items-center justify-center"
                                   >
-                                    Xem chi tiết →
+                                    <ShoppingCart className="w-3.5 h-3.5" />
                                   </button>
-                                  {p.shopeeUrl && (
-                                    <a
-                                      href={p.shopeeUrl}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="px-2 py-0.5 rounded-lg bg-[#EE4D2D] text-white text-[9px] font-bold hover:opacity-90"
-                                    >
-                                      Shopee
-                                    </a>
-                                  )}
-                                </div>
+                                )}
+                                {p.shopeeUrl && (
+                                  <a
+                                    href={p.shopeeUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="px-2 py-1 rounded-lg bg-[#EE4D2D] text-white text-[9px] font-bold hover:opacity-90 transition-opacity"
+                                  >
+                                    Shopee
+                                  </a>
+                                )}
                               </div>
                             </div>
                           ))}
